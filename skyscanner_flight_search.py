@@ -1,6 +1,9 @@
 import tagui as t
 from datetime import datetime as dt
 
+from Skyscanner_getFlightInfo import getFlightExcel
+
+
 def number_of_travellers(travellers):
     adult_pax = 0
     children_pax = 0
@@ -103,7 +106,6 @@ def multi_city_trip(enquiry):
 
 def fill_search(enquiry):
     trip_type=enquiry["trip_type"]
-
     # Select if looking for return / one-way / multi-city
     if '1' in trip_type: # return
         return_trip(enquiry)
@@ -117,9 +119,10 @@ def fill_search(enquiry):
 def flight_search(info):
     t.init()
     t.url('https://www.skyscanner.com.sg/')
+    #info = {'from': 'beijing', 'to': 'singapore', 'trip_type': '1', 'start_date': '01/11/2019','end_date': '03/11/2019', 'cabin_class': 'economy', 'pax': '2 Adults;2 Children;2,3'}
     fill_search(info)
-    #search_results(info)
-    t.wait(10.0)
-    t.close()
+    getFlightExcel(info)
+    #t.wait(10.0)
+    #t.close()
 
 

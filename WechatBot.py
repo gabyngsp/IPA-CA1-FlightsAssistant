@@ -28,17 +28,21 @@ def book_flight(msg):
     elif not enquiry[1] and flag:
         info["to"] = msg['Text']
         enquiry[1] = True
-        itchat.send('Your start date.', msg['FromUserName'])
-    elif not enquiry[2] and flag:
-        info["start_date"] = msg['Text']
-        enquiry[2] = True
-        itchat.send('Your end date.', msg['FromUserName'])
-    elif not enquiry[3] and flag:
-        info["end_date"] = msg['Text']
-        enquiry[3] = True
         itchat.send('Your ticket type\n 1.Return\n 2.One way\n 3.Multi-City.', msg['FromUserName'])
-    elif not enquiry[4] and flag:
+    elif not enquiry[2] and flag:
         info["trip_type"] = msg['Text']
+        enquiry[2] = True
+        itchat.send('Your start date.', msg['FromUserName'])
+    elif not enquiry[3] and flag:
+        info["start_date"] = msg['Text']
+        enquiry[3] = True
+        if '1' in info["trip_type"]:
+            itchat.send('Your end date.', msg['FromUserName'])
+        else:
+            enquiry[4] = True
+            itchat.send('Your cabin_class', msg['FromUserName'])
+    elif not enquiry[4] and flag:
+        info["end_date"] = msg['Text']
         enquiry[4] = True
         itchat.send('Your cabin_class', msg['FromUserName'])
     elif not enquiry[5] and flag:
@@ -54,6 +58,7 @@ def book_flight(msg):
         itchat.send('Please wait for the result', msg['FromUserName'])
         print(info)
         flight_search(info)
+        itchat.send_file('Skyscanner.csv', msg['FromUserName'])
         info = {'from': '', 'to': '', 'trip_type': '', 'start_date': '','end_date': '', 'cabin_class': '', 'pax': ''}
         enquiry = [False, False, False, False, False, False, False]
 
