@@ -105,24 +105,21 @@ def fill_search(enquiry):
     trip_type=enquiry["trip_type"]
 
     # Select if looking for return / one-way / multi-city
-    if trip_type == 'return':
+    if '1' in trip_type: # return
         return_trip(enquiry)
-    elif trip_type == 'one-way':
+    elif '2' in trip_type: # one way
         one_way_trip(enquiry)
-    elif trip_type == 'multi-city':
+    elif '3' in trip_type: # multi city
         multi_city_trip(enquiry)
     else:
         one_way_trip(enquiry)
 
-
-t.init()
-t.url('https://www.skyscanner.com.sg/')
-info = {'from':'singapore','to':'beijing','trip_type':'return','start_date':'1/11/2019','end_date':'28/11/2019','cabin_class':'Economy','pax':'2 Adults;2 Children;2,3'}
-fill_search(info)
-#search_results(info)
-t.wait(10.0)
-
-
-t.close()
+def flight_search(info):
+    t.init()
+    t.url('https://www.skyscanner.com.sg/')
+    fill_search(info)
+    #search_results(info)
+    t.wait(10.0)
+    t.close()
 
 
