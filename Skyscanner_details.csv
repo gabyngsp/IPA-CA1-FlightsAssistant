@@ -1,0 +1,5 @@
+Deal Index,Flight Leg,Bound,Departure Time,Arrival Time,Duration,Transfer,Transfer Place,Airline
+1,1,SIN - DLC,2019-11-18 03:55:00,2019-11-18 12:50:00,8h 55,1 stop,CAN,China Southern
+1,2,DLC - SIN,2019-11-20 12:40:00,2019-11-20 22:40:00,10h,1 stop,CAN,China Southern
+2,1,SIN - DLC,2019-11-18 14:35:00,2019-11-18 23:40:00,9h 05,1 stop,CKG,China Southern
+2,2,DLC - SIN,2019-11-20 12:40:00,2019-11-20 22:40:00,10h,1 stop,CAN,China Southern
