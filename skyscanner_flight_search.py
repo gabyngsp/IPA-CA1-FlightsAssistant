@@ -21,6 +21,7 @@ def number_of_travellers(travellers):
     print(f"Adults: {adult_pax} and Children: {children_pax}")
     form_adult_pax = int(t.read('//input[@id="search-controls-adults-nudger"]'))
     form_children_pax = int(t.read('//input[@id="search-controls-children-nudger"]'))
+    print(f"Form Current Adults: {form_adult_pax} and Children: {form_children_pax}")
     # set the number of adult travellers
     if adult_pax > form_adult_pax:
         for n in range(form_adult_pax, adult_pax):
@@ -45,15 +46,16 @@ def number_of_travellers(travellers):
             t.click('//button[@title="Decrease number of children"]')
             t.wait(1)
     else:
-        for n in range(0,children_pax):
+        for n in range(form_children_pax,children_pax):
             t.click('//button[@title="Increase number of children"]')
             t.wait(1)
 
     # Set the age for each child traveller
     if len(children_age) > 0:
         for m in range(0,len(children_age)):
-            t.click(f'//select[@id="children-age-dropdown-{m}"]')
-            t.select(f'//select[@id="children-age-dropdown-{m}"]',children_age[m])
+            t.click(f'//*[@id="flight-age-select-{m}-hp-flight"]')
+            t.select(f'//*[@id="flight-age-select-{m}-hp-flight"]',children_age[m])
+            t.select(f'//*[@id="traveler-selector-hp-flight"]/div/ul/li/div/div/div/div[3]/div[2]/label[{m}]/select',)
 
     t.click('//section[@id="cabin-class-travellers-popover"]//button[.="Done"]')
 
