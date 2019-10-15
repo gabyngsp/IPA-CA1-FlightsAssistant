@@ -144,6 +144,7 @@ def getFlightExcel(info):
     frames = []
     for i in range(len(info['start_date'])):
         flight_info = getFlightInfo(info)
+
         frames.append(DataFrame(flight_info, columns=['date_lst', 'time_dep', 'time_arr', 'airline_lst',
                                                   'dur_lst', 'time_arr_day_lst', 'transfer_lst', 'transfer_plc_lst',
                                                   'date_rt_lst', 'time_dep_rt_lst', 'time_arr_rt_lst',

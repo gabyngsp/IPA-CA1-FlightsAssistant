@@ -75,8 +75,6 @@ def asr():  # speech to text
 APIKEY='AIzaSyDl5yvVJ9ArAvgZjcOE6pdvVxouvrJX5ZA'
 
 
-
-
 # @itchat.msg_register(TEXT)  # 因为之前把itchat.content全部import了，里面有TEXT变量
 # def tuling_reply_text(msg):
 #     # 注册文字消息获取后的处理
