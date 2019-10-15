@@ -113,7 +113,7 @@ def getFlightInfo(info):
 
         time_arr_day_rt = ''
         time_arr_day = ''
-        href_lst.append(t.url() + href)
+        href_lst.append(t.url()[0:-2] + href)
         time_dep_lst.append(time_dep)
         time_arr_lst.append(time_arr)
         airline_lst.append(airline)
