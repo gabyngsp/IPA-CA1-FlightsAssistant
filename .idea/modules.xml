@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/IPA-CA1-FlightsAssistant.iml" filepath="$PROJECT_DIR$/.idea/IPA-CA1-FlightsAssistant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FlightsAssistant.iml" filepath="$PROJECT_DIR$/.idea/FlightsAssistant.iml" />
     </modules>
   </component>
 </project>

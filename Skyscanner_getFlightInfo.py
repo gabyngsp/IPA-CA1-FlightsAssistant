@@ -4,12 +4,6 @@ import tagui_util as util
 from pandas import DataFrame
 from datetime import datetime, timedelta
 
-t.close()
-t.init()
-t.url('https://www.skyscanner.com.sg/transport/flights/sins/dlc/191118/191120/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home#/')
-date = ['18/11/2019', '20/11/2019']
-ind = 0
-
 def getFlightInfo(date, ind):
     util.wait_for_pageload('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]')
 
@@ -105,21 +99,19 @@ def getFlightInfo(date, ind):
     return main, details, ind
 
 
+def getFlightExcel(info,ind):
+    frames_main = []
+    frames_details = []
+    flight_main, flight_details, ind = getFlightInfo(info['dates'], ind)
+    frames_details.append(DataFrame(flight_details,
+                                    columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time',
+                                             'Duration', 'Transfer', 'Transfer Place', 'Airline']))
+    df_details = pd.concat(frames_details)
+    export_csv = df_details.to_csv('Skyscanner_details.csv', index=None)
+    print(df_details)
 
-
-frames_main = []
-frames_details = []
-
-flight_main, flight_details, ind = getFlightInfo(date, ind)
-frames_details.append(DataFrame(flight_details,
-                                columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline']))
-df_details = pd.concat(frames_details)
-export_csv = df_details.to_csv('Skyscanner_details.csv', index=None)
-print(df_details)
-
-frames_main.append(DataFrame(flight_main,
-                             columns=['Deal', 'Price', 'Hyperlink']))
-df_main = pd.concat(frames_main)
-export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
-print(df_main)
-
+    frames_main.append(DataFrame(flight_main,
+                                 columns=['Deal', 'Price', 'Hyperlink']))
+    df_main = pd.concat(frames_main)
+    export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
+    print(df_main)
