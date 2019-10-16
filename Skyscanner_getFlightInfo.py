@@ -3,8 +3,10 @@ import tagui as t
 import tagui_util as util
 from pandas import DataFrame
 from datetime import datetime, timedelta
+from Expedia_getFlightPrice import getExpFlightPrice
 
 def getFlightInfo(date, ind):
+    t.wait(2)
     util.wait_for_pageload('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]')
 
     time_dep_lst = []
@@ -23,7 +25,7 @@ def getFlightInfo(date, ind):
     m = 1
     type = len(date)
     date_lst = []
-    print(date_lst)
+    time_lst = []
 
     ###Sponsor check
     for n in range(2):
@@ -67,7 +69,7 @@ def getFlightInfo(date, ind):
             bound = dep + ' - ' + arr
             bound_lst.append(bound)
 
-
+            time_lst.append(time_dep)
             date_time_dep = date[i] + ' ' + time_dep
             datetime_dep = datetime.strptime(date_time_dep, "%d/%m/%Y %H:%M")
             time_dep_lst.append(datetime_dep)
@@ -96,13 +98,33 @@ def getFlightInfo(date, ind):
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
     main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst}
-    return main, details, ind
+    return main, details, time_lst, ind
 
 
 def getFlightExcel(info,ind):
     frames_main = []
     frames_details = []
-    flight_main, flight_details, ind = getFlightInfo(info['dates'], ind)
+    price_exp_lst = []
+    flight_main, flight_details, time_lst, ind = getFlightInfo(info['dates'], ind)
+
+    ###Compare Price with Expedia (Hyperlink/Multi to be added)
+    for i in range(2):
+        if len(info['dates']) == 1:
+            price = getExpFlightPrice(flight_details['Airline'][i], time_lst[i], flight_details['Duration'][i])
+            price_exp_lst.append(price)
+            print(price_exp_lst)
+        elif len(info['dates']) == 2:
+
+            time_ref = [time_lst[2*i], time_lst[2*i + 1]]
+            dur_ref = [flight_details['Duration'][2*i], flight_details['Duration'][2*i+1]]
+            print(dur_ref)
+            print(time_ref)
+            price = getExpFlightPrice(flight_details['Airline'][i], time_ref, dur_ref)
+            price_exp_lst.append(price)
+
+    print(price_exp_lst)
+
+
     frames_details.append(DataFrame(flight_details,
                                     columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time',
                                              'Duration', 'Transfer', 'Transfer Place', 'Airline']))
