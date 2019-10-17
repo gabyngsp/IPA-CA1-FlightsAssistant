@@ -64,12 +64,18 @@ def book_flight(msg):
     if all(enquiry):
         itchat.send('Please wait for the result', msg['FromUserName'])
         print(info)
-        #flight_search(info)
-        #itchat.send_file('Skyscanner.csv', msg['FromUserName'])
+        flight_search(info)
+        itchat.send_file('Skyscanner_details.csv', msg['FromUserName'])
+        itchat.send_file('Skyscanner_main.csv', msg['FromUserName'])
         flag = False
         i = 0
         info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
         enquiry = [False, False, False, False, False]
+
+@itchat.msg_register(itchat.content.RECORDING)
+def audio(msg):
+    itchat.send('Received', msg['FromUserName'])
+    msg.download(msg.fileName)
 
 
 itchat.run()
