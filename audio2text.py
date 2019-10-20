@@ -23,7 +23,9 @@ def audio2text(audiofile):
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 
-audiotext = audio2text(AUDIO_FILE)
+#audiotext = audio2text(AUDIO_FILE)
+audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children Age 3 and 10"
+
 # run the following line before running the rest of the code
 # python -m spacy download en_core_web_sm
 nlp = spacy.load("en_core_web_sm")
@@ -33,8 +35,15 @@ city = []
 dates = []
 adult = 0
 child_age = []
+for noun_chunk in doc.noun_chunks:
+    if 'adult' in noun_chunk.lemma_:
+        adult = int(noun_chunk.ents[0].text)
+    if 'child' in noun_chunk.lemma_:
+        num_child = int(noun_chunk.ents[0].text)
+
+
 for ent in doc.ents:
-    print(ent.text, ent.start_char, ent.end_char, ent.label_)
+    #print('text: ',ent.text)
     if ent.label_ == 'GPE':
         city.append(ent.text)
     elif ent.label_ == 'DATE':
@@ -46,9 +55,17 @@ for ent in doc.ents:
             final_date = dt.strptime(dateday+" "+datemonth+" "+dateyear,'%d %B %Y')
             dates.append(final_date.strftime('%d/%m/%Y'))
 
-print(city)
-print(dates)
-
+num_list = []
 for token in doc:
-    print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop)
+    if token.pos_ == 'NUM':
+        num_list.append(token.text)
+for i in range(num_child):
+    child_age.append(num_list[-i-1])
+
+#print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,token.shape_, token.is_alpha, token.is_stop)
+
+
+print('city: ',city)
+print('dates: ',dates)
+print('adult: ',adult)
+print('children: ',child_age)
