@@ -4,6 +4,7 @@ import tagui_util as util
 from pandas import DataFrame
 from datetime import datetime, timedelta
 from Expedia_getFlightPrice import getExpFlightPrice
+from expedia_flight_search import flight_search
 
 def getFlightInfo(date, ind):
     t.wait(2)
@@ -26,7 +27,7 @@ def getFlightInfo(date, ind):
     type = len(date)
     date_lst = []
     time_lst = []
-
+    code_lst = []
     ###Sponsor check
     for n in range(2):
         if t.present('//span[@class="BpkBadge_bpk-badge__2mEjm "]'):
@@ -41,9 +42,27 @@ def getFlightInfo(date, ind):
         ind = ind + 1
         print(ind)
 
+        q = 1
         for i in range(type):
             leg = i+1
             print(leg)
+
+            code = util.hover_and_read(
+                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+            if code[37:42] != 'small':
+                q = q + 1
+                code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                if code[37:42] != 'small':
+                    q = q + 1
+                    code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                    if code[37:42] != 'small':
+                        q = q + 1
+                        code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+            q = q + 1
+
+            print(code)
+            code_lst.append(code[43:45])
+            print(code_lst)
             time_dep = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
             time_arr = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
             airline = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{type * k + 2 + i}]/@alt')
@@ -98,31 +117,30 @@ def getFlightInfo(date, ind):
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
     main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst}
-    return main, details, time_lst, ind
+    return main, details, time_lst, code_lst, ind
 
 
 def getFlightExcel(info,ind):
     frames_main = []
     frames_details = []
     price_exp_lst = []
-    flight_main, flight_details, time_lst, ind = getFlightInfo(info['dates'], ind)
+    flight_main, flight_details, time_lst, code_lst, ind = getFlightInfo(info['dates'], ind)
+
 
     ###Compare Price with Expedia (Hyperlink/Multi to be added)
     for i in range(2):
-        if len(info['dates']) == 1:
-            price = getExpFlightPrice(flight_details['Airline'][i], time_lst[i], flight_details['Duration'][i])
-            price_exp_lst.append(price)
-            print(price_exp_lst)
-        elif len(info['dates']) == 2:
+        t.close()
+        t.init()
+        t.wait(0.5)
+        flight_search(info)
+        t.wait(5)
 
-            time_ref = [time_lst[2*i], time_lst[2*i + 1]]
-            dur_ref = [flight_details['Duration'][2*i], flight_details['Duration'][2*i+1]]
-            print(dur_ref)
-            print(time_ref)
-            price = getExpFlightPrice(flight_details['Airline'][i], time_ref, dur_ref)
-            price_exp_lst.append(price)
-
-    print(price_exp_lst)
+        k = len(info['dates'])
+        print(time_lst)
+        print(time_lst[k*i:k*(i+1)])
+        price = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], flight_details['Duration'][k*i:k*(i+1)])
+        price_exp_lst.append(price)
+        print(price_exp_lst)
 
 
     frames_details.append(DataFrame(flight_details,
@@ -137,3 +155,7 @@ def getFlightExcel(info,ind):
     df_main = pd.concat(frames_main)
     export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
     print(df_main)
+
+#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['18/11/2019', '23/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
+#print(len(info['dates']))
+#getFlightExcel(info,0)
