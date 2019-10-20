@@ -1,96 +1,109 @@
-# import requests
-# #import os
-# #import speech_recognition as sr
-# #from pydub import AudioSegment
-#
-# API_ENDPOINT = 'https://southeastasia.api.cognitive.microsoft.com/sts/v1.0/issuetoken'
-# subscription_key = '8e62901a04bc4201b0d670ed96dcc7dd'
-#
-# def get_token(subscription_key):
-#     headers = {
-#         'Ocp-Apim-Subscription-Key': subscription_key
-#     }
-#     response = requests.post(API_ENDPOINT, headers=headers)
-#     access_token = str(response.text)
-#     print(access_token)
-#
-# #token = get_token(subscription_key)
-# response = requests.post(API_ENDPOINT, files={'fieldname':'191011-141038.mp3'},)
-# print(response)
-# headers = {'Ocp-Apim-Subscription-Key':subscription_key,
-#            'Expect':'Expect: 100-continue',
-#            'Accept':'application/json',
-#            'Content-type':'audio/wav; codecs=audio/pcm; samplerate=16000'}
-# res = requests.post(API_ENDPOINT,params={'format':'simple','language':'en-US'},headers = headers)
-# print(res)
-# #''text = data.json()['DisplayText']
-
-# -*- coding: UTF-8 -*-
-import requests
-import itchat
-import json
-from itchat.content import *
+import io
 import os
-import speech_recognition as sr
-from pydub import AudioSegment
+from google.cloud import speech
+import subprocess
+import spacy
+from datetime import datetime as dt
 
-BING_KEY = '8e62901a04bc4201b0d670ed96dcc7dd'
 
-def get_response_tuling(msg):
-    apiUrl = 'http://www.tuling123.com/openapi/api'
-    data = {
-        'key': '8edce3ce905a4c1dbb965e6b35c3834d',
-        'info': msg,
-        'userid': 'wechat-robot',
-    }
+#Instantiates a client - using 'service account json' file
+client_speech2text = speech.SpeechClient.from_service_account_json(
+        "D:\Software-Agent\Intelligent-Process-Automation\workshop_blog-master\wechat_tool_py3_local\iss-ipa-e084b16a39bf.json")
+
+
+# Uncomment to run the code in local machine
+parm_runtime_env_GCP = False
+
+
+# Running Speech API
+def audio_conversion(audio_file_input, audio_type='flac'):
+    audio_file_output = str(audio_file_input) + '.' + str(audio_type)
+
+    if parm_runtime_env_GCP:  # using Datalab in Google Cloud Platform
+        # GCP: use avconv to convert audio
+        retcode = subprocess.call(['avconv', '-i', audio_file_input, '-ac', '1', audio_file_output])
+    else:  # using an iss-vm Virtual Machine, or local machine
+        retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-ac', '1', audio_file_output])
+
+    if retcode == 0:
+        print('[  O K  ]')
+        try:
+            os.remove(audio_file_input)
+        except OSError as e:
+            print(e)
+        else:
+            print("input File is deleted successfully")
+    else:
+        print('[ ERROR ]')
+
+    return audio_file_output  # return file name string only
+
+# API control parameter for  'voice to text' language
+
+
+def speech2text(speech_file, language_code='en-US'):
+    from google.cloud.speech import types
+
+    with io.open(speech_file, 'rb') as audio_file:
+        content = audio_file.read()
+
+    audio = types.RecognitionAudio(content=content)
+    config = types.RecognitionConfig(language_code=language_code)
+
+    response = client_speech2text.recognize(config, audio)
+
+    for result in response.results:
+        response = result.alternatives[0].transcript
+
     try:
-        r = requests.post(apiUrl, data=data).json()
-        # 字典的get方法在字典没有'text'值的时候会返回None而不会抛出异常
-        return r.get('text')
-    except:
-        # 将会返回一个None
-        return
+        os.remove(speech_file)
+    except OSError as e:
+        print(e)
+    else:
+        print("output File is deleted successfully")
+    return response
 
 
-def asr():  # speech to text
-    #AudioSegment.converter = "D:\Software-Agent\FlightsAssistant\\ffmpeg"
-    print("www")
-    song = AudioSegment.from_mp3(file='a.mp3')
-    song.export("tmp.wav", format="wav")
-    r = sr.Recognizer()
-    with sr.AudioFile('tmp.wav') as source:
-        audio = r.record(source)  # read the entire audio file
-    #os.remove('tmp.wav')
-    #os.remove('a.mp3')
+def recognize(audiotext,info):
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(audiotext)
 
-    try:
-        text = r.recognize_bing(audio, key=BING_KEY, language="en-US")
-        print("Voice Recognition thinks you said " + text)
-        return text
-    except sr.UnknownValueError:
-        print("Could not understand audio")
-    except sr.RequestError as e:
-        print("Could not request results {0}".format(e))
+    city = []
+    dates = []
+    adult = 0
+    child_age = []
+    for noun_chunk in doc.noun_chunks:
+        if 'adult' in noun_chunk.lemma_:
+            adult = int(noun_chunk.ents[0].text)
+        if 'child' in noun_chunk.lemma_:
+            num_child = int(noun_chunk.ents[0].text)
 
-APIKEY='AIzaSyDl5yvVJ9ArAvgZjcOE6pdvVxouvrJX5ZA'
+    for ent in doc.ents:
+        # print('text: ',ent.text)
+        if ent.label_ == 'GPE':
+            city.append(ent.text)
+        elif ent.label_ == 'DATE':
+            raw_date = (ent.text).split(" ")
+            if len(raw_date) == 3:
+                dateday = (((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')
+                datemonth = raw_date[0]
+                dateyear = raw_date[2]
+                final_date = dt.strptime(dateday + " " + datemonth + " " + dateyear, '%d %B %Y')
+                dates.append(final_date.strftime('%d/%m/%Y'))
 
+    num_list = []
+    for token in doc:
+        if token.pos_ == 'NUM':
+            num_list.append(token.text)
+    for i in range(num_child):
+        child_age.append(num_list[-i - 1])
 
-
-
-# @itchat.msg_register(TEXT)  # 因为之前把itchat.content全部import了，里面有TEXT变量
-# def tuling_reply_text(msg):
-#     # 注册文字消息获取后的处理
-#     # 为了保证在图灵Key出现问题的时候仍旧可以回复，这里设置一个默认回复
-#     defaultReply = 'I received a: ' + msg['Text']
-#     return get_response_tuling(msg['Text']) or defaultReply
-#
-#
-# @itchat.msg_register(RECORDING)
-# def tuling_reply(msg):
-#     # 注册语音消息获取后的处理
-#     # 为了保证在图灵Key出现问题的时候仍旧可以回复，这里设置一个默认回复
-#     defaultReply = 'I received a: ' + msg['Type']
-#
-#     # 如果图灵Key出现问题，那么reply将会是None
-#     asrMessage = asr(msg)
-#     return get_response_tuling(asrMessage) or defaultReply
+    # print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,token.shape_, token.is_alpha, token.is_stop)
+    info['city'] = city
+    info['dates'] = dates
+    info['adult'] = adult
+    info['child_age'] = child_age
+    print('city: ', info['city'])
+    print('dates: ', info['dates'] )
+    print('adult: ', info['adult'])
+    print('children: ', info['child_age'])

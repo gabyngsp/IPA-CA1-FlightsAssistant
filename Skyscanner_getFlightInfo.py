@@ -3,18 +3,11 @@ import tagui as t
 import tagui_util as util
 from pandas import DataFrame
 from datetime import datetime, timedelta
-import numpy
-
-t.close()
-t.init()
-#url2 = 'https://www.skyscanner.com.sg/transport/flights/sins/dlc/191118/191120/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home'
-#url1 = 'https://www.skyscanner.com.sg/transport/flights/sins/bjsa/191019/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=0&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home'
-#url3 = 'https://www.skyscanner.com.sg/transport/flights/sins/dlc/191118/191120/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home'
-t.url('https://www.skyscanner.com.sg/transport/flights/sins/dlc/191118/191120/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home#/')
-date = ['18/11/2019', '20/11/2019', '25/11/2019']
-ind = 0
+from Expedia_getFlightPrice import getExpFlightPrice
+from expedia_flight_search import flight_search
 
 def getFlightInfo(date, ind):
+    t.wait(2)
     util.wait_for_pageload('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]')
 
     time_dep_lst = []
@@ -26,20 +19,15 @@ def getFlightInfo(date, ind):
     transfer_lst = []
     transfer_plc_lst = []
     href_lst = []
-    flight1_lst = ['', '']
-    flight2_lst = ['', '']
-    flight3_lst = ['', '']
     bound_lst = []
     deal_lst = []
     index_lst = []
     leg_lst = []
-    #date1_lst = []
-    #date2_lst = []
-    #date3_lst = []
     m = 1
     type = len(date)
     date_lst = []
-    print(date_lst)
+    time_lst = []
+    code_lst = []
     ###Sponsor check
     for n in range(2):
         if t.present('//span[@class="BpkBadge_bpk-badge__2mEjm "]'):
@@ -54,9 +42,27 @@ def getFlightInfo(date, ind):
         ind = ind + 1
         print(ind)
 
+        q = 1
         for i in range(type):
             leg = i+1
             print(leg)
+
+            code = util.hover_and_read(
+                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+            if code[37:42] != 'small':
+                q = q + 1
+                code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                if code[37:42] != 'small':
+                    q = q + 1
+                    code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                    if code[37:42] != 'small':
+                        q = q + 1
+                        code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+            q = q + 1
+
+            print(code)
+            code_lst.append(code[43:45])
+            print(code_lst)
             time_dep = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
             time_arr = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
             airline = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{type * k + 2 + i}]/@alt')
@@ -82,7 +88,7 @@ def getFlightInfo(date, ind):
             bound = dep + ' - ' + arr
             bound_lst.append(bound)
 
-            flight1_lst[n] = bound_lst[type * n + i]
+            time_lst.append(time_dep)
             date_time_dep = date[i] + ' ' + time_dep
             datetime_dep = datetime.strptime(date_time_dep, "%d/%m/%Y %H:%M")
             time_dep_lst.append(datetime_dep)
@@ -102,35 +108,54 @@ def getFlightInfo(date, ind):
             leg_lst.append(leg)
             index_lst.append(ind)
 
-        print(date)
-        date_lst.append(date)
-        print(date_lst)
+
         href_lst.append(t.url()[0:-2] + href)
         price_lst.append(price)
         deal_lst.append(ind)
+
     details = {'Deal Index': index_lst, 'Flight Leg': leg_lst, 'Bound': bound_lst, 'Departure Time': time_dep_lst,
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
-    main = {'Deal': deal_lst, 'Date': date_lst, 'Flight1': flight1_lst, 'Flight2': flight2_lst, 'Flight3': flight3_lst, 'Price': price_lst, 'Hyperlink': href_lst}
-    return main, details, ind
+    main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst}
+    return main, details, time_lst, code_lst, ind
 
 
+def getFlightExcel(info,ind):
+    frames_main = []
+    frames_details = []
+    price_exp_lst = []
+    flight_main, flight_details, time_lst, code_lst, ind = getFlightInfo(info['dates'], ind)
 
 
-frames_main = []
-frames_details = []
-flight_main, flight_details, ind = getFlightInfo(date, ind)
-#flight_main, flight_details, ind = getFlightInfo(date, url1, ind)
-frames_details.append(DataFrame(flight_details,
-                                columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline']))
-df_details = pd.concat(frames_details)
+    ###Compare Price with Expedia (Hyperlink/Multi to be added)
+    for i in range(2):
+        t.close()
+        t.init()
+        t.wait(0.5)
+        flight_search(info)
+        t.wait(5)
 
-export_csv = df_details.to_csv('Skyscanner_details.csv', index=None)
-print(df_details)
+        k = len(info['dates'])
+        print(time_lst)
+        print(time_lst[k*i:k*(i+1)])
+        price = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], flight_details['Duration'][k*i:k*(i+1)])
+        price_exp_lst.append(price)
+        print(price_exp_lst)
 
-frames_main.append(DataFrame(flight_main,
-                             columns=['Deal', 'Date', 'Flight1', 'Flight2', 'Flight3', 'Price', 'Hyperlink']))
-df_main = pd.concat(frames_main)
 
-export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
-print(df_main)
+    frames_details.append(DataFrame(flight_details,
+                                    columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time',
+                                             'Duration', 'Transfer', 'Transfer Place', 'Airline']))
+    df_details = pd.concat(frames_details)
+    export_csv = df_details.to_csv('Skyscanner_details.csv', index=None)
+    print(df_details)
+
+    frames_main.append(DataFrame(flight_main,
+                                 columns=['Deal', 'Price', 'Hyperlink']))
+    df_main = pd.concat(frames_main)
+    export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
+    print(df_main)
+
+#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['18/11/2019', '23/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
+#print(len(info['dates']))
+#getFlightExcel(info,0)

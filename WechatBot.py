@@ -1,66 +1,87 @@
 import itchat
 from itchat.content import *
+
+from Speech_to_Text import speech2text, recognize, audio_conversion
 from skyscanner_flight_search import flight_search
 
 itchat.auto_login(hotReload=True)
 
-#username = itchat.search_friends(name=u'伦家小Yanni')[0]['UserName']
-#itchat.send_file('1.xlsx',toUserName=username)
+# username = itchat.search_friends(name=u'伦家小Yanni')[0]['UserName']
 
 
-info = {'from': '', 'to': '', 'trip_type': '', 'start_date': '','end_date': '', 'cabin_class': '', 'pax': ''}
-enquiry = [False, False, False, False, False, False, False]
+info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
+enquiry = [False, False, False, False, False]
 flag = False
+i = 0
+
+
+def order(dates):
+    temp = dates[-1]
+    for i in range(len(dates)-1,0,-1):
+        dates[i] = dates[i-1]
+    dates[0] = temp
+    return dates
 
 
 @itchat.msg_register([TEXT])  # [TEXT, MAP, CARD, NOTE, SHARING] 文字、位置、名片、通知、分享
 def book_flight(msg):
     print(u'message tpye: [ %s ] \n content: %s' % (msg['Type'], msg['Text']))
-    global flag, info, enquiry, result
+    global flag, info, enquiry, result, city_enquiry, i
 
     if "book flights" in msg['Text']:
         flag = True
-        itchat.send('Your departure city.', msg['FromUserName'])
+        itchat.send('Destination, date(day/month/year)\n End with typing: finish', msg['FromUserName'])
     elif not enquiry[0] and flag:
-        info["from"] = msg['Text']
-        enquiry[0] = True
-        itchat.send('Your destination city.', msg['FromUserName'])
-    elif not enquiry[1] and flag:
-        info["to"] = msg['Text']
-        enquiry[1] = True
-        itchat.send('Your ticket type\n 1.Return\n 2.One way\n 3.Multi-City.', msg['FromUserName'])
-    elif not enquiry[2] and flag:
-        info["trip_type"] = msg['Text']
-        enquiry[2] = True
-        itchat.send('Your start date.', msg['FromUserName'])
-    elif not enquiry[3] and flag:
-        info["start_date"] = msg['Text']
-        enquiry[3] = True
-        if '1' in info["trip_type"]:
-            itchat.send('Your end date.', msg['FromUserName'])
+        if "finish" in msg['Text']:
+            enquiry[0] = True
+            itchat.send('Departure city', msg['FromUserName'])
         else:
-            enquiry[4] = True
-            itchat.send('Your cabin_class', msg['FromUserName'])
-    elif not enquiry[4] and flag:
-        info["end_date"] = msg['Text']
-        enquiry[4] = True
-        itchat.send('Your cabin_class', msg['FromUserName'])
-    elif not enquiry[5] and flag:
+            data = msg['Text'].split(',')
+            info["city"].append(data[0])
+            info["dates"].append(data[1])
+            i = i + 1
+    elif not enquiry[1] and flag:
+        info["city"].append(msg['Text'])
+        info["city"] = order(info["city"])
+        enquiry[1] = True
+        itchat.send('Your cabin class', msg['FromUserName'])
+    elif not enquiry[2] and flag:
         info["cabin_class"] = msg['Text']
-        enquiry[5] = True
-        itchat.send('2 Adults;2 Children;2,3', msg['FromUserName'])
-    elif not enquiry[6] and flag:
-        info["pax"] = msg['Text']
-        enquiry[6] = True
+        enquiry[2] = True
+        itchat.send('Number of adults.', msg['FromUserName'])
+    elif not enquiry[3] and flag:
+        info["adult"] = msg['Text']
+        enquiry[3] = True
+        itchat.send('If you have children? input the age', msg['FromUserName'])
+    elif not enquiry[4] and flag:
+        data = msg['Text'].split(",")
+        if 'none' in data[0].lower() or 'no' in data[0].lower():
+            info["child_age"] = []
+        else:
+            print("here")
+            for i in range(len(data)-1):
+                info["child_age"].append(data[i+1])
+        enquiry[4] = True
 
     if all(enquiry):
-        flag = False
         itchat.send('Please wait for the result', msg['FromUserName'])
         print(info)
         flight_search(info)
-        itchat.send_file('Skyscanner.csv', msg['FromUserName'])
-        info = {'from': '', 'to': '', 'trip_type': '', 'start_date': '','end_date': '', 'cabin_class': '', 'pax': ''}
-        enquiry = [False, False, False, False, False, False, False]
+        itchat.send_file('Skyscanner_details.csv', msg['FromUserName'])
+        itchat.send_file('Skyscanner_main.csv', msg['FromUserName'])
+        flag = False
+        i = 0
+        info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
+        enquiry = [False, False, False, False, False]
+
+@itchat.msg_register(itchat.content.RECORDING)
+def audio(msg):
+    itchat.send('Received', msg['FromUserName'])
+    msg.download(msg.fileName)
+    audiotext = speech2text(audio_conversion(msg.fileName), 'en-US')
+    print("you said: " + audiotext)
+    recognize(audiotext, info)
+
 
 itchat.run()
-#itchat.logout()
+# itchat.logout()
