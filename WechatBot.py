@@ -1,5 +1,7 @@
 import itchat
 from itchat.content import *
+
+from Speech_to_Text import speech2text, recognize, audio_conversion
 from skyscanner_flight_search import flight_search
 
 itchat.auto_login(hotReload=True)
@@ -76,6 +78,9 @@ def book_flight(msg):
 def audio(msg):
     itchat.send('Received', msg['FromUserName'])
     msg.download(msg.fileName)
+    audiotext = speech2text(audio_conversion(msg.fileName), 'en-US')
+    print("you said: " + audiotext)
+    recognize(audiotext, info)
 
 
 itchat.run()
