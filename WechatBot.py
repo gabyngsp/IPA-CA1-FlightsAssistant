@@ -6,8 +6,10 @@ from skyscanner_flight_search import flight_search
 
 info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
 enquiry = [False, False, False, False, False]
+user = {'nickname': '', 'flight_info': info,'enquiry':enquiry}
+
+user_db = []
 flag = False
-i = 0
 last_index = 0
 
 
@@ -19,7 +21,15 @@ def order(dates):
     return dates
 
 
-def update_enq():
+def find_user(msg):
+    for i in range(len(user_db)):
+        if user_db[i]['nickname'] == msg['FromUserName']:
+            return user_db[i]
+        else:
+            return 0
+
+
+def update_enq(info, enquiry):
     if info['city']:
         enquiry[0] = True
     if info['dates']:
@@ -33,7 +43,7 @@ def update_enq():
     return enquiry
 
 
-def ask_info(msg):
+def ask_info(msg,enquiry):
     if not enquiry[0] and flag:  # city
         itchat.send('Input Departure city in order', msg['FromUserName'])
         last_index = 0
@@ -54,7 +64,7 @@ def ask_info(msg):
     return last_index
 
 
-def update_info(msg):
+def update_info(msg,info):
     if last_index == 0:  # city
         info["city"] = msg['Text'].split(',')
     if last_index == 1:  # dates
@@ -82,34 +92,39 @@ itchat.auto_login(hotReload=True)
 @itchat.msg_register([TEXT, RECORDING])  # [TEXT, MAP, CARD, NOTE, SHARING]
 def book_flight(msg):
     print(u'message tpye: [ %s ] \n content: %s' % (msg['Type'], msg['Text']))
-    global flag, info, enquiry, last_index
-
+    global flag, info, enquiry, last_index,user_db
+    cur_user = user
     if msg['Type'] == 'Text':
         text = msg['Text']
     if msg['Type'] == 'Recording':
         # msg.download(msg.fileName)
         # text = audio2text(audio_conversion(msg.fileName))
-        text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019"
+        text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children age 2 and 1"
 
     if 'flight' in text:
         flag = True
-        info = recognize(text, info)
-        update_enq()
+        user['nickname'] = msg['FromUserName']
+        user['flight_info'] = recognize(text, info)
+        update_enq(user['flight_info'],user['enquiry'])
+        user_db.append(user)
     else:
-        info = update_info(msg)
-    update_enq()
-    last_index = ask_info(msg)
-    print("3: ",info)
+        cur_user = find_user(msg)
+        if cur_user != 0:
+            cur_user['flight_info'] = update_info(msg, cur_user['flight_info'])
+    update_enq(cur_user['flight_info'], cur_user['enquiry'])
+    last_index = ask_info(msg, cur_user['enquiry'])
+    print("3: ", cur_user['flight_info'])
 
     if all(enquiry):
         itchat.send('Please wait for the result', msg['FromUserName'])
-        print(info)
-        # flight_search(info)
+        print('before',user_db)
+        #flight_search(cur_user['flight_info'])
         # itchat.send_file('Skyscanner_details.csv', msg['FromUserName'])
         # itchat.send_file('Skyscanner_main.csv', msg['FromUserName'])
         flag = False
-        info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
-        enquiry = [False, False, False, False, False]
+        cur_user['flight_info'] = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
+        cur_user['flight_info'] = [False, False, False, False, False]
+        #print('after',user_db)
 
 
 itchat.run()
