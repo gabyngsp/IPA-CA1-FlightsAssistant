@@ -165,12 +165,3 @@ def flight_search(info):
     getFlightExcel(info,ind)
     t.wait(10.0)
     t.close()
-
-#one way
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
-# #return
-info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}
-# #multi-city
-#info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
-
-flight_search(info)
