@@ -4,10 +4,12 @@ import tagui_util as util
 from pandas import DataFrame
 from datetime import datetime, timedelta
 from Expedia_getFlightPrice import getExpFlightPrice
-from expedia_flight_search import flight_search
 
 def getFlightInfo(date, ind):
-    t.wait(2)
+    t.close()
+    t.init()
+    t.url('https://www.skyscanner.com.sg/transport/flights/sins/dlc/191123/191126/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home#/')
+    t.wait(10)
     util.wait_for_pageload('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]')
 
     time_dep_lst = []
@@ -42,27 +44,11 @@ def getFlightInfo(date, ind):
         ind = ind + 1
         print(ind)
 
-        q = 1
         for i in range(type):
             leg = i+1
             print(leg)
-
-            code = util.hover_and_read(
-                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-            if code[37:42] != 'small':
-                q = q + 1
-                code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                if code[37:42] != 'small':
-                    q = q + 1
-                    code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                    if code[37:42] != 'small':
-                        q = q + 1
-                        code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-            q = q + 1
-
-            print(code)
-            code_lst.append(code[43:45])
-            print(code_lst)
+            code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{3 * n + 1 + i}]')
+            code_lst.append(code[45:47])
             time_dep = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
             time_arr = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
             airline = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{type * k + 2 + i}]/@alt')
@@ -124,21 +110,14 @@ def getFlightExcel(info,ind):
     frames_main = []
     frames_details = []
     price_exp_lst = []
-    flight_main, flight_details, time_lst, code_lst, ind = getFlightInfo(info['dates'], ind)
-
+    flight_main, flight_details, time_lst, ind = getFlightInfo(info['dates'], ind)
 
     ###Compare Price with Expedia (Hyperlink/Multi to be added)
     for i in range(2):
-        t.close()
-        t.init()
-        t.wait(0.5)
-        flight_search(info)
-        t.wait(5)
-
         k = len(info['dates'])
         print(time_lst)
         print(time_lst[k*i:k*(i+1)])
-        price = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], flight_details['Duration'][k*i:k*(i+1)])
+        price = getExpFlightPrice(flight_details['Airline'][k*i:k*(i+1)], time_lst[k*i:k*(i+1)], flight_details['Duration'][k*i:k*(i+1)])
         price_exp_lst.append(price)
         print(price_exp_lst)
 
