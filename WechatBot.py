@@ -17,13 +17,13 @@ user_db = []
 flag = False
 last_index = 0
 
-
+# change the cities' order. Put the last one as departure city
 def order(dates):
     temp = dates[-1]
     for i in range(len(dates) - 1, 0, -1):
         dates[i] = dates[i - 1]
     dates[0] = temp
-    return dates
+    return dates #
 
 
 def find_user(msg):
@@ -102,11 +102,12 @@ def book_flight(msg):
 
     if msg['Type'] == 'Text':
         text = msg['Text']
-    if msg['Type'] == 'Recording':
-        # msg.download(msg.fileName)
-        # text = audio2text(audio_conversion(msg.fileName))
-        text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children age 2 and 1"
-
+    elif msg['Type'] == 'Recording':
+        msg.download(msg.fileName)
+        text = audio2text(audio_conversion(msg.fileName))
+        #text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children age 2 and 1"
+    else:
+        text = ''
     if 'flight' in text:
         flag = True
         user['nickname'] = msg['FromUserName']
@@ -133,23 +134,23 @@ def book_flight(msg):
         user['enquiry'] = [False, False, False, False, False]
         print('after',user_db)
 
-def timer(main_scv, detail_scv, user_nickname):
+def timer(main_scv, detail_scv, user_nickname): # main_scv & detail_scv are the scv files
     while 1:
         now = datetime.datetime.now()
-        now_str = now.strftime('%Y/%m/%d %H:%M:%S')[11:]
-        #print('\r{}'.format(now_str),end = '')
-        if now_str in ['20:00:00']:
+        now_time = now.strftime('%Y/%m/%d %H:%M:%S')[11:]
+        now_date = now.strftime('%Y/%m/%d %H:%M:%S')[:10]
+        print('\r{}'.format(now_time),end = '')[11:]
+        if now_time in ['20:00:00']:
             #itchat.send('test timer',toUserName= user_nickname)
             itchat.send_file(main_scv, user_nickname)
             itchat.send_file(detail_scv, user_nickname)
-            print("finish")
         time.sleep(60)
 
-# timer()
-# itchat.run()
 
-_thread.start_new_thread(itchat.run, ())
-_thread.start_new_thread(timer(), ())
+itchat.run()
+
+#_thread.start_new_thread(itchat.run, ())
+#_thread.start_new_thread(timer(), ())
 
 # itchat.logout()
 
