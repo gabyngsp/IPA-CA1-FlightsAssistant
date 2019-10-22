@@ -9,7 +9,7 @@ from Skyscanner_getFlightInfo import getFlightExcel
 # #return
 # info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
 # #multi-city
-# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
+info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
 
 def number_of_travellers(adult_pax, children_pax, children_age):
     print(f"Adults: {adult_pax} and Children: {children_pax}")
@@ -173,4 +173,4 @@ def flight_search(info):
 # #multi-city
 #info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
 
-#flight_search(info)
+flight_search(info)

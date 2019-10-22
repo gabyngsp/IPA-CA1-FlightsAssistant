@@ -85,3 +85,6 @@ def retrieve_FlightDeal(request_id,deal_index=None):
 # Flight Details {'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}
 
 
+# Current Version
+# main = {'Deal': deal_lst, 'Flight Info': [[date1, trip1, date2, trip2],[date1, trip1, date2, trip2]], 'Price': price_lst, 'Hyperlink': href_lst, 'Details': {'Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}}
+

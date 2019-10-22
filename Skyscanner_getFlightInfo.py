@@ -124,17 +124,32 @@ def getFlightInfo(date, ind):
         print(price_lst)
         deal_lst.append(ind)
 
+    flight_info = [[] for _ in range(2)]
     details = {'Deal Index': index_lst, 'Flight Leg': leg_lst, 'Bound': bound_lst, 'Departure Time': time_dep_lst,
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
-    main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details}
+    main = {'Deal': deal_lst, 'Flight Info': flight_info, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details}
     return main, time_lst, code_lst, dur_lst, ind
 
 
 def getFlightExcel(info,ind):
-    frames_main = []
-    frames_details = []
+
     flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
+
+    k = len(info['dates'])
+
+    flight_lst = []
+    for i in range(k):
+        if i == (k-1) & i > 0:
+            flight_lst.append(info['dates'][i])
+            flight = info['city'][i] + '-' + info['city'][0]
+            flight_lst.append(flight)
+        else:
+            flight_lst.append(info['dates'][i])
+            flight = info['city'][i] + '-' + info['city'][i + 1]
+            flight_lst.append(flight)
+    print(flight_lst)
+
 
     ###Compare Price with Expedia (Hyperlink/Multi to be added)
     for i in range(2):
@@ -143,8 +158,8 @@ def getFlightExcel(info,ind):
         t.wait(0.5)
         flight_search(info)
         t.wait(5)
+        flight_main['Flight Info'][i] = flight_lst
 
-        k = len(info['dates'])
         price_exp, url_exp = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], dur_lst[k*i:k*(i+1)])
         print(price_exp)
         print(url_exp)
@@ -152,7 +167,9 @@ def getFlightExcel(info,ind):
         if price_exp < flight_main['Price'][i] & price_exp != 0:
             flight_main['Price'][i] = price_exp
             flight_main['Hyperlink'][i] = url_exp
-        print(flight_main['Price'])
-        print(flight_main['Details']['Airline'])
+    print(flight_main['Price'])
+    print(flight_main['Details']['Airline'])
+    print(flight_main['Flight Info'])
+    print(flight_main['Flight Info'][0][0])
 
 
