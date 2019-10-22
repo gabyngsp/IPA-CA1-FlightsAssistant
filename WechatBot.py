@@ -1,8 +1,13 @@
+import datetime
+import time
+import _thread
+
 import itchat
 from itchat.content import *
 
 from audio2text import audio2text, audio_conversion, recognize
 from skyscanner_flight_search import flight_search
+
 
 info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
 enquiry = [False, False, False, False, False]
@@ -93,7 +98,8 @@ itchat.auto_login(hotReload=True)
 def book_flight(msg):
     print(u'message tpye: [ %s ] \n content: %s' % (msg['Type'], msg['Text']))
     global flag, info, enquiry, last_index,user_db
-    cur_user = user
+    user = {'nickname': '', 'flight_info': info, 'enquiry': enquiry}
+
     if msg['Type'] == 'Text':
         text = msg['Text']
     if msg['Type'] == 'Recording':
@@ -104,31 +110,46 @@ def book_flight(msg):
     if 'flight' in text:
         flag = True
         user['nickname'] = msg['FromUserName']
+        print('before recognize: ', info)
         user['flight_info'] = recognize(text, info)
-        update_enq(user['flight_info'],user['enquiry'])
+        user['enquiry'] = update_enq(user['flight_info'],user['enquiry'])
         user_db.append(user)
-    else:
-        cur_user = find_user(msg)
-        if cur_user != 0:
-            cur_user['flight_info'] = update_info(msg, cur_user['flight_info'])
-    update_enq(cur_user['flight_info'], cur_user['enquiry'])
-    last_index = ask_info(msg, cur_user['enquiry'])
-    print("3: ", cur_user['flight_info'])
+    elif flag:
+        user = find_user(msg)
+        if user != 0:
+            user['flight_info'] = update_info(msg, user['flight_info'])
 
-    if all(enquiry):
+    user['enquiry'] = update_enq(user['flight_info'], user['enquiry'])
+    last_index = ask_info(msg, user['enquiry'])
+    print("3: ", user['flight_info'])
+
+    if all(user['enquiry']):
         itchat.send('Please wait for the result', msg['FromUserName'])
         print('before',user_db)
         #flight_search(cur_user['flight_info'])
-        # itchat.send_file('Skyscanner_details.csv', msg['FromUserName'])
-        # itchat.send_file('Skyscanner_main.csv', msg['FromUserName'])
         flag = False
-        cur_user['flight_info'] = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
-        cur_user['flight_info'] = [False, False, False, False, False]
-        #print('after',user_db)
+        user['nickname'] = ''
+        user['flight_info'] = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
+        user['enquiry'] = [False, False, False, False, False]
+        print('after',user_db)
 
+def timer(main_scv, detail_scv, user_nickname):
+    while 1:
+        now = datetime.datetime.now()
+        now_str = now.strftime('%Y/%m/%d %H:%M:%S')[11:]
+        #print('\r{}'.format(now_str),end = '')
+        if now_str in ['20:00:00']:
+            #itchat.send('test timer',toUserName= user_nickname)
+            itchat.send_file(main_scv, user_nickname)
+            itchat.send_file(detail_scv, user_nickname)
+            print("finish")
+        time.sleep(60)
 
-itchat.run()
+# timer()
+# itchat.run()
 
+_thread.start_new_thread(itchat.run, ())
+_thread.start_new_thread(timer(), ())
 
 # itchat.logout()
 

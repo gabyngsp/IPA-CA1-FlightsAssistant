@@ -95,7 +95,7 @@ def recognize(audiotext,info):
     print(info)
     return info
 
-info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
+# info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
 
 # audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children"
 #info = recognize(audiotext, info)
