@@ -5,11 +5,17 @@ import tagui_util as util
 
 def getExpFlightPrice(airline, dep_ref, dur_ref):
     util.wait_for_pageload('//input[@classes="filter-checkbox"]')
+    t.wait(3)
     t.click(f'//a[@data-content-id="airlineToggleContainer"]')
-    t.wait(1)
-    t.click(f'//input[@id="airlineRowContainer_{airline[0]}"]')
 
     for i in range(len(dep_ref)):
+        if i == 0:
+            t.wait(3)
+            t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+        elif airline[i] != airline[i-1]:
+            t.wait(1)
+            t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+
         if dep_ref[i][0] == '0':
             dep_ref[i] = dep_ref[i][1:]
 
@@ -38,8 +44,14 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                 price = int(price_org[3:].replace(',', ''))
                 print(price)
                 print(type(price))
+                t.click(f'(//button[@data-test-id="select-button"])[{i}]')
+                t.wait(5)
+                if t.present('//a[@id="forcedChoiceNoThanks"]'):
+                    t.click(f'//a[@id="forcedChoiceNoThanks"]')
+                    t.wait(5)
+                t.popup('offerToken')
+                t.wait(5)
                 url = t.url()
-                print(url)
                 return price, url
 
         elif len(dur_ref) == 2:
@@ -74,6 +86,13 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                             print(price_plus)
                             price = price + int(price_plus[5:])
                             print(price)
+                            t.click(f'(//button[@data-test-id="select-button"])[{j}]')
+                            t.wait(5)
+                            if t.present('//a[@id="forcedChoiceNoThanks"]'):
+                                t.click(f'//a[@id="forcedChoiceNoThanks"]')
+                                t.wait(5)
+                            t.popup('Flight-Information?offerToken')
+                            util.wait_for_pageload('//h1[@class="section-header-main"]')
                             url = t.url()
                             print(url)
                             return price, url
@@ -93,32 +112,15 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                     price_org = util.hover_and_read(f'(//span[@data-test-id="listing-price-dollars"])[{i}]')
                     price = int(price_org[3:].replace(',', ''))
                     print(price)
-                    #t.click(f'(//button[@data-test-id="select-button"])[{i}]')
+                    t.click(f'(//button[@data-test-id="select-button"])[{j}]')
+                    t.wait(5)
+                    if t.present('//a[@id="forcedChoiceNoThanks"]'):
+                        t.click(f'//a[@id="forcedChoiceNoThanks"]')
+                        t.wait(5)
+                    t.popup('offerToken')
+                    t.wait(5)
                     url = t.url()
                     print(url)
                     return price, url
-
-
-
-        # t.click(f'(//button[@data-test-id="select-button"])[{i}]')
-        # t.wait(5)
-        # if t.present('//a[@id="forcedChoiceNoThanks"]'):
-        #    t.click(f'//a[@id="forcedChoiceNoThanks"]')
-        # t.wait(5)
-        # t.click(f'( //span[@class="packagePriceTotal"])[2]')
-
-
-#one way
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
-# #return
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}
-# #multi-city
-#info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
-
-#t.close()
-#t.init()
-#t.wait(0.5)
-#flight_search(info)
-#t.wait(5)
-#getExpFlightPrice(['CZ', 'CZ'], ['08:05', '17:30'], ['8h 50', '9h 35'])
-#getExpFlightPrice(['CZ'], ['08:05'], ['8h 50'])
+            else:
+                return 0, ''

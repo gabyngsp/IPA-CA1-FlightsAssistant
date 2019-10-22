@@ -1,1094 +1,304 @@
 
-START - automation started - Thu Oct 17 2019 00:05:25 GMT+0800 (+08)
+START - automation started - Tue Oct 22 2019 22:29:12 GMT+0800 (+08)
 
 LIVE MODE - type done to quit
  [TAGUI][STARTED]
 [TAGUI][0] - listening for inputs
-[TAGUI][1] - https://www.skyscanner.com.sg/transport/flights/sins/bjsa/191018/191023/?adultsv2=1&childrenv2=&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&qp_prevProvider=ins_month&qp_prevCurrency=SGD&qp_prevPrice=351&priceSourceId=taps-taps&priceTrace=201910111456*I*SIN*PEK*20191018*pesg*CZ%7C201910111456*I*PEK*SIN*20191023*pesg*CZ#/
+[TAGUI][1] - https://www.expedia.com.sg/
 [TAGUI][1] - listening for inputs
-[TAGUI][2] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][2] - present_result = present('//button[@id="tab-flight-tab-hp"]').toString()
 [TAGUI][2] - listening for inputs
 [TAGUI][3] - dump present_result to tagui_python.txt
 [TAGUI][3] - listening for inputs
-[TAGUI][4] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][4] - present_result = present('//button[@id="tab-flight-tab-hp"]').toString()
 [TAGUI][4] - listening for inputs
 [TAGUI][5] - dump present_result to tagui_python.txt
 [TAGUI][5] - listening for inputs
-[TAGUI][6] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][6] - exist_result = exist('//button[@id="tab-flight-tab-hp"]').toString()
 [TAGUI][6] - listening for inputs
-[TAGUI][7] - dump present_result to tagui_python.txt
+[TAGUI][7] - dump exist_result to tagui_python.txt
 [TAGUI][7] - listening for inputs
-[TAGUI][8] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][8] - click //button[@id="tab-flight-tab-hp"]
 [TAGUI][8] - listening for inputs
-[TAGUI][9] - dump present_result to tagui_python.txt
+[TAGUI][9] - exist_result = exist('//input[@id="flight-type-multi-dest-hp-flight"]').toString()
 [TAGUI][9] - listening for inputs
-[TAGUI][10] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][10] - dump exist_result to tagui_python.txt
 [TAGUI][10] - listening for inputs
-[TAGUI][11] - dump present_result to tagui_python.txt
+[TAGUI][11] - click //input[@id="flight-type-multi-dest-hp-flight"]
 [TAGUI][11] - listening for inputs
-[TAGUI][12] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][12] - count_result = count('//div[@class="cols-nested gcw-multidest-flights-container"]/div/fieldset').toString()
 [TAGUI][12] - listening for inputs
-[TAGUI][13] - dump present_result to tagui_python.txt
+[TAGUI][13] - dump count_result to tagui_python.txt
 [TAGUI][13] - listening for inputs
-[TAGUI][14] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][14] - exist_result = exist('//input[@id="flight-origin-hp-flight"]').toString()
 [TAGUI][14] - listening for inputs
-[TAGUI][15] - dump present_result to tagui_python.txt
+[TAGUI][15] - dump exist_result to tagui_python.txt
 [TAGUI][15] - listening for inputs
-[TAGUI][16] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][16] - type //input[@id="flight-origin-hp-flight"] as singapore
 [TAGUI][16] - listening for inputs
-[TAGUI][17] - dump present_result to tagui_python.txt
+[TAGUI][17] - exist_result = exist('//input[@id="flight-destination-hp-flight"]').toString()
 [TAGUI][17] - listening for inputs
-[TAGUI][18] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][18] - dump exist_result to tagui_python.txt
 [TAGUI][18] - listening for inputs
-[TAGUI][19] - dump present_result to tagui_python.txt
+[TAGUI][19] - type //input[@id="flight-destination-hp-flight"] as hanoi
 [TAGUI][19] - listening for inputs
-[TAGUI][20] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][20] - exist_result = exist('//input[@id="flight-departing-single-hp-flight"]').toString()
 [TAGUI][20] - listening for inputs
-[TAGUI][21] - dump present_result to tagui_python.txt
+[TAGUI][21] - dump exist_result to tagui_python.txt
 [TAGUI][21] - listening for inputs
-[TAGUI][22] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][22] - type //input[@id="flight-departing-single-hp-flight"] as [clear]
 [TAGUI][22] - listening for inputs
-[TAGUI][23] - dump present_result to tagui_python.txt
+[TAGUI][23] - exist_result = exist('//input[@id="flight-departing-single-hp-flight"]').toString()
 [TAGUI][23] - listening for inputs
-[TAGUI][24] - present_result = present('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]').toString()
+[TAGUI][24] - dump exist_result to tagui_python.txt
 [TAGUI][24] - listening for inputs
-[TAGUI][25] - dump present_result to tagui_python.txt
+[TAGUI][25] - type //input[@id="flight-departing-single-hp-flight"] as 01/11/2019
 [TAGUI][25] - listening for inputs
-[TAGUI][26] - present_result = present('//span[@class="BpkBadge_bpk-badge__2mEjm "]').toString()
+[TAGUI][26] - exist_result = exist('//input[@id="flight-2-origin-hp-flight"]').toString()
 [TAGUI][26] - listening for inputs
-[TAGUI][27] - dump present_result to tagui_python.txt
+[TAGUI][27] - dump exist_result to tagui_python.txt
 [TAGUI][27] - listening for inputs
-[TAGUI][28] - exist_result = exist('(//a[@class="FlightsTicket_link__kl4DL"])[1]//@href').toString()
+[TAGUI][28] - type //input[@id="flight-2-origin-hp-flight"] as hanoi
 [TAGUI][28] - listening for inputs
-[TAGUI][29] - dump exist_result to tagui_python.txt
+[TAGUI][29] - exist_result = exist('//input[@id="flight-2-destination-hp-flight"]').toString()
 [TAGUI][29] - listening for inputs
-[TAGUI][30] - hover (//a[@class="FlightsTicket_link__kl4DL"])[1]//@href
+[TAGUI][30] - dump exist_result to tagui_python.txt
 [TAGUI][30] - listening for inputs
-[TAGUI][31] - exist_result = exist('(//a[@class="FlightsTicket_link__kl4DL"])[1]//@href').toString()
+[TAGUI][31] - type //input[@id="flight-2-destination-hp-flight"] as beijing
 [TAGUI][31] - listening for inputs
-[TAGUI][32] - dump exist_result to tagui_python.txt
+[TAGUI][32] - exist_result = exist('//input[@id="flight-2-departing-hp-flight"]').toString()
 [TAGUI][32] - listening for inputs
-[TAGUI][33] - read (//a[@class="FlightsTicket_link__kl4DL"])[1]//@href to read_result
+[TAGUI][33] - dump exist_result to tagui_python.txt
 [TAGUI][33] - listening for inputs
-[TAGUI][34] - dump read_result to tagui_python.txt
+[TAGUI][34] - type //input[@id="flight-2-departing-hp-flight"] as [clear]
 [TAGUI][34] - listening for inputs
-[TAGUI][35] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[5]').toString()
+[TAGUI][35] - exist_result = exist('//input[@id="flight-2-departing-hp-flight"]').toString()
 [TAGUI][35] - listening for inputs
 [TAGUI][36] - dump exist_result to tagui_python.txt
 [TAGUI][36] - listening for inputs
-[TAGUI][37] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[5]
+[TAGUI][37] - type //input[@id="flight-2-departing-hp-flight"] as 05/11/2019
 [TAGUI][37] - listening for inputs
-[TAGUI][38] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[5]').toString()
+[TAGUI][38] - exist_result = exist('//input[@id="flight-3-origin-hp-flight"]').toString()
 [TAGUI][38] - listening for inputs
 [TAGUI][39] - dump exist_result to tagui_python.txt
 [TAGUI][39] - listening for inputs
-[TAGUI][40] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[5] to read_result
+[TAGUI][40] - type //input[@id="flight-3-origin-hp-flight"] as beijing
 [TAGUI][40] - listening for inputs
-[TAGUI][41] - dump read_result to tagui_python.txt
+[TAGUI][41] - exist_result = exist('//input[@id="flight-3-destination-hp-flight"]').toString()
 [TAGUI][41] - listening for inputs
-[TAGUI][42] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[1]').toString()
+[TAGUI][42] - dump exist_result to tagui_python.txt
 [TAGUI][42] - listening for inputs
-[TAGUI][43] - dump exist_result to tagui_python.txt
+[TAGUI][43] - type //input[@id="flight-3-destination-hp-flight"] as singapore
 [TAGUI][43] - listening for inputs
-[TAGUI][44] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[1]
+[TAGUI][44] - exist_result = exist('//input[@id="flight-3-departing-hp-flight"]').toString()
 [TAGUI][44] - listening for inputs
-[TAGUI][45] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[1]').toString()
+[TAGUI][45] - dump exist_result to tagui_python.txt
 [TAGUI][45] - listening for inputs
-[TAGUI][46] - dump exist_result to tagui_python.txt
+[TAGUI][46] - type //input[@id="flight-3-departing-hp-flight"] as [clear]
 [TAGUI][46] - listening for inputs
-[TAGUI][47] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[1] to read_result
+[TAGUI][47] - exist_result = exist('//input[@id="flight-3-departing-hp-flight"]').toString()
 [TAGUI][47] - listening for inputs
-[TAGUI][48] - dump read_result to tagui_python.txt
+[TAGUI][48] - dump exist_result to tagui_python.txt
 [TAGUI][48] - listening for inputs
-[TAGUI][49] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[2]').toString()
+[TAGUI][49] - type //input[@id="flight-3-departing-hp-flight"] as 10/11/2019
 [TAGUI][49] - listening for inputs
-[TAGUI][50] - dump exist_result to tagui_python.txt
+[TAGUI][50] - exist_result = exist('//*[@id="gcw-flights-form-hp-flight"]/div[8]/label/button').toString()
 [TAGUI][50] - listening for inputs
-[TAGUI][51] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[2]
+[TAGUI][51] - dump exist_result to tagui_python.txt
 [TAGUI][51] - listening for inputs
-[TAGUI][52] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[2]').toString()
+[TAGUI][52] - click //*[@id="gcw-flights-form-hp-flight"]/div[8]/label/button
 [TAGUI][52] - listening for inputs
-[TAGUI][53] - dump exist_result to tagui_python.txt
+[TAGUI][53] - present_result = present('//button[@id="flights-advanced-options-toggle"]').toString()
 [TAGUI][53] - listening for inputs
-[TAGUI][54] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[2] to read_result
+[TAGUI][54] - dump present_result to tagui_python.txt
 [TAGUI][54] - listening for inputs
-[TAGUI][55] - dump read_result to tagui_python.txt
+[TAGUI][55] - present_result = present('//button[@id="flights-advanced-options-toggle"]').toString()
 [TAGUI][55] - listening for inputs
-[TAGUI][56] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[4]/@alt').toString()
+[TAGUI][56] - dump present_result to tagui_python.txt
 [TAGUI][56] - listening for inputs
-[TAGUI][57] - dump exist_result to tagui_python.txt
+[TAGUI][57] - exist_result = exist('//button[@id="flights-advanced-options-toggle"]').toString()
 [TAGUI][57] - listening for inputs
-[TAGUI][58] - hover (//img[@class="BpkImage_bpk-image__img__3HwXN"])[4]/@alt
+[TAGUI][58] - dump exist_result to tagui_python.txt
 [TAGUI][58] - listening for inputs
-[TAGUI][59] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[4]/@alt').toString()
+[TAGUI][59] - click //button[@id="flights-advanced-options-toggle"]
 [TAGUI][59] - listening for inputs
-[TAGUI][60] - dump exist_result to tagui_python.txt
+[TAGUI][60] - present_result = present('//select[@id="child-count"]').toString()
 [TAGUI][60] - listening for inputs
-[TAGUI][61] - read (//img[@class="BpkImage_bpk-image__img__3HwXN"])[4]/@alt to read_result
+[TAGUI][61] - dump present_result to tagui_python.txt
 [TAGUI][61] - listening for inputs
-[TAGUI][62] - dump read_result to tagui_python.txt
+[TAGUI][62] - exist_result = exist('//select[@id="adult-count"]').toString()
 [TAGUI][62] - listening for inputs
-[TAGUI][63] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[1]').toString()
+[TAGUI][63] - dump exist_result to tagui_python.txt
 [TAGUI][63] - listening for inputs
-[TAGUI][64] - dump exist_result to tagui_python.txt
+[TAGUI][64] - click //select[@id="adult-count"]
 [TAGUI][64] - listening for inputs
-[TAGUI][65] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[1]
+[TAGUI][65] - exist_result = exist('//select[@id="adult-count"]').toString()
 [TAGUI][65] - listening for inputs
-[TAGUI][66] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[1]').toString()
+[TAGUI][66] - dump exist_result to tagui_python.txt
 [TAGUI][66] - listening for inputs
-[TAGUI][67] - dump exist_result to tagui_python.txt
+[TAGUI][67] - select //select[@id="adult-count"] as 2
 [TAGUI][67] - listening for inputs
-[TAGUI][68] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[1] to read_result
+[TAGUI][68] - exist_result = exist('//select[@id="child-count"]').toString()
 [TAGUI][68] - listening for inputs
-[TAGUI][69] - dump read_result to tagui_python.txt
+[TAGUI][69] - dump exist_result to tagui_python.txt
 [TAGUI][69] - listening for inputs
-[TAGUI][70] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[1]').toString()
+[TAGUI][70] - click //select[@id="child-count"]
 [TAGUI][70] - listening for inputs
-[TAGUI][71] - dump exist_result to tagui_python.txt
+[TAGUI][71] - exist_result = exist('//select[@id="child-count"]').toString()
 [TAGUI][71] - listening for inputs
-[TAGUI][72] - hover (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[1]
+[TAGUI][72] - dump exist_result to tagui_python.txt
 [TAGUI][72] - listening for inputs
-[TAGUI][73] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[1]').toString()
+[TAGUI][73] - select //select[@id="child-count"] as 2
 [TAGUI][73] - listening for inputs
-[TAGUI][74] - dump exist_result to tagui_python.txt
+[TAGUI][74] - exist_result = exist('//select[@id="child-age-1"]').toString()
 [TAGUI][74] - listening for inputs
-[TAGUI][75] - read (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[1] to read_result
+[TAGUI][75] - dump exist_result to tagui_python.txt
 [TAGUI][75] - listening for inputs
-[TAGUI][76] - dump read_result to tagui_python.txt
+[TAGUI][76] - click //select[@id="child-age-1"]
 [TAGUI][76] - listening for inputs
-[TAGUI][77] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[1]').toString()
+[TAGUI][77] - exist_result = exist('//select[@id="child-age-1"]').toString()
 [TAGUI][77] - listening for inputs
 [TAGUI][78] - dump exist_result to tagui_python.txt
 [TAGUI][78] - listening for inputs
-[TAGUI][79] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[1]
+[TAGUI][79] - select //select[@id="child-age-1"] as 3
 [TAGUI][79] - listening for inputs
-[TAGUI][80] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[1]').toString()
+[TAGUI][80] - exist_result = exist('//select[@id="child-age-2"]').toString()
 [TAGUI][80] - listening for inputs
 [TAGUI][81] - dump exist_result to tagui_python.txt
 [TAGUI][81] - listening for inputs
-[TAGUI][82] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[1] to read_result
+[TAGUI][82] - click //select[@id="child-age-2"]
 [TAGUI][82] - listening for inputs
-[TAGUI][83] - dump read_result to tagui_python.txt
+[TAGUI][83] - exist_result = exist('//select[@id="child-age-2"]').toString()
 [TAGUI][83] - listening for inputs
-[TAGUI][84] - present_result = present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[2]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]').toString()
+[TAGUI][84] - dump exist_result to tagui_python.txt
 [TAGUI][84] - listening for inputs
-[TAGUI][85] - dump present_result to tagui_python.txt
+[TAGUI][85] - select //select[@id="child-age-2"] as 10
 [TAGUI][85] - listening for inputs
-[TAGUI][86] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[1]').toString()
+[TAGUI][86] - exist_result = exist('//*[@id="flight-wizard-search-button"]').toString()
 [TAGUI][86] - listening for inputs
 [TAGUI][87] - dump exist_result to tagui_python.txt
 [TAGUI][87] - listening for inputs
-[TAGUI][88] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[1]
+[TAGUI][88] - click //*[@id="flight-wizard-search-button"]
 [TAGUI][88] - listening for inputs
-[TAGUI][89] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[1]').toString()
+[TAGUI][89] - present_result = present('//input[@classes="filter-checkbox"]').toString()
 [TAGUI][89] - listening for inputs
-[TAGUI][90] - dump exist_result to tagui_python.txt
+[TAGUI][90] - dump present_result to tagui_python.txt
 [TAGUI][90] - listening for inputs
-[TAGUI][91] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[1] to read_result
+[TAGUI][91] - exist_result = exist('//a[@data-content-id="airlineToggleContainer"]').toString()
 [TAGUI][91] - listening for inputs
-[TAGUI][92] - dump read_result to tagui_python.txt
+[TAGUI][92] - dump exist_result to tagui_python.txt
 [TAGUI][92] - listening for inputs
-[TAGUI][93] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[2]').toString()
+[TAGUI][93] - exist_result = exist('//input[@id="airlineRowContainer_TR"]').toString()
 [TAGUI][93] - listening for inputs
 [TAGUI][94] - dump exist_result to tagui_python.txt
 [TAGUI][94] - listening for inputs
-[TAGUI][95] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[2]
+[TAGUI][95] - exist_result = exist('//input[@id="airlineRowContainer_CA"]').toString()
 [TAGUI][95] - listening for inputs
-[TAGUI][96] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[2]').toString()
+[TAGUI][96] - dump exist_result to tagui_python.txt
 [TAGUI][96] - listening for inputs
-[TAGUI][97] - dump exist_result to tagui_python.txt
+[TAGUI][97] - present_result = present('//button[@data-test-id="select-button"]').toString()
 [TAGUI][97] - listening for inputs
-[TAGUI][98] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[2] to read_result
+[TAGUI][98] - dump present_result to tagui_python.txt
 [TAGUI][98] - listening for inputs
-[TAGUI][99] - dump read_result to tagui_python.txt
+[TAGUI][99] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
 [TAGUI][99] - listening for inputs
-[TAGUI][100] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[3]').toString()
+[TAGUI][100] - dump count_result to tagui_python.txt
 [TAGUI][100] - listening for inputs
-[TAGUI][101] - dump exist_result to tagui_python.txt
+[TAGUI][101] - exist_result = exist('(//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1]').toString()
 [TAGUI][101] - listening for inputs
-[TAGUI][102] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[3]
+[TAGUI][102] - dump exist_result to tagui_python.txt
 [TAGUI][102] - listening for inputs
-[TAGUI][103] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[3]').toString()
+[TAGUI][103] - hover (//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1]
 [TAGUI][103] - listening for inputs
-[TAGUI][104] - dump exist_result to tagui_python.txt
+[TAGUI][104] - exist_result = exist('(//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1]').toString()
 [TAGUI][104] - listening for inputs
-[TAGUI][105] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[3] to read_result
+[TAGUI][105] - dump exist_result to tagui_python.txt
 [TAGUI][105] - listening for inputs
-[TAGUI][106] - dump read_result to tagui_python.txt
+[TAGUI][106] - read (//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1] to read_result
 [TAGUI][106] - listening for inputs
-[TAGUI][107] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[4]').toString()
+[TAGUI][107] - dump read_result to tagui_python.txt
 [TAGUI][107] - listening for inputs
-[TAGUI][108] - dump exist_result to tagui_python.txt
+[TAGUI][108] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
 [TAGUI][108] - listening for inputs
-[TAGUI][109] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[4]
+[TAGUI][109] - dump exist_result to tagui_python.txt
 [TAGUI][109] - listening for inputs
-[TAGUI][110] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[4]').toString()
+[TAGUI][110] - hover (//span[@data-test-id="departure-time"])[4]
 [TAGUI][110] - listening for inputs
-[TAGUI][111] - dump exist_result to tagui_python.txt
+[TAGUI][111] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
 [TAGUI][111] - listening for inputs
-[TAGUI][112] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[4] to read_result
+[TAGUI][112] - dump exist_result to tagui_python.txt
 [TAGUI][112] - listening for inputs
-[TAGUI][113] - dump read_result to tagui_python.txt
+[TAGUI][113] - read (//span[@data-test-id="departure-time"])[4] to read_result
 [TAGUI][113] - listening for inputs
-[TAGUI][114] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[5]/@alt').toString()
+[TAGUI][114] - dump read_result to tagui_python.txt
 [TAGUI][114] - listening for inputs
-[TAGUI][115] - dump exist_result to tagui_python.txt
+[TAGUI][115] - exist_result = exist('(//span[@data-test-id="duration"])[4]').toString()
 [TAGUI][115] - listening for inputs
-[TAGUI][116] - hover (//img[@class="BpkImage_bpk-image__img__3HwXN"])[5]/@alt
+[TAGUI][116] - dump exist_result to tagui_python.txt
 [TAGUI][116] - listening for inputs
-[TAGUI][117] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[5]/@alt').toString()
+[TAGUI][117] - hover (//span[@data-test-id="duration"])[4]
 [TAGUI][117] - listening for inputs
-[TAGUI][118] - dump exist_result to tagui_python.txt
+[TAGUI][118] - exist_result = exist('(//span[@data-test-id="duration"])[4]').toString()
 [TAGUI][118] - listening for inputs
-[TAGUI][119] - read (//img[@class="BpkImage_bpk-image__img__3HwXN"])[5]/@alt to read_result
+[TAGUI][119] - dump exist_result to tagui_python.txt
 [TAGUI][119] - listening for inputs
-[TAGUI][120] - dump read_result to tagui_python.txt
+[TAGUI][120] - read (//span[@data-test-id="duration"])[4] to read_result
 [TAGUI][120] - listening for inputs
-[TAGUI][121] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[2]').toString()
+[TAGUI][121] - dump read_result to tagui_python.txt
 [TAGUI][121] - listening for inputs
-[TAGUI][122] - dump exist_result to tagui_python.txt
+[TAGUI][122] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
 [TAGUI][122] - listening for inputs
-[TAGUI][123] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[2]
+[TAGUI][123] - dump exist_result to tagui_python.txt
 [TAGUI][123] - listening for inputs
-[TAGUI][124] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[2]').toString()
+[TAGUI][124] - hover (//span[@data-test-id="departure-time"])[5]
 [TAGUI][124] - listening for inputs
-[TAGUI][125] - dump exist_result to tagui_python.txt
+[TAGUI][125] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
 [TAGUI][125] - listening for inputs
-[TAGUI][126] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[2] to read_result
+[TAGUI][126] - dump exist_result to tagui_python.txt
 [TAGUI][126] - listening for inputs
-[TAGUI][127] - dump read_result to tagui_python.txt
+[TAGUI][127] - read (//span[@data-test-id="departure-time"])[5] to read_result
 [TAGUI][127] - listening for inputs
-[TAGUI][128] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[2]').toString()
+[TAGUI][128] - dump read_result to tagui_python.txt
 [TAGUI][128] - listening for inputs
-[TAGUI][129] - dump exist_result to tagui_python.txt
+[TAGUI][129] - exist_result = exist('(//span[@data-test-id="duration"])[5]').toString()
 [TAGUI][129] - listening for inputs
-[TAGUI][130] - hover (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[2]
+[TAGUI][130] - dump exist_result to tagui_python.txt
 [TAGUI][130] - listening for inputs
-[TAGUI][131] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[2]').toString()
+[TAGUI][131] - hover (//span[@data-test-id="duration"])[5]
 [TAGUI][131] - listening for inputs
-[TAGUI][132] - dump exist_result to tagui_python.txt
+[TAGUI][132] - exist_result = exist('(//span[@data-test-id="duration"])[5]').toString()
 [TAGUI][132] - listening for inputs
-[TAGUI][133] - read (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[2] to read_result
+[TAGUI][133] - dump exist_result to tagui_python.txt
 [TAGUI][133] - listening for inputs
-[TAGUI][134] - dump read_result to tagui_python.txt
+[TAGUI][134] - read (//span[@data-test-id="duration"])[5] to read_result
 [TAGUI][134] - listening for inputs
-[TAGUI][135] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[2]').toString()
+[TAGUI][135] - dump read_result to tagui_python.txt
 [TAGUI][135] - listening for inputs
-[TAGUI][136] - dump exist_result to tagui_python.txt
+[TAGUI][136] - exist_result = exist('(//span[@data-test-id="departure-time"])[6]').toString()
 [TAGUI][136] - listening for inputs
-[TAGUI][137] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[2]
+[TAGUI][137] - dump exist_result to tagui_python.txt
 [TAGUI][137] - listening for inputs
-[TAGUI][138] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[2]').toString()
+[TAGUI][138] - hover (//span[@data-test-id="departure-time"])[6]
 [TAGUI][138] - listening for inputs
-[TAGUI][139] - dump exist_result to tagui_python.txt
+[TAGUI][139] - exist_result = exist('(//span[@data-test-id="departure-time"])[6]').toString()
 [TAGUI][139] - listening for inputs
-[TAGUI][140] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[2] to read_result
+[TAGUI][140] - dump exist_result to tagui_python.txt
 [TAGUI][140] - listening for inputs
-[TAGUI][141] - dump read_result to tagui_python.txt
+[TAGUI][141] - read (//span[@data-test-id="departure-time"])[6] to read_result
 [TAGUI][141] - listening for inputs
-[TAGUI][142] - present_result = present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[4]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]').toString()
+[TAGUI][142] - dump read_result to tagui_python.txt
 [TAGUI][142] - listening for inputs
-[TAGUI][143] - dump present_result to tagui_python.txt
+[TAGUI][143] - exist_result = exist('(//span[@data-test-id="duration"])[6]').toString()
 [TAGUI][143] - listening for inputs
-[TAGUI][144] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[3]').toString()
+[TAGUI][144] - dump exist_result to tagui_python.txt
 [TAGUI][144] - listening for inputs
-[TAGUI][145] - dump exist_result to tagui_python.txt
+[TAGUI][145] - hover (//span[@data-test-id="duration"])[6]
 [TAGUI][145] - listening for inputs
-[TAGUI][146] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[3]
+[TAGUI][146] - exist_result = exist('(//span[@data-test-id="duration"])[6]').toString()
 [TAGUI][146] - listening for inputs
-[TAGUI][147] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[3]').toString()
+[TAGUI][147] - dump exist_result to tagui_python.txt
 [TAGUI][147] - listening for inputs
-[TAGUI][148] - dump exist_result to tagui_python.txt
+[TAGUI][148] - read (//span[@data-test-id="duration"])[6] to read_result
 [TAGUI][148] - listening for inputs
-[TAGUI][149] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[3] to read_result
+[TAGUI][149] - dump read_result to tagui_python.txt
 [TAGUI][149] - listening for inputs
-[TAGUI][150] - dump read_result to tagui_python.txt
-[TAGUI][150] - listening for inputs
-[TAGUI][151] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[4]').toString()
-[TAGUI][151] - listening for inputs
-[TAGUI][152] - dump exist_result to tagui_python.txt
-[TAGUI][152] - listening for inputs
-[TAGUI][153] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[4]
-[TAGUI][153] - listening for inputs
-[TAGUI][154] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[4]').toString()
-[TAGUI][154] - listening for inputs
-[TAGUI][155] - dump exist_result to tagui_python.txt
-[TAGUI][155] - listening for inputs
-[TAGUI][156] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[4] to read_result
-[TAGUI][156] - listening for inputs
-[TAGUI][157] - dump read_result to tagui_python.txt
-[TAGUI][157] - listening for inputs
-[TAGUI][158] - dump url() to tagui_python.txt
-[TAGUI][158] - listening for inputs
-[TAGUI][159] - present_result = present('//span[@class="BpkBadge_bpk-badge__2mEjm "]').toString()
-[TAGUI][159] - listening for inputs
-[TAGUI][160] - dump present_result to tagui_python.txt
-[TAGUI][160] - listening for inputs
-[TAGUI][161] - exist_result = exist('(//a[@class="FlightsTicket_link__kl4DL"])[2]//@href').toString()
-[TAGUI][161] - listening for inputs
-[TAGUI][162] - dump exist_result to tagui_python.txt
-[TAGUI][162] - listening for inputs
-[TAGUI][163] - hover (//a[@class="FlightsTicket_link__kl4DL"])[2]//@href
-[TAGUI][163] - listening for inputs
-[TAGUI][164] - exist_result = exist('(//a[@class="FlightsTicket_link__kl4DL"])[2]//@href').toString()
-[TAGUI][164] - listening for inputs
-[TAGUI][165] - dump exist_result to tagui_python.txt
-[TAGUI][165] - listening for inputs
-[TAGUI][166] - read (//a[@class="FlightsTicket_link__kl4DL"])[2]//@href to read_result
-[TAGUI][166] - listening for inputs
-[TAGUI][167] - dump read_result to tagui_python.txt
-[TAGUI][167] - listening for inputs
-[TAGUI][168] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[6]').toString()
-[TAGUI][168] - listening for inputs
-[TAGUI][169] - dump exist_result to tagui_python.txt
-[TAGUI][169] - listening for inputs
-[TAGUI][170] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[6]
-[TAGUI][170] - listening for inputs
-[TAGUI][171] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[6]').toString()
-[TAGUI][171] - listening for inputs
-[TAGUI][172] - dump exist_result to tagui_python.txt
-[TAGUI][172] - listening for inputs
-[TAGUI][173] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[6] to read_result
-[TAGUI][173] - listening for inputs
-[TAGUI][174] - dump read_result to tagui_python.txt
-[TAGUI][174] - listening for inputs
-[TAGUI][175] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[5]').toString()
-[TAGUI][175] - listening for inputs
-[TAGUI][176] - dump exist_result to tagui_python.txt
-[TAGUI][176] - listening for inputs
-[TAGUI][177] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[5]
-[TAGUI][177] - listening for inputs
-[TAGUI][178] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[5]').toString()
-[TAGUI][178] - listening for inputs
-[TAGUI][179] - dump exist_result to tagui_python.txt
-[TAGUI][179] - listening for inputs
-[TAGUI][180] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[5] to read_result
-[TAGUI][180] - listening for inputs
-[TAGUI][181] - dump read_result to tagui_python.txt
-[TAGUI][181] - listening for inputs
-[TAGUI][182] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[6]').toString()
-[TAGUI][182] - listening for inputs
-[TAGUI][183] - dump exist_result to tagui_python.txt
-[TAGUI][183] - listening for inputs
-[TAGUI][184] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[6]
-[TAGUI][184] - listening for inputs
-[TAGUI][185] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[6]').toString()
-[TAGUI][185] - listening for inputs
-[TAGUI][186] - dump exist_result to tagui_python.txt
-[TAGUI][186] - listening for inputs
-[TAGUI][187] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[6] to read_result
-[TAGUI][187] - listening for inputs
-[TAGUI][188] - dump read_result to tagui_python.txt
-[TAGUI][188] - listening for inputs
-[TAGUI][189] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[6]/@alt').toString()
-[TAGUI][189] - listening for inputs
-[TAGUI][190] - dump exist_result to tagui_python.txt
-[TAGUI][190] - listening for inputs
-[TAGUI][191] - hover (//img[@class="BpkImage_bpk-image__img__3HwXN"])[6]/@alt
-[TAGUI][191] - listening for inputs
-[TAGUI][192] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[6]/@alt').toString()
-[TAGUI][192] - listening for inputs
-[TAGUI][193] - dump exist_result to tagui_python.txt
-[TAGUI][193] - listening for inputs
-[TAGUI][194] - read (//img[@class="BpkImage_bpk-image__img__3HwXN"])[6]/@alt to read_result
-[TAGUI][194] - listening for inputs
-[TAGUI][195] - dump read_result to tagui_python.txt
-[TAGUI][195] - listening for inputs
-[TAGUI][196] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[3]').toString()
-[TAGUI][196] - listening for inputs
-[TAGUI][197] - dump exist_result to tagui_python.txt
-[TAGUI][197] - listening for inputs
-[TAGUI][198] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[3]
-[TAGUI][198] - listening for inputs
-[TAGUI][199] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[3]').toString()
-[TAGUI][199] - listening for inputs
-[TAGUI][200] - dump exist_result to tagui_python.txt
-[TAGUI][200] - listening for inputs
-[TAGUI][201] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[3] to read_result
-[TAGUI][201] - listening for inputs
-[TAGUI][202] - dump read_result to tagui_python.txt
-[TAGUI][202] - listening for inputs
-[TAGUI][203] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[3]').toString()
-[TAGUI][203] - listening for inputs
-[TAGUI][204] - dump exist_result to tagui_python.txt
-[TAGUI][204] - listening for inputs
-[TAGUI][205] - hover (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[3]
-[TAGUI][205] - listening for inputs
-[TAGUI][206] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[3]').toString()
-[TAGUI][206] - listening for inputs
-[TAGUI][207] - dump exist_result to tagui_python.txt
-[TAGUI][207] - listening for inputs
-[TAGUI][208] - read (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[3] to read_result
-[TAGUI][208] - listening for inputs
-[TAGUI][209] - dump read_result to tagui_python.txt
-[TAGUI][209] - listening for inputs
-[TAGUI][210] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[3]').toString()
-[TAGUI][210] - listening for inputs
-[TAGUI][211] - dump exist_result to tagui_python.txt
-[TAGUI][211] - listening for inputs
-[TAGUI][212] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[3]
-[TAGUI][212] - listening for inputs
-[TAGUI][213] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[3]').toString()
-[TAGUI][213] - listening for inputs
-[TAGUI][214] - dump exist_result to tagui_python.txt
-[TAGUI][214] - listening for inputs
-[TAGUI][215] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[3] to read_result
-[TAGUI][215] - listening for inputs
-[TAGUI][216] - dump read_result to tagui_python.txt
-[TAGUI][216] - listening for inputs
-[TAGUI][217] - present_result = present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[6]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]').toString()
-[TAGUI][217] - listening for inputs
-[TAGUI][218] - dump present_result to tagui_python.txt
-[TAGUI][218] - listening for inputs
-[TAGUI][219] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[5]').toString()
-[TAGUI][219] - listening for inputs
-[TAGUI][220] - dump exist_result to tagui_python.txt
-[TAGUI][220] - listening for inputs
-[TAGUI][221] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[5]
-[TAGUI][221] - listening for inputs
-[TAGUI][222] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[5]').toString()
-[TAGUI][222] - listening for inputs
-[TAGUI][223] - dump exist_result to tagui_python.txt
-[TAGUI][223] - listening for inputs
-[TAGUI][224] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[5] to read_result
-[TAGUI][224] - listening for inputs
-[TAGUI][225] - dump read_result to tagui_python.txt
-[TAGUI][225] - listening for inputs
-[TAGUI][226] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[6]').toString()
-[TAGUI][226] - listening for inputs
-[TAGUI][227] - dump exist_result to tagui_python.txt
-[TAGUI][227] - listening for inputs
-[TAGUI][228] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[6]
-[TAGUI][228] - listening for inputs
-[TAGUI][229] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[6]').toString()
-[TAGUI][229] - listening for inputs
-[TAGUI][230] - dump exist_result to tagui_python.txt
-[TAGUI][230] - listening for inputs
-[TAGUI][231] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[6] to read_result
-[TAGUI][231] - listening for inputs
-[TAGUI][232] - dump read_result to tagui_python.txt
-[TAGUI][232] - listening for inputs
-[TAGUI][233] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[7]').toString()
-[TAGUI][233] - listening for inputs
-[TAGUI][234] - dump exist_result to tagui_python.txt
-[TAGUI][234] - listening for inputs
-[TAGUI][235] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[7]
-[TAGUI][235] - listening for inputs
-[TAGUI][236] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[7]').toString()
-[TAGUI][236] - listening for inputs
-[TAGUI][237] - dump exist_result to tagui_python.txt
-[TAGUI][237] - listening for inputs
-[TAGUI][238] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[7] to read_result
-[TAGUI][238] - listening for inputs
-[TAGUI][239] - dump read_result to tagui_python.txt
-[TAGUI][239] - listening for inputs
-[TAGUI][240] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[8]').toString()
-[TAGUI][240] - listening for inputs
-[TAGUI][241] - dump exist_result to tagui_python.txt
-[TAGUI][241] - listening for inputs
-[TAGUI][242] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[8]
-[TAGUI][242] - listening for inputs
-[TAGUI][243] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[8]').toString()
-[TAGUI][243] - listening for inputs
-[TAGUI][244] - dump exist_result to tagui_python.txt
-[TAGUI][244] - listening for inputs
-[TAGUI][245] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[8] to read_result
-[TAGUI][245] - listening for inputs
-[TAGUI][246] - dump read_result to tagui_python.txt
-[TAGUI][246] - listening for inputs
-[TAGUI][247] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[7]/@alt').toString()
-[TAGUI][247] - listening for inputs
-[TAGUI][248] - dump exist_result to tagui_python.txt
-[TAGUI][248] - listening for inputs
-[TAGUI][249] - hover (//img[@class="BpkImage_bpk-image__img__3HwXN"])[7]/@alt
-[TAGUI][249] - listening for inputs
-[TAGUI][250] - exist_result = exist('(//img[@class="BpkImage_bpk-image__img__3HwXN"])[7]/@alt').toString()
-[TAGUI][250] - listening for inputs
-[TAGUI][251] - dump exist_result to tagui_python.txt
-[TAGUI][251] - listening for inputs
-[TAGUI][252] - read (//img[@class="BpkImage_bpk-image__img__3HwXN"])[7]/@alt to read_result
-[TAGUI][252] - listening for inputs
-[TAGUI][253] - dump read_result to tagui_python.txt
-[TAGUI][253] - listening for inputs
-[TAGUI][254] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[4]').toString()
-[TAGUI][254] - listening for inputs
-[TAGUI][255] - dump exist_result to tagui_python.txt
-[TAGUI][255] - listening for inputs
-[TAGUI][256] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[4]
-[TAGUI][256] - listening for inputs
-[TAGUI][257] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[4]').toString()
-[TAGUI][257] - listening for inputs
-[TAGUI][258] - dump exist_result to tagui_python.txt
-[TAGUI][258] - listening for inputs
-[TAGUI][259] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[4] to read_result
-[TAGUI][259] - listening for inputs
-[TAGUI][260] - dump read_result to tagui_python.txt
-[TAGUI][260] - listening for inputs
-[TAGUI][261] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[4]').toString()
-[TAGUI][261] - listening for inputs
-[TAGUI][262] - dump exist_result to tagui_python.txt
-[TAGUI][262] - listening for inputs
-[TAGUI][263] - hover (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[4]
-[TAGUI][263] - listening for inputs
-[TAGUI][264] - exist_result = exist('(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[4]').toString()
-[TAGUI][264] - listening for inputs
-[TAGUI][265] - dump exist_result to tagui_python.txt
-[TAGUI][265] - listening for inputs
-[TAGUI][266] - read (//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[4] to read_result
-[TAGUI][266] - listening for inputs
-[TAGUI][267] - dump read_result to tagui_python.txt
-[TAGUI][267] - listening for inputs
-[TAGUI][268] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[4]').toString()
-[TAGUI][268] - listening for inputs
-[TAGUI][269] - dump exist_result to tagui_python.txt
-[TAGUI][269] - listening for inputs
-[TAGUI][270] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[4]
-[TAGUI][270] - listening for inputs
-[TAGUI][271] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[4]').toString()
-[TAGUI][271] - listening for inputs
-[TAGUI][272] - dump exist_result to tagui_python.txt
-[TAGUI][272] - listening for inputs
-[TAGUI][273] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[4] to read_result
-[TAGUI][273] - listening for inputs
-[TAGUI][274] - dump read_result to tagui_python.txt
-[TAGUI][274] - listening for inputs
-[TAGUI][275] - present_result = present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[8]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]').toString()
-[TAGUI][275] - listening for inputs
-[TAGUI][276] - dump present_result to tagui_python.txt
-[TAGUI][276] - listening for inputs
-[TAGUI][277] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[7]').toString()
-[TAGUI][277] - listening for inputs
-[TAGUI][278] - dump exist_result to tagui_python.txt
-[TAGUI][278] - listening for inputs
-[TAGUI][279] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[7]
-[TAGUI][279] - listening for inputs
-[TAGUI][280] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[7]').toString()
-[TAGUI][280] - listening for inputs
-[TAGUI][281] - dump exist_result to tagui_python.txt
-[TAGUI][281] - listening for inputs
-[TAGUI][282] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[7] to read_result
-[TAGUI][282] - listening for inputs
-[TAGUI][283] - dump read_result to tagui_python.txt
-[TAGUI][283] - listening for inputs
-[TAGUI][284] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[8]').toString()
-[TAGUI][284] - listening for inputs
-[TAGUI][285] - dump exist_result to tagui_python.txt
-[TAGUI][285] - listening for inputs
-[TAGUI][286] - hover (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[8]
-[TAGUI][286] - listening for inputs
-[TAGUI][287] - exist_result = exist('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[8]').toString()
-[TAGUI][287] - listening for inputs
-[TAGUI][288] - dump exist_result to tagui_python.txt
-[TAGUI][288] - listening for inputs
-[TAGUI][289] - read (//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[8] to read_result
-[TAGUI][289] - listening for inputs
-[TAGUI][290] - dump read_result to tagui_python.txt
-[TAGUI][290] - listening for inputs
-[TAGUI][291] - dump url() to tagui_python.txt
-[TAGUI][291] - listening for inputs
-[TAGUI][292] - https://www.expedia.com.sg/Flights-Search?flight-type=on&starDate=18%2F10%2F2019&endDate=23%2F10%2F2019&mode=search&trip=roundtrip&leg1=from%3Asingapore%2Cto%3Abeijing%2Cdeparture%3A18%2F10%2F2019TANYT&leg2=from%3Abeijing%2Cto%3Asingapore%2Cdeparture%3A23%2F10%2F2019TANYT&passengers=children%3A0%2Cadults%3A1%2Cseniors%3A0%2Cinfantinlap%3AY
-[TAGUI][292] - listening for inputs
-[TAGUI][293] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][293] - listening for inputs
-[TAGUI][294] - dump present_result to tagui_python.txt
-[TAGUI][294] - listening for inputs
-[TAGUI][295] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][295] - listening for inputs
-[TAGUI][296] - dump present_result to tagui_python.txt
-[TAGUI][296] - listening for inputs
-[TAGUI][297] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][297] - listening for inputs
-[TAGUI][298] - dump present_result to tagui_python.txt
-[TAGUI][298] - listening for inputs
-[TAGUI][299] - exist_result = exist('//span[@id="China-Southern-Airlines-flights-checkbox"]').toString()
-[TAGUI][299] - listening for inputs
-[TAGUI][300] - dump exist_result to tagui_python.txt
-[TAGUI][300] - listening for inputs
-[TAGUI][301] - click //span[@id="China-Southern-Airlines-flights-checkbox"]
-[TAGUI][301] - listening for inputs
-[TAGUI][302] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][302] - listening for inputs
-[TAGUI][303] - dump present_result to tagui_python.txt
-[TAGUI][303] - listening for inputs
-[TAGUI][304] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
-[TAGUI][304] - listening for inputs
-[TAGUI][305] - dump count_result to tagui_python.txt
-[TAGUI][305] - listening for inputs
-[TAGUI][306] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][306] - listening for inputs
-[TAGUI][307] - dump exist_result to tagui_python.txt
-[TAGUI][307] - listening for inputs
-[TAGUI][308] - hover (//span[@data-test-id="departure-time"])[1]
-[TAGUI][308] - listening for inputs
-[TAGUI][309] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][309] - listening for inputs
-[TAGUI][310] - dump exist_result to tagui_python.txt
-[TAGUI][310] - listening for inputs
-[TAGUI][311] - read (//span[@data-test-id="departure-time"])[1] to read_result
-[TAGUI][311] - listening for inputs
-[TAGUI][312] - dump read_result to tagui_python.txt
-[TAGUI][312] - listening for inputs
-[TAGUI][313] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][313] - listening for inputs
-[TAGUI][314] - dump exist_result to tagui_python.txt
-[TAGUI][314] - listening for inputs
-[TAGUI][315] - hover (//span[@data-test-id="departure-time"])[2]
-[TAGUI][315] - listening for inputs
-[TAGUI][316] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][316] - listening for inputs
-[TAGUI][317] - dump exist_result to tagui_python.txt
-[TAGUI][317] - listening for inputs
-[TAGUI][318] - read (//span[@data-test-id="departure-time"])[2] to read_result
-[TAGUI][318] - listening for inputs
-[TAGUI][319] - dump read_result to tagui_python.txt
-[TAGUI][319] - listening for inputs
-[TAGUI][320] - exist_result = exist('(//span[@data-test-id="departure-time"])[3]').toString()
-[TAGUI][320] - listening for inputs
-[TAGUI][321] - dump exist_result to tagui_python.txt
-[TAGUI][321] - listening for inputs
-[TAGUI][322] - hover (//span[@data-test-id="departure-time"])[3]
-[TAGUI][322] - listening for inputs
-[TAGUI][323] - exist_result = exist('(//span[@data-test-id="departure-time"])[3]').toString()
-[TAGUI][323] - listening for inputs
-[TAGUI][324] - dump exist_result to tagui_python.txt
-[TAGUI][324] - listening for inputs
-[TAGUI][325] - read (//span[@data-test-id="departure-time"])[3] to read_result
-[TAGUI][325] - listening for inputs
-[TAGUI][326] - dump read_result to tagui_python.txt
-[TAGUI][326] - listening for inputs
-[TAGUI][327] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
-[TAGUI][327] - listening for inputs
-[TAGUI][328] - dump exist_result to tagui_python.txt
-[TAGUI][328] - listening for inputs
-[TAGUI][329] - hover (//span[@data-test-id="departure-time"])[4]
-[TAGUI][329] - listening for inputs
-[TAGUI][330] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
-[TAGUI][330] - listening for inputs
-[TAGUI][331] - dump exist_result to tagui_python.txt
-[TAGUI][331] - listening for inputs
-[TAGUI][332] - read (//span[@data-test-id="departure-time"])[4] to read_result
-[TAGUI][332] - listening for inputs
-[TAGUI][333] - dump read_result to tagui_python.txt
-[TAGUI][333] - listening for inputs
-[TAGUI][334] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
-[TAGUI][334] - listening for inputs
-[TAGUI][335] - dump exist_result to tagui_python.txt
-[TAGUI][335] - listening for inputs
-[TAGUI][336] - hover (//span[@data-test-id="departure-time"])[5]
-[TAGUI][336] - listening for inputs
-[TAGUI][337] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
-[TAGUI][337] - listening for inputs
-[TAGUI][338] - dump exist_result to tagui_python.txt
-[TAGUI][338] - listening for inputs
-[TAGUI][339] - read (//span[@data-test-id="departure-time"])[5] to read_result
-[TAGUI][339] - listening for inputs
-[TAGUI][340] - dump read_result to tagui_python.txt
-[TAGUI][340] - listening for inputs
-[TAGUI][341] - exist_result = exist('(//span[@data-test-id="departure-time"])[6]').toString()
-[TAGUI][341] - listening for inputs
-[TAGUI][342] - dump exist_result to tagui_python.txt
-[TAGUI][342] - listening for inputs
-[TAGUI][343] - hover (//span[@data-test-id="departure-time"])[6]
-[TAGUI][343] - listening for inputs
-[TAGUI][344] - exist_result = exist('(//span[@data-test-id="departure-time"])[6]').toString()
-[TAGUI][344] - listening for inputs
-[TAGUI][345] - dump exist_result to tagui_python.txt
-[TAGUI][345] - listening for inputs
-[TAGUI][346] - read (//span[@data-test-id="departure-time"])[6] to read_result
-[TAGUI][346] - listening for inputs
-[TAGUI][347] - dump read_result to tagui_python.txt
-[TAGUI][347] - listening for inputs
-[TAGUI][348] - exist_result = exist('(//span[@data-test-id="departure-time"])[7]').toString()
-[TAGUI][348] - listening for inputs
-[TAGUI][349] - dump exist_result to tagui_python.txt
-[TAGUI][349] - listening for inputs
-[TAGUI][350] - hover (//span[@data-test-id="departure-time"])[7]
-[TAGUI][350] - listening for inputs
-[TAGUI][351] - exist_result = exist('(//span[@data-test-id="departure-time"])[7]').toString()
-[TAGUI][351] - listening for inputs
-[TAGUI][352] - dump exist_result to tagui_python.txt
-[TAGUI][352] - listening for inputs
-[TAGUI][353] - read (//span[@data-test-id="departure-time"])[7] to read_result
-[TAGUI][353] - listening for inputs
-[TAGUI][354] - dump read_result to tagui_python.txt
-[TAGUI][354] - listening for inputs
-[TAGUI][355] - exist_result = exist('(//span[@data-test-id="departure-time"])[8]').toString()
-[TAGUI][355] - listening for inputs
-[TAGUI][356] - dump exist_result to tagui_python.txt
-[TAGUI][356] - listening for inputs
-[TAGUI][357] - hover (//span[@data-test-id="departure-time"])[8]
-[TAGUI][357] - listening for inputs
-[TAGUI][358] - exist_result = exist('(//span[@data-test-id="departure-time"])[8]').toString()
-[TAGUI][358] - listening for inputs
-[TAGUI][359] - dump exist_result to tagui_python.txt
-[TAGUI][359] - listening for inputs
-[TAGUI][360] - read (//span[@data-test-id="departure-time"])[8] to read_result
-[TAGUI][360] - listening for inputs
-[TAGUI][361] - dump read_result to tagui_python.txt
-[TAGUI][361] - listening for inputs
-[TAGUI][362] - exist_result = exist('(//span[@data-test-id="departure-time"])[9]').toString()
-[TAGUI][362] - listening for inputs
-[TAGUI][363] - dump exist_result to tagui_python.txt
-[TAGUI][363] - listening for inputs
-[TAGUI][364] - hover (//span[@data-test-id="departure-time"])[9]
-[TAGUI][364] - listening for inputs
-[TAGUI][365] - exist_result = exist('(//span[@data-test-id="departure-time"])[9]').toString()
-[TAGUI][365] - listening for inputs
-[TAGUI][366] - dump exist_result to tagui_python.txt
-[TAGUI][366] - listening for inputs
-[TAGUI][367] - read (//span[@data-test-id="departure-time"])[9] to read_result
-[TAGUI][367] - listening for inputs
-[TAGUI][368] - dump read_result to tagui_python.txt
-[TAGUI][368] - listening for inputs
-[TAGUI][369] - exist_result = exist('(//span[@data-test-id="departure-time"])[10]').toString()
-[TAGUI][369] - listening for inputs
-[TAGUI][370] - dump exist_result to tagui_python.txt
-[TAGUI][370] - listening for inputs
-[TAGUI][371] - hover (//span[@data-test-id="departure-time"])[10]
-[TAGUI][371] - listening for inputs
-[TAGUI][372] - exist_result = exist('(//span[@data-test-id="departure-time"])[10]').toString()
-[TAGUI][372] - listening for inputs
-[TAGUI][373] - dump exist_result to tagui_python.txt
-[TAGUI][373] - listening for inputs
-[TAGUI][374] - read (//span[@data-test-id="departure-time"])[10] to read_result
-[TAGUI][374] - listening for inputs
-[TAGUI][375] - dump read_result to tagui_python.txt
-[TAGUI][375] - listening for inputs
-[TAGUI][376] - exist_result = exist('(//span[@data-test-id="duration"])[10]').toString()
-[TAGUI][376] - listening for inputs
-[TAGUI][377] - dump exist_result to tagui_python.txt
-[TAGUI][377] - listening for inputs
-[TAGUI][378] - hover (//span[@data-test-id="duration"])[10]
-[TAGUI][378] - listening for inputs
-[TAGUI][379] - exist_result = exist('(//span[@data-test-id="duration"])[10]').toString()
-[TAGUI][379] - listening for inputs
-[TAGUI][380] - dump exist_result to tagui_python.txt
-[TAGUI][380] - listening for inputs
-[TAGUI][381] - read (//span[@data-test-id="duration"])[10] to read_result
-[TAGUI][381] - listening for inputs
-[TAGUI][382] - dump read_result to tagui_python.txt
-[TAGUI][382] - listening for inputs
-[TAGUI][383] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[10]').toString()
-[TAGUI][383] - listening for inputs
-[TAGUI][384] - dump exist_result to tagui_python.txt
-[TAGUI][384] - listening for inputs
-[TAGUI][385] - hover (//span[@data-test-id="listing-price-dollars"])[10]
-[TAGUI][385] - listening for inputs
-[TAGUI][386] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[10]').toString()
-[TAGUI][386] - listening for inputs
-[TAGUI][387] - dump exist_result to tagui_python.txt
-[TAGUI][387] - listening for inputs
-[TAGUI][388] - read (//span[@data-test-id="listing-price-dollars"])[10] to read_result
-[TAGUI][388] - listening for inputs
-[TAGUI][389] - dump read_result to tagui_python.txt
-[TAGUI][389] - listening for inputs
-[TAGUI][390] - exist_result = exist('(//button[@data-test-id="select-button"])[10]').toString()
-[TAGUI][390] - listening for inputs
-[TAGUI][391] - dump exist_result to tagui_python.txt
-[TAGUI][391] - listening for inputs
-[TAGUI][392] - click (//button[@data-test-id="select-button"])[10]
-[TAGUI][392] - listening for inputs
-[TAGUI][393] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][393] - listening for inputs
-[TAGUI][394] - dump present_result to tagui_python.txt
-[TAGUI][394] - listening for inputs
-[TAGUI][395] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][395] - listening for inputs
-[TAGUI][396] - dump present_result to tagui_python.txt
-[TAGUI][396] - listening for inputs
-[TAGUI][397] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][397] - listening for inputs
-[TAGUI][398] - dump present_result to tagui_python.txt
-[TAGUI][398] - listening for inputs
-[TAGUI][399] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
-[TAGUI][399] - listening for inputs
-[TAGUI][400] - dump count_result to tagui_python.txt
-[TAGUI][400] - listening for inputs
-[TAGUI][401] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][401] - listening for inputs
-[TAGUI][402] - dump exist_result to tagui_python.txt
-[TAGUI][402] - listening for inputs
-[TAGUI][403] - hover (//span[@data-test-id="departure-time"])[1]
-[TAGUI][403] - listening for inputs
-[TAGUI][404] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][404] - listening for inputs
-[TAGUI][405] - dump exist_result to tagui_python.txt
-[TAGUI][405] - listening for inputs
-[TAGUI][406] - read (//span[@data-test-id="departure-time"])[1] to read_result
-[TAGUI][406] - listening for inputs
-[TAGUI][407] - dump read_result to tagui_python.txt
-[TAGUI][407] - listening for inputs
-[TAGUI][408] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][408] - listening for inputs
-[TAGUI][409] - dump exist_result to tagui_python.txt
-[TAGUI][409] - listening for inputs
-[TAGUI][410] - hover (//span[@data-test-id="departure-time"])[2]
-[TAGUI][410] - listening for inputs
-[TAGUI][411] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][411] - listening for inputs
-[TAGUI][412] - dump exist_result to tagui_python.txt
-[TAGUI][412] - listening for inputs
-[TAGUI][413] - read (//span[@data-test-id="departure-time"])[2] to read_result
-[TAGUI][413] - listening for inputs
-[TAGUI][414] - dump read_result to tagui_python.txt
-[TAGUI][414] - listening for inputs
-[TAGUI][415] - exist_result = exist('(//span[@data-test-id="duration"])[2]').toString()
-[TAGUI][415] - listening for inputs
-[TAGUI][416] - dump exist_result to tagui_python.txt
-[TAGUI][416] - listening for inputs
-[TAGUI][417] - hover (//span[@data-test-id="duration"])[2]
-[TAGUI][417] - listening for inputs
-[TAGUI][418] - exist_result = exist('(//span[@data-test-id="duration"])[2]').toString()
-[TAGUI][418] - listening for inputs
-[TAGUI][419] - dump exist_result to tagui_python.txt
-[TAGUI][419] - listening for inputs
-[TAGUI][420] - read (//span[@data-test-id="duration"])[2] to read_result
-[TAGUI][420] - listening for inputs
-[TAGUI][421] - dump read_result to tagui_python.txt
-[TAGUI][421] - listening for inputs
-[TAGUI][422] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[2]').toString()
-[TAGUI][422] - listening for inputs
-[TAGUI][423] - dump exist_result to tagui_python.txt
-[TAGUI][423] - listening for inputs
-[TAGUI][424] - hover (//span[@data-test-id="listing-price-dollars"])[2]
-[TAGUI][424] - listening for inputs
-[TAGUI][425] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[2]').toString()
-[TAGUI][425] - listening for inputs
-[TAGUI][426] - dump exist_result to tagui_python.txt
-[TAGUI][426] - listening for inputs
-[TAGUI][427] - read (//span[@data-test-id="listing-price-dollars"])[2] to read_result
-[TAGUI][427] - listening for inputs
-[TAGUI][428] - dump read_result to tagui_python.txt
-[TAGUI][428] - listening for inputs
-[TAGUI][429] - https://www.expedia.com.sg/Flights-Search?flight-type=on&starDate=18%2F10%2F2019&endDate=23%2F10%2F2019&mode=search&trip=roundtrip&leg1=from%3Asingapore%2Cto%3Abeijing%2Cdeparture%3A18%2F10%2F2019TANYT&leg2=from%3Abeijing%2Cto%3Asingapore%2Cdeparture%3A23%2F10%2F2019TANYT&passengers=children%3A0%2Cadults%3A1%2Cseniors%3A0%2Cinfantinlap%3AY
-[TAGUI][429] - listening for inputs
-[TAGUI][430] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][430] - listening for inputs
-[TAGUI][431] - dump present_result to tagui_python.txt
-[TAGUI][431] - listening for inputs
-[TAGUI][432] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][432] - listening for inputs
-[TAGUI][433] - dump present_result to tagui_python.txt
-[TAGUI][433] - listening for inputs
-[TAGUI][434] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][434] - listening for inputs
-[TAGUI][435] - dump present_result to tagui_python.txt
-[TAGUI][435] - listening for inputs
-[TAGUI][436] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][436] - listening for inputs
-[TAGUI][437] - dump present_result to tagui_python.txt
-[TAGUI][437] - listening for inputs
-[TAGUI][438] - present_result = present('//input[@classes="filter-checkbox"]').toString()
-[TAGUI][438] - listening for inputs
-[TAGUI][439] - dump present_result to tagui_python.txt
-[TAGUI][439] - listening for inputs
-[TAGUI][440] - exist_result = exist('//span[@id="China-Southern-Airlines-flights-checkbox"]').toString()
-[TAGUI][440] - listening for inputs
-[TAGUI][441] - dump exist_result to tagui_python.txt
-[TAGUI][441] - listening for inputs
-[TAGUI][442] - click //span[@id="China-Southern-Airlines-flights-checkbox"]
-[TAGUI][442] - listening for inputs
-[TAGUI][443] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][443] - listening for inputs
-[TAGUI][444] - dump present_result to tagui_python.txt
-[TAGUI][444] - listening for inputs
-[TAGUI][445] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
-[TAGUI][445] - listening for inputs
-[TAGUI][446] - dump count_result to tagui_python.txt
-[TAGUI][446] - listening for inputs
-[TAGUI][447] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][447] - listening for inputs
-[TAGUI][448] - dump exist_result to tagui_python.txt
-[TAGUI][448] - listening for inputs
-[TAGUI][449] - hover (//span[@data-test-id="departure-time"])[1]
-[TAGUI][449] - listening for inputs
-[TAGUI][450] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][450] - listening for inputs
-[TAGUI][451] - dump exist_result to tagui_python.txt
-[TAGUI][451] - listening for inputs
-[TAGUI][452] - read (//span[@data-test-id="departure-time"])[1] to read_result
-[TAGUI][452] - listening for inputs
-[TAGUI][453] - dump read_result to tagui_python.txt
-[TAGUI][453] - listening for inputs
-[TAGUI][454] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][454] - listening for inputs
-[TAGUI][455] - dump exist_result to tagui_python.txt
-[TAGUI][455] - listening for inputs
-[TAGUI][456] - hover (//span[@data-test-id="departure-time"])[2]
-[TAGUI][456] - listening for inputs
-[TAGUI][457] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][457] - listening for inputs
-[TAGUI][458] - dump exist_result to tagui_python.txt
-[TAGUI][458] - listening for inputs
-[TAGUI][459] - read (//span[@data-test-id="departure-time"])[2] to read_result
-[TAGUI][459] - listening for inputs
-[TAGUI][460] - dump read_result to tagui_python.txt
-[TAGUI][460] - listening for inputs
-[TAGUI][461] - exist_result = exist('(//span[@data-test-id="departure-time"])[3]').toString()
-[TAGUI][461] - listening for inputs
-[TAGUI][462] - dump exist_result to tagui_python.txt
-[TAGUI][462] - listening for inputs
-[TAGUI][463] - hover (//span[@data-test-id="departure-time"])[3]
-[TAGUI][463] - listening for inputs
-[TAGUI][464] - exist_result = exist('(//span[@data-test-id="departure-time"])[3]').toString()
-[TAGUI][464] - listening for inputs
-[TAGUI][465] - dump exist_result to tagui_python.txt
-[TAGUI][465] - listening for inputs
-[TAGUI][466] - read (//span[@data-test-id="departure-time"])[3] to read_result
-[TAGUI][466] - listening for inputs
-[TAGUI][467] - dump read_result to tagui_python.txt
-[TAGUI][467] - listening for inputs
-[TAGUI][468] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
-[TAGUI][468] - listening for inputs
-[TAGUI][469] - dump exist_result to tagui_python.txt
-[TAGUI][469] - listening for inputs
-[TAGUI][470] - hover (//span[@data-test-id="departure-time"])[4]
-[TAGUI][470] - listening for inputs
-[TAGUI][471] - exist_result = exist('(//span[@data-test-id="departure-time"])[4]').toString()
-[TAGUI][471] - listening for inputs
-[TAGUI][472] - dump exist_result to tagui_python.txt
-[TAGUI][472] - listening for inputs
-[TAGUI][473] - read (//span[@data-test-id="departure-time"])[4] to read_result
-[TAGUI][473] - listening for inputs
-[TAGUI][474] - dump read_result to tagui_python.txt
-[TAGUI][474] - listening for inputs
-[TAGUI][475] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
-[TAGUI][475] - listening for inputs
-[TAGUI][476] - dump exist_result to tagui_python.txt
-[TAGUI][476] - listening for inputs
-[TAGUI][477] - hover (//span[@data-test-id="departure-time"])[5]
-[TAGUI][477] - listening for inputs
-[TAGUI][478] - exist_result = exist('(//span[@data-test-id="departure-time"])[5]').toString()
-[TAGUI][478] - listening for inputs
-[TAGUI][479] - dump exist_result to tagui_python.txt
-[TAGUI][479] - listening for inputs
-[TAGUI][480] - read (//span[@data-test-id="departure-time"])[5] to read_result
-[TAGUI][480] - listening for inputs
-[TAGUI][481] - dump read_result to tagui_python.txt
-[TAGUI][481] - listening for inputs
-[TAGUI][482] - exist_result = exist('(//span[@data-test-id="duration"])[5]').toString()
-[TAGUI][482] - listening for inputs
-[TAGUI][483] - dump exist_result to tagui_python.txt
-[TAGUI][483] - listening for inputs
-[TAGUI][484] - hover (//span[@data-test-id="duration"])[5]
-[TAGUI][484] - listening for inputs
-[TAGUI][485] - exist_result = exist('(//span[@data-test-id="duration"])[5]').toString()
-[TAGUI][485] - listening for inputs
-[TAGUI][486] - dump exist_result to tagui_python.txt
-[TAGUI][486] - listening for inputs
-[TAGUI][487] - read (//span[@data-test-id="duration"])[5] to read_result
-[TAGUI][487] - listening for inputs
-[TAGUI][488] - dump read_result to tagui_python.txt
-[TAGUI][488] - listening for inputs
-[TAGUI][489] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[5]').toString()
-[TAGUI][489] - listening for inputs
-[TAGUI][490] - dump exist_result to tagui_python.txt
-[TAGUI][490] - listening for inputs
-[TAGUI][491] - hover (//span[@data-test-id="listing-price-dollars"])[5]
-[TAGUI][491] - listening for inputs
-[TAGUI][492] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[5]').toString()
-[TAGUI][492] - listening for inputs
-[TAGUI][493] - dump exist_result to tagui_python.txt
-[TAGUI][493] - listening for inputs
-[TAGUI][494] - read (//span[@data-test-id="listing-price-dollars"])[5] to read_result
-[TAGUI][494] - listening for inputs
-[TAGUI][495] - dump read_result to tagui_python.txt
-[TAGUI][495] - listening for inputs
-[TAGUI][496] - exist_result = exist('(//button[@data-test-id="select-button"])[5]').toString()
-[TAGUI][496] - listening for inputs
-[TAGUI][497] - dump exist_result to tagui_python.txt
-[TAGUI][497] - listening for inputs
-[TAGUI][498] - click (//button[@data-test-id="select-button"])[5]
-[TAGUI][498] - listening for inputs
-[TAGUI][499] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][499] - listening for inputs
-[TAGUI][500] - dump present_result to tagui_python.txt
-[TAGUI][500] - listening for inputs
-[TAGUI][501] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][501] - listening for inputs
-[TAGUI][502] - dump present_result to tagui_python.txt
-[TAGUI][502] - listening for inputs
-[TAGUI][503] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][503] - listening for inputs
-[TAGUI][504] - dump present_result to tagui_python.txt
-[TAGUI][504] - listening for inputs
-[TAGUI][505] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][505] - listening for inputs
-[TAGUI][506] - dump present_result to tagui_python.txt
-[TAGUI][506] - listening for inputs
-[TAGUI][507] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][507] - listening for inputs
-[TAGUI][508] - dump present_result to tagui_python.txt
-[TAGUI][508] - listening for inputs
-[TAGUI][509] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][509] - listening for inputs
-[TAGUI][510] - dump present_result to tagui_python.txt
-[TAGUI][510] - listening for inputs
-[TAGUI][511] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][511] - listening for inputs
-[TAGUI][512] - dump present_result to tagui_python.txt
-[TAGUI][512] - listening for inputs
-[TAGUI][513] - present_result = present('//button[@data-test-id="select-button"]').toString()
-[TAGUI][513] - listening for inputs
-[TAGUI][514] - dump present_result to tagui_python.txt
-[TAGUI][514] - listening for inputs
-[TAGUI][515] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
-[TAGUI][515] - listening for inputs
-[TAGUI][516] - dump count_result to tagui_python.txt
-[TAGUI][516] - listening for inputs
-[TAGUI][517] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][517] - listening for inputs
-[TAGUI][518] - dump exist_result to tagui_python.txt
-[TAGUI][518] - listening for inputs
-[TAGUI][519] - hover (//span[@data-test-id="departure-time"])[1]
-[TAGUI][519] - listening for inputs
-[TAGUI][520] - exist_result = exist('(//span[@data-test-id="departure-time"])[1]').toString()
-[TAGUI][520] - listening for inputs
-[TAGUI][521] - dump exist_result to tagui_python.txt
-[TAGUI][521] - listening for inputs
-[TAGUI][522] - read (//span[@data-test-id="departure-time"])[1] to read_result
-[TAGUI][522] - listening for inputs
-[TAGUI][523] - dump read_result to tagui_python.txt
-[TAGUI][523] - listening for inputs
-[TAGUI][524] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][524] - listening for inputs
-[TAGUI][525] - dump exist_result to tagui_python.txt
-[TAGUI][525] - listening for inputs
-[TAGUI][526] - hover (//span[@data-test-id="departure-time"])[2]
-[TAGUI][526] - listening for inputs
-[TAGUI][527] - exist_result = exist('(//span[@data-test-id="departure-time"])[2]').toString()
-[TAGUI][527] - listening for inputs
-[TAGUI][528] - dump exist_result to tagui_python.txt
-[TAGUI][528] - listening for inputs
-[TAGUI][529] - read (//span[@data-test-id="departure-time"])[2] to read_result
-[TAGUI][529] - listening for inputs
-[TAGUI][530] - dump read_result to tagui_python.txt
-[TAGUI][530] - listening for inputs
-[TAGUI][531] - exist_result = exist('(//span[@data-test-id="duration"])[2]').toString()
-[TAGUI][531] - listening for inputs
-[TAGUI][532] - dump exist_result to tagui_python.txt
-[TAGUI][532] - listening for inputs
-[TAGUI][533] - hover (//span[@data-test-id="duration"])[2]
-[TAGUI][533] - listening for inputs
-[TAGUI][534] - exist_result = exist('(//span[@data-test-id="duration"])[2]').toString()
-[TAGUI][534] - listening for inputs
-[TAGUI][535] - dump exist_result to tagui_python.txt
-[TAGUI][535] - listening for inputs
-[TAGUI][536] - read (//span[@data-test-id="duration"])[2] to read_result
-[TAGUI][536] - listening for inputs
-[TAGUI][537] - dump read_result to tagui_python.txt
-[TAGUI][537] - listening for inputs
-[TAGUI][538] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[2]').toString()
-[TAGUI][538] - listening for inputs
-[TAGUI][539] - dump exist_result to tagui_python.txt
-[TAGUI][539] - listening for inputs
-[TAGUI][540] - hover (//span[@data-test-id="listing-price-dollars"])[2]
-[TAGUI][540] - listening for inputs
-[TAGUI][541] - exist_result = exist('(//span[@data-test-id="listing-price-dollars"])[2]').toString()
-[TAGUI][541] - listening for inputs
-[TAGUI][542] - dump exist_result to tagui_python.txt
-[TAGUI][542] - listening for inputs
-[TAGUI][543] - read (//span[@data-test-id="listing-price-dollars"])[2] to read_result
-[TAGUI][543] - listening for inputs
-[TAGUI][544] - dump read_result to tagui_python.txt
-[TAGUI][544] - listening for inputs

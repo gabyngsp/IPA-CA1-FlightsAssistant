@@ -49,31 +49,41 @@ def getFlightInfo(date, ind):
 
             code = util.hover_and_read(
                 f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+            airline = util.hover_and_read(
+                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
             if code[37:42] != 'small':
                 q = q + 1
                 code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                airline = util.hover_and_read(
+                    f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
                 if code[37:42] != 'small':
                     q = q + 1
                     code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                    airline = util.hover_and_read(
+                        f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
                     if code[37:42] != 'small':
                         q = q + 1
                         code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                        airline = util.hover_and_read(
+                            f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
+
             q = q + 1
 
             print(code)
+            print(airline)
             code_lst.append(code[43:45])
             print(code_lst)
             time_dep = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
             time_arr = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
-            airline = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{type * k + 2 + i}]/@alt')
             dur = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[{type * n + 1 + i}]')
             transfer = util.hover_and_read(f'(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[{type * n + 1 + i}]')
+            print(transfer)
             if transfer == 'Direct':
                 transfer_plc = ''
             elif transfer == '1 stop':
                 transfer_plc = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[{m}]')
                 m = m + 1
-
+            print(transfer_plc)
             ### Arrival Time plus 1 day check
             if t.present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[' + str(2 * type * n + 2 + 2 * i) + ']//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]'):
                 date_pls = 1
@@ -110,22 +120,21 @@ def getFlightInfo(date, ind):
 
 
         href_lst.append(t.url()[0:-2] + href)
-        price_lst.append(price)
+        price_lst.append(int(price[1:]))
+        print(price_lst)
         deal_lst.append(ind)
 
     details = {'Deal Index': index_lst, 'Flight Leg': leg_lst, 'Bound': bound_lst, 'Departure Time': time_dep_lst,
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
-    main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst}
-    return main, details, time_lst, code_lst, ind
+    main = {'Deal': deal_lst, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details}
+    return main, time_lst, code_lst, dur_lst, ind
 
 
 def getFlightExcel(info,ind):
     frames_main = []
     frames_details = []
-    price_exp_lst = []
-    flight_main, flight_details, time_lst, code_lst, ind = getFlightInfo(info['dates'], ind)
-
+    flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
 
     ###Compare Price with Expedia (Hyperlink/Multi to be added)
     for i in range(2):
@@ -136,26 +145,14 @@ def getFlightExcel(info,ind):
         t.wait(5)
 
         k = len(info['dates'])
-        print(time_lst)
-        print(time_lst[k*i:k*(i+1)])
-        price = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], flight_details['Duration'][k*i:k*(i+1)])
-        price_exp_lst.append(price)
-        print(price_exp_lst)
+        price_exp, url_exp = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], dur_lst[k*i:k*(i+1)])
+        print(price_exp)
+        print(url_exp)
+        print(flight_main['Price'])
+        if price_exp < flight_main['Price'][i] & price_exp != 0:
+            flight_main['Price'][i] = price_exp
+            flight_main['Hyperlink'][i] = url_exp
+        print(flight_main['Price'])
+        print(flight_main['Details']['Airline'])
 
 
-    frames_details.append(DataFrame(flight_details,
-                                    columns=['Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time',
-                                             'Duration', 'Transfer', 'Transfer Place', 'Airline']))
-    df_details = pd.concat(frames_details)
-    export_csv = df_details.to_csv('Skyscanner_details.csv', index=None)
-    print(df_details)
-
-    frames_main.append(DataFrame(flight_main,
-                                 columns=['Deal', 'Price', 'Hyperlink']))
-    df_main = pd.concat(frames_main)
-    export_csv = df_main.to_csv('Skyscanner_main.csv', index=None)
-    print(df_main)
-
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['18/11/2019', '23/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
-#print(len(info['dates']))
-#getFlightExcel(info,0)
