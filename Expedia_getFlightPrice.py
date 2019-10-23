@@ -5,16 +5,26 @@ import tagui_util as util
 
 def getExpFlightPrice(airline, dep_ref, dur_ref):
     util.wait_for_pageload('//input[@classes="filter-checkbox"]')
+
     t.wait(3)
     t.click(f'//a[@data-content-id="airlineToggleContainer"]')
 
     for i in range(len(dep_ref)):
         if i == 0:
-            t.wait(3)
-            t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+            if t.present(f'//input[@id="airlineRowContainer_{airline[i]}"]'):
+                t.wait(3)
+                t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+            else:
+                print('Not match')
+                return 0, ''
+
         elif airline[i] != airline[i-1]:
-            t.wait(1)
-            t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+            if t.present(f'//input[@id="airlineRowContainer_{airline[i]}"]'):
+                t.wait(1)
+                t.click(f'//input[@id="airlineRowContainer_{airline[i]}"]')
+            else:
+                print('Not match')
+                return 0, ''
 
         if dep_ref[i][0] == '0':
             dep_ref[i] = dep_ref[i][1:]
@@ -39,11 +49,6 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
             if dep == dep_ref[0]:
                 print('dep OK')
                 dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{i}]')
-                price_org = util.hover_and_read(f'(//span[@data-test-id="listing-price-dollars"])[{i}]')
-                print(price_org)
-                price = int(price_org[3:].replace(',', ''))
-                print(price)
-                print(type(price))
                 t.click(f'(//button[@data-test-id="select-button"])[{i}]')
                 t.wait(5)
                 if t.present('//a[@id="forcedChoiceNoThanks"]'):
@@ -51,6 +56,9 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                     t.wait(5)
                 t.popup('offerToken')
                 t.wait(5)
+                price = util.hover_and_read(f'//span[@class="packagePriceTotal"]')
+                price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
+                print(price)
                 url = t.url()
                 return price, url
 
@@ -59,11 +67,6 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
             if dep == dep_ref[0]:
                 print('dep OK')
                 dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{i}]')
-                price_org = util.hover_and_read(f'(//span[@data-test-id="listing-price-dollars"])[{i}]')
-                print(price_org)
-                price = int(price_org[3:].replace(',', ''))
-                print(price)
-                print(type(price))
 
                 t.click(f'(//button[@data-test-id="select-button"])[{i}]')
                 t.wait(5)
@@ -80,12 +83,6 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                         dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{j}+1]')
 
                         if dur == dur_ref[1]:
-                            print('return dur ok')
-                            price_plus = util.hover_and_read(
-                                f'(//span[@data-test-id="listing-price-dollars"])[{j}]')
-                            print(price_plus)
-                            price = price + int(price_plus[5:])
-                            print(price)
                             t.click(f'(//button[@data-test-id="select-button"])[{j}]')
                             t.wait(5)
                             if t.present('//a[@id="forcedChoiceNoThanks"]'):
@@ -93,6 +90,9 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                                 t.wait(5)
                             t.popup('Flight-Information?offerToken')
                             util.wait_for_pageload('//h1[@class="section-header-main"]')
+                            price = util.hover_and_read(f'//span[@class="packagePriceTotal"]')
+                            price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
+                            print(price)
                             url = t.url()
                             print(url)
                             return price, url
@@ -109,9 +109,6 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                 print(dur_lst)
                 print(dur_ref)
                 if dur_lst == dur_ref:
-                    price_org = util.hover_and_read(f'(//span[@data-test-id="listing-price-dollars"])[{i}]')
-                    price = int(price_org[3:].replace(',', ''))
-                    print(price)
                     t.click(f'(//button[@data-test-id="select-button"])[{j}]')
                     t.wait(5)
                     if t.present('//a[@id="forcedChoiceNoThanks"]'):
@@ -119,6 +116,9 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                         t.wait(5)
                     t.popup('offerToken')
                     t.wait(5)
+                    price = util.hover_and_read(f'//span[@class="packagePriceTotal"]')
+                    price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
+                    print(price)
                     url = t.url()
                     print(url)
                     return price, url

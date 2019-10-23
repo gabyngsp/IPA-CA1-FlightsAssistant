@@ -29,6 +29,8 @@ def getFlightInfo(date, ind):
     time_lst = []
     code_lst = []
     ###Sponsor check
+    q = 0
+
     for n in range(2):
         if t.present('//span[@class="BpkBadge_bpk-badge__2mEjm "]'):
             k = n + 1
@@ -37,16 +39,21 @@ def getFlightInfo(date, ind):
 
         ### href and price check
         href = util.hover_and_read(f'(//a[@class="FlightsTicket_link__kl4DL"])[{n + 1}]//@href')
-        price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
-
+        if t.present('//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"]'):
+            price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"])[{n+1}]')
+            price_lst.append(int(price.replace(',', '').replace(' total', '').replace('$', '')))
+            print(price_lst)
+        else:
+            price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
+            price_lst.append(int(price.replace(',', '').replace('$', '')))
+            print(price_lst)
         ind = ind + 1
         print(ind)
 
-        q = 1
         for i in range(type):
             leg = i+1
             print(leg)
-
+            q = q + 1
             code = util.hover_and_read(
                 f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
             airline = util.hover_and_read(
@@ -67,9 +74,6 @@ def getFlightInfo(date, ind):
                         airline = util.hover_and_read(
                             f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
 
-            q = q + 1
-
-            print(code)
             print(airline)
             code_lst.append(code[43:45])
             print(code_lst)
@@ -120,8 +124,6 @@ def getFlightInfo(date, ind):
 
 
         href_lst.append(t.url()[0:-2] + href)
-        price_lst.append(int(price[1:]))
-        print(price_lst)
         deal_lst.append(ind)
 
     flight_info = [[] for _ in range(2)]
@@ -135,7 +137,7 @@ def getFlightInfo(date, ind):
 def getFlightExcel(info,ind):
 
     flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
-
+    print(dur_lst)
     k = len(info['dates'])
 
     flight_lst = []
@@ -168,8 +170,8 @@ def getFlightExcel(info,ind):
             flight_main['Price'][i] = price_exp
             flight_main['Hyperlink'][i] = url_exp
     print(flight_main['Price'])
+    print(flight_main['Hyperlink'])
     print(flight_main['Details']['Airline'])
-    print(flight_main['Flight Info'])
-    print(flight_main['Flight Info'][0][0])
+    print(flight_main['Details']['Duration'])
 
 
