@@ -61,6 +61,8 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                 print(price)
                 url = t.url()
                 return price, url
+            else:
+                return 0, ''
 
         elif len(dur_ref) == 2:
             print('trip', len(dur_ref))
@@ -96,6 +98,9 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                             url = t.url()
                             print(url)
                             return price, url
+            else:
+                return 0, ''
+
         elif len(dur_ref) >= 3:
             dep_lst = []
             dur_lst = []
