@@ -174,4 +174,6 @@ def getFlightExcel(info,ind):
     print(flight_main['Details']['Airline'])
     print(flight_main['Details']['Duration'])
 
+    return flight_main
+
 

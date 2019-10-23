@@ -2,7 +2,7 @@ import tagui as t
 import tagui_util as tu
 from datetime import datetime as dt
 from Skyscanner_getFlightInfo import getFlightExcel
-
+import DB_Functions as dbf
 
 # #one way
 # info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
@@ -156,13 +156,20 @@ def fill_search(enquiry):
     else:
         one_way_trip(enquiry)
 
-def flight_search(info):
+def flight_search(flight_request):
+    request_id = flight_request['Request_ID']
+    info = flight_request['Request_Details']
     t.init()
     t.url('https://www.skyscanner.com.sg/')
     tu.wait_for_pageload('//input[@id="fsc-trip-type-selector-return"]')
     fill_search(info)
     ind = 0
-    getFlightExcel(info,ind)
+    flight_main = getFlightExcel(info,ind)
+    flight_main.update({'Request_ID': request_id})
+    print(flight_main)
+    flight_main.move_to_end('Request_ID', last=False)
+    print(flight_main)
+    dbf.newFlightDeals(flight_main)
     t.wait(10.0)
     t.close()
 
@@ -172,5 +179,7 @@ def flight_search(info):
 #info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}
 # #multi-city
 #info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
+
+info = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
 
 flight_search(info)
