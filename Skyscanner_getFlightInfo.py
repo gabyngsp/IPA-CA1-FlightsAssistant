@@ -41,11 +41,11 @@ def getFlightInfo(date, ind):
         href = util.hover_and_read(f'(//a[@class="FlightsTicket_link__kl4DL"])[{n + 1}]//@href')
         if t.present('//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"]'):
             price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"])[{n+1}]')
-            price_lst.append(int(price.replace(',', '').replace(' total', '').replace('$', '')))
+            price_lst.append(float(price.replace(',', '').replace(' total', '').replace('$', '')))
             print(price_lst)
         else:
             price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
-            price_lst.append(int(price.replace(',', '').replace('$', '')))
+            price_lst.append(float(price.replace(',', '').replace('$', '')))
             print(price_lst)
         ind = ind + 1
         print(ind)
@@ -154,21 +154,22 @@ def getFlightExcel(info,ind):
 
 
     ###Compare Price with Expedia (Hyperlink/Multi to be added)
-    for i in range(2):
+    for j in range(2):
         t.close()
         t.init()
         t.wait(0.5)
         flight_search(info)
         t.wait(5)
-        flight_main['Flight Info'][i] = flight_lst
+        flight_main['Flight Info'][j] = flight_lst
 
-        price_exp, url_exp = getExpFlightPrice(code_lst[k*i:k*(i+1)], time_lst[k*i:k*(i+1)], dur_lst[k*i:k*(i+1)])
+        price_exp, url_exp = getExpFlightPrice(code_lst[k*j:k*(j+1)], time_lst[k*j:k*(j+1)], dur_lst[k*j:k*(j+1)])
         print(price_exp)
         print(url_exp)
         print(flight_main['Price'])
-        if price_exp < flight_main['Price'][i] & price_exp != 0:
-            flight_main['Price'][i] = price_exp
-            flight_main['Hyperlink'][i] = url_exp
+        if price_exp < flight_main['Price'][j]:
+            if price_exp != 0:
+                flight_main['Price'][j] = price_exp
+                flight_main['Hyperlink'][j] = url_exp
     print(flight_main['Price'])
     print(flight_main['Hyperlink'])
     print(flight_main['Details']['Airline'])
