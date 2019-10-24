@@ -52,7 +52,6 @@ def audio2text(audiofile):
     except sr.RequestError as e:
         print("Could not request results from service; {0}".format(e))
 
-
 def recognize(audiotext,info):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(audiotext)
@@ -66,17 +65,30 @@ def recognize(audiotext,info):
             adult = int(noun_chunk.ents[0].text)
 
     for ent in doc.ents:
-        # print('text: ',ent.text)
+        print('text: ',ent.label_)
         if ent.label_ == 'GPE':
             city.append(ent.text)
         elif ent.label_ == 'DATE':
             raw_date = (ent.text).split(" ")
+            dateday = (((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')
+            datemonth = raw_date[0]
+            month = dt.strptime(datemonth, '%B')
+            datemonth = month.strftime('%m')[:2]
             if len(raw_date) == 3:
-                dateday = (((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')
-                datemonth = raw_date[0]
                 dateyear = raw_date[2]
-                final_date = dt.strptime(dateday + " " + datemonth + " " + dateyear, '%d %B %Y')
-                dates.append(final_date.strftime('%d/%m/%Y'))
+            if len(raw_date) == 2:
+                now = dt.now()
+                now_year = now.strftime('%Y/%m%d %H:%M:%S')[:4]
+                now_month = now.strftime('%Y/%m%d %H:%M:%S')[5:7]
+                now_day = now.strftime('%Y/%m%d %H:%M:%S')[7:10]
+                if now_month < datemonth:
+                    dateyear = now_year
+                elif now_month == datemonth and now_day <= dateday:
+                    dateyear = now_year
+                else:
+                    dateyear = int(now_year) + 1
+            final_date = dt.strptime(dateday + " " + datemonth + " " + str(dateyear), '%d %m %Y')
+            dates.append(final_date.strftime('%d/%m/%Y'))
 
     age_is = False
 
@@ -92,10 +104,22 @@ def recognize(audiotext,info):
     info['dates'] = dates
     info['adult'] = adult
     info['child_age'] = child_age
-    print(info)
     return info
 
-# info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
+def find_num(text):  # use to get the num of monitor days
+    nlp = spacy.load("en_core_web_sm")
+    doc = nlp(text)
+    flag = 1
+    for token in doc:
+        if token.pos_ == 'NUM':
+            flag = 0
+            return token.text
+    if flag:
+        return 1
 
-# audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children"
+
+
+#info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
+#audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children"
+#audiotext = 'September 5th'
 #info = recognize(audiotext, info)
