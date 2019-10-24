@@ -10,28 +10,30 @@ def getFlightInfo(date, ind):
     t.wait(2)
     util.wait_for_pageload('//div[@class="ResultsSummary_summaryContainer__3_ZX_"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT SummaryInfo_itineraryCountContainer__30Hjd"]')
 
-    time_dep_lst = []
-    time_arr_lst = []
-    time_arr_day_lst = []
-    airline_lst = []
-    dur_lst = []
     price_lst = []
-    transfer_lst = []
-    transfer_plc_lst = []
     href_lst = []
-    bound_lst = []
     deal_lst = []
-    index_lst = []
-    leg_lst = []
     m = 1
     type = len(date)
-    date_lst = []
     time_lst = []
     code_lst = []
+    details_lst = []
     ###Sponsor check
     q = 0
 
     for n in range(2):
+        leg_lst = []
+        bound_lst = []
+        time_dep_lst = []
+        time_arr_lst = []
+        time_arr_day_lst = []
+        airline_lst = []
+        dur_lst = []
+        transfer_lst = []
+        transfer_plc_lst = []
+        index_lst = []
+
+
         if t.present('//span[@class="BpkBadge_bpk-badge__2mEjm "]'):
             k = n + 1
         else:
@@ -125,18 +127,21 @@ def getFlightInfo(date, ind):
 
         href_lst.append(t.url()[0:-2] + href)
         deal_lst.append(ind)
-
-    flight_info = [[] for _ in range(2)]
-    details = {'Deal Index': index_lst, 'Flight Leg': leg_lst, 'Bound': bound_lst, 'Departure Time': time_dep_lst,
+        details = {'Deal Index': index_lst, 'Flight Leg': leg_lst, 'Bound': bound_lst, 'Departure Time': time_dep_lst,
                    'Arrival Time': time_arr_lst, 'Duration': dur_lst, 'Transfer': transfer_lst,
                    'Transfer Place': transfer_plc_lst, 'Airline': airline_lst}
-    main = {'Deal': deal_lst, 'Flight Info': flight_info, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details}
+        details_lst.append(details)
+    flight_info = [[] for _ in range(2)]
+
+    main = {'Deal': deal_lst, 'Flight Info': flight_info, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details_lst}
     return main, time_lst, code_lst, dur_lst, ind
 
 
 def getFlightExcel(info,ind):
 
     flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
+
+    print(flight_main['Details'])
     print(dur_lst)
     k = len(info['dates'])
 
