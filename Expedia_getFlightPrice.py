@@ -44,11 +44,11 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
     for i in range(t.count(f'//ul[@id="flightModuleList"]//li')):
         i = i + 1
         print(i)
-        dep = util.hover_and_read(f'(//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[{i}]')
+        dep = t.read(f'(//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[{i}]')
         if len(dur_ref) == 1:
             if dep == dep_ref[0]:
                 print('dep OK')
-                dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{i}]')
+                dur = t.read(f'(//span[@data-test-id="duration"])[{i}]')
                 t.click(f'(//button[@data-test-id="select-button"])[{i}]')
                 t.wait(5)
                 if t.present('//a[@id="forcedChoiceNoThanks"]'):
@@ -56,7 +56,7 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                     t.wait(5)
                 t.popup('Flight-Information?')
                 t.wait(5)
-                price = util.hover_and_read(f'(//span[@class="packagePriceTotal"])[2]')
+                price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                 price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
                 print(price)
                 url = t.url()
@@ -68,7 +68,7 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
             print('trip', len(dur_ref))
             if dep == dep_ref[0]:
                 print('dep OK')
-                dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{i}]')
+                dur = t.read(f'(//span[@data-test-id="duration"])[{i}]')
 
                 t.click(f'(//button[@data-test-id="select-button"])[{i}]')
                 t.wait(5)
@@ -79,10 +79,10 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                 for j in range(t.count(f'//ul[@id="flightModuleList"]//li')):
                     j = j + 1
                     print(j)
-                    dep = util.hover_and_read(f'(//span[@data-test-id="departure-time"])[{j}+1]')
+                    dep = t.read(f'(//span[@data-test-id="departure-time"])[{j}+1]')
                     if dep == dep_ref[1]:
                         print('return dep ok')
-                        dur = util.hover_and_read(f'(//span[@data-test-id="duration"])[{j}+1]')
+                        dur = t.read(f'(//span[@data-test-id="duration"])[{j}+1]')
 
                         if dur == dur_ref[1]:
                             t.click(f'(//button[@data-test-id="select-button"])[{j}]')
@@ -92,7 +92,7 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                                 t.wait(5)
                             t.popup('Flight-Information?')
                             util.wait_for_pageload('//h1[@class="section-header-main"]')
-                            price = util.hover_and_read(f'(//span[@class="packagePriceTotal"])[2]')
+                            price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                             price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
                             print(price)
                             url = t.url()
@@ -106,8 +106,8 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
             dur_lst = []
             print('multi-trip ', len(dur_ref))
             for k in range(len(dur_ref)):
-                dep_lst.append(util.hover_and_read(f'(//span[@data-test-id="departure-time"])[{3*i+k+1}]'))
-                dur_lst.append(util.hover_and_read(f'(//span[@data-test-id="duration"])[{3*i+k+1}]'))
+                dep_lst.append(t.read(f'(//span[@data-test-id="departure-time"])[{3*i+k+1}]'))
+                dur_lst.append(t.read(f'(//span[@data-test-id="duration"])[{3*i+k+1}]'))
             print(dep_lst)
             print(dep_ref)
             if dep_lst == dep_ref:
@@ -121,7 +121,7 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                         t.wait(5)
                     t.popup('Flight-Information?')
                     t.wait(5)
-                    price = util.hover_and_read(f'(//span[@class="packagePriceTotal"])[2]')
+                    price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                     price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
                     print(price)
                     url = t.url()
