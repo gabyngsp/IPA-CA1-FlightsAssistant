@@ -38,13 +38,13 @@ def getFlightInfo(date, ind):
             k = n
 
         ### href and price check
-        href = util.hover_and_read(f'(//a[@class="FlightsTicket_link__kl4DL"])[{n + 1}]//@href')
+        href = t.read(f'(//a[@class="FlightsTicket_link__kl4DL"])[{n + 1}]//@href')
         if t.present('//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"]'):
-            price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"])[{n+1}]')
+            price = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"])[{n+1}]')
             price_lst.append(float(price.replace(',', '').replace(' total', '').replace('$', '')))
             print(price_lst)
         else:
-            price = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
+            price = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
             price_lst.append(float(price.replace(',', '').replace('$', '')))
             print(price_lst)
         ind = ind + 1
@@ -54,38 +54,38 @@ def getFlightInfo(date, ind):
             leg = i+1
             print(leg)
             q = q + 1
-            code = util.hover_and_read(
+            code = t.read(
                 f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-            airline = util.hover_and_read(
+            airline = t.read(
                 f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
             if code[37:42] != 'small':
                 q = q + 1
-                code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                airline = util.hover_and_read(
+                code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                airline = t.read(
                     f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
                 if code[37:42] != 'small':
                     q = q + 1
-                    code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                    airline = util.hover_and_read(
+                    code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                    airline = t.read(
                         f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
                     if code[37:42] != 'small':
                         q = q + 1
-                        code = util.hover_and_read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                        airline = util.hover_and_read(
+                        code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
+                        airline = t.read(
                             f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
 
             print(airline)
             code_lst.append(code[43:45])
             print(code_lst)
-            time_dep = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
-            time_arr = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
-            dur = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[{type * n + 1 + i}]')
-            transfer = util.hover_and_read(f'(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[{type * n + 1 + i}]')
+            time_dep = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
+            time_arr = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
+            dur = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[{type * n + 1 + i}]')
+            transfer = t.read(f'(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[{type * n + 1 + i}]')
             print(transfer)
             if transfer == 'Direct':
                 transfer_plc = ''
             elif transfer == '1 stop':
-                transfer_plc = util.hover_and_read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[{m}]')
+                transfer_plc = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[{m}]')
                 m = m + 1
             print(transfer_plc)
             ### Arrival Time plus 1 day check
@@ -95,9 +95,9 @@ def getFlightInfo(date, ind):
                 date_pls = 0
 
             ### Bound Check
-            dep = util.hover_and_read(
+            dep = t.read(
                 f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[{2* type * n + 1 + 2 * i}]')
-            arr = util.hover_and_read(
+            arr = t.read(
                 f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[{2 * type * n + 2 + 2 * i}]')
             bound = dep + ' - ' + arr
             bound_lst.append(bound)
