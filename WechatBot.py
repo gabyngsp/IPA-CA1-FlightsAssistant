@@ -1,3 +1,5 @@
+import _thread
+
 import itchat
 from itchat.content import *
 
@@ -133,9 +135,6 @@ def getMonitorday(text):
     return find_num(text)
 
 
-itchat.auto_login(hotReload=True)
-
-
 @itchat.msg_register([TEXT, RECORDING])  # [TEXT, MAP, CARD, NOTE, SHARING]
 def book_flight(msg):
     print(u'message tpye: [ %s ] \n content: %s' % (msg['Type'], msg['Text']))
@@ -170,6 +169,17 @@ def book_flight(msg):
         user['last_index'] = ask_info(msg, user['enquiry'])
         print("*1* ", user)
 
+    if user['flag_confirm']:  # all the info has been confirm
+        itchat.send('Please wait for the result', user['nickname'])
+        print('before', user_db)
+        #id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
+        #request = retrieve_FlightRequest(id)
+        #print(request)
+        #flight_search(request)
+        user_db.remove(user)
+        user['flag_monitor'] = False
+        print('after', user_db)
+
     if all(user['enquiry']) and not user['flag_monitor']:
         itchat.send('How many days do you need?', user['nickname'])
         user['flag_monitor'] = True
@@ -180,25 +190,26 @@ def book_flight(msg):
         ask_confirm(user)
         user['flag_confirm'] = confirm_info(text,user['flight_info'])
 
-    if user['flag_confirm']:  # all the info has been confirm
-        itchat.send('Please wait for the result', user['nickname'])
-        print('before', user_db)
-        id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
-        request = retrieve_FlightRequest(id)
-        print(request)
-        flight_search(request)
-        user_db.remove(user)
-        print('after', user_db)
+
+def timer(excel, user_nickname):  # main_scv & detail_scv are the scv files
+    itchat.send_file(excel, user_nickname)
 
 
-def timer(main_scv, detail_scv, user_nickname):  # main_scv & detail_scv are the scv files
-    itchat.send_file(main_scv, user_nickname)
-    itchat.send_file(detail_scv, user_nickname)
+def wechat():
+    itchat.auto_login(hotReload=True)
+    itchat.run()
 
-
-itchat.run()
-
-# _thread.start_new_thread(itchat.run, ())
-# _thread.start_new_thread(timer(), ())
+wechat()
+#
+# def teeime():
+#     for i in range(100):
+#         print(i)
+#
+# def tt():
+#     for i in range(100):
+#         print('hellooooooooooooooooooo')
+#
+# _thread.start_new_thread(tt, ())
+# _thread.start_new_thread(teeime, ())
 
 # itchat.logout()

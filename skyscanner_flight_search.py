@@ -177,6 +177,6 @@ def flight_search(flight_request):
 # #multi-city
 #info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
 
-request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
+#request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
 
-flight_search(request)
+#flight_search(request)
