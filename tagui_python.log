@@ -1,0 +1,148 @@
+
+START - automation started - Fri Oct 25 2019 12:42:34 GMT+0800 (+08)
+
+LIVE MODE - type done to quit
+ [TAGUI][STARTED]
+[TAGUI][0] - listening for inputs
+[TAGUI][1] - https://www.expedia.com.sg/Flights-Search?flight-type=on&starDate=19%2F11%2F2019&endDate=25%2F11%2F2019&mode=search&trip=roundtrip&leg1=from%3Asingapore%2Cto%3AMelbourne%2C+Australia+%28MEL-All+Airports%29%2Cdeparture%3A19%2F11%2F2019TANYT&leg2=from%3AMelbourne%2C+Australia+%28MEL-All+Airports%29%2Cto%3Asingapore%2Cdeparture%3A25%2F11%2F2019TANYT&passengers=children%3A1%5B5%5D%2Cadults%3A1%2Cseniors%3A0%2Cinfantinlap%3AY
+[TAGUI][1] - listening for inputs
+[TAGUI][2] - present_result = present('//input[@classes="filter-checkbox"]').toString()
+[TAGUI][2] - listening for inputs
+[TAGUI][3] - dump present_result to tagui_python.txt
+[TAGUI][3] - listening for inputs
+[TAGUI][4] - present_result = present('//input[@classes="filter-checkbox"]').toString()
+[TAGUI][4] - listening for inputs
+[TAGUI][5] - dump present_result to tagui_python.txt
+[TAGUI][5] - listening for inputs
+[TAGUI][6] - present_result = present('//input[@classes="filter-checkbox"]').toString()
+[TAGUI][6] - listening for inputs
+[TAGUI][7] - dump present_result to tagui_python.txt
+[TAGUI][7] - listening for inputs
+[TAGUI][8] - exist_result = exist('//a[@data-content-id="airlineToggleContainer"]').toString()
+[TAGUI][8] - listening for inputs
+[TAGUI][9] - dump exist_result to tagui_python.txt
+[TAGUI][9] - listening for inputs
+[TAGUI][10] - click //a[@data-content-id="airlineToggleContainer"]
+[TAGUI][10] - listening for inputs
+[TAGUI][11] - present_result = present('//input[@id="airlineRowContainer_TR"]').toString()
+[TAGUI][11] - listening for inputs
+[TAGUI][12] - dump present_result to tagui_python.txt
+[TAGUI][12] - listening for inputs
+[TAGUI][13] - exist_result = exist('//input[@id="airlineRowContainer_TR"]').toString()
+[TAGUI][13] - listening for inputs
+[TAGUI][14] - dump exist_result to tagui_python.txt
+[TAGUI][14] - listening for inputs
+[TAGUI][15] - click //input[@id="airlineRowContainer_TR"]
+[TAGUI][15] - listening for inputs
+[TAGUI][16] - present_result = present('//button[@data-test-id="select-button"]').toString()
+[TAGUI][16] - listening for inputs
+[TAGUI][17] - dump present_result to tagui_python.txt
+[TAGUI][17] - listening for inputs
+[TAGUI][18] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
+[TAGUI][18] - listening for inputs
+[TAGUI][19] - dump count_result to tagui_python.txt
+[TAGUI][19] - listening for inputs
+[TAGUI][20] - exist_result = exist('(//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1]').toString()
+[TAGUI][20] - listening for inputs
+[TAGUI][21] - dump exist_result to tagui_python.txt
+[TAGUI][21] - listening for inputs
+[TAGUI][22] - read (//span[@class="medium-bold"]//span[@data-test-id="departure-time"])[1] to read_result
+[TAGUI][22] - listening for inputs
+[TAGUI][23] - dump read_result to tagui_python.txt
+[TAGUI][23] - listening for inputs
+[TAGUI][24] - exist_result = exist('(//span[@data-test-id="duration"])[1]').toString()
+[TAGUI][24] - listening for inputs
+[TAGUI][25] - dump exist_result to tagui_python.txt
+[TAGUI][25] - listening for inputs
+[TAGUI][26] - read (//span[@data-test-id="duration"])[1] to read_result
+[TAGUI][26] - listening for inputs
+[TAGUI][27] - dump read_result to tagui_python.txt
+[TAGUI][27] - listening for inputs
+[TAGUI][28] - exist_result = exist('(//button[@data-test-id="select-button"])[1]').toString()
+[TAGUI][28] - listening for inputs
+[TAGUI][29] - dump exist_result to tagui_python.txt
+[TAGUI][29] - listening for inputs
+[TAGUI][30] - click (//button[@data-test-id="select-button"])[1]
+[TAGUI][30] - listening for inputs
+[TAGUI][31] - present_result = present('//button[@data-test-id="select-button"]').toString()
+[TAGUI][31] - listening for inputs
+[TAGUI][32] - dump present_result to tagui_python.txt
+[TAGUI][32] - listening for inputs
+[TAGUI][33] - exist_result = exist('//input[@id="airlineRowContainer_TR"]').toString()
+[TAGUI][33] - listening for inputs
+[TAGUI][34] - dump exist_result to tagui_python.txt
+[TAGUI][34] - listening for inputs
+[TAGUI][35] - click //input[@id="airlineRowContainer_TR"]
+[TAGUI][35] - listening for inputs
+[TAGUI][36] - count_result = count('//ul[@id="flightModuleList"]//li').toString()
+[TAGUI][36] - listening for inputs
+[TAGUI][37] - dump count_result to tagui_python.txt
+[TAGUI][37] - listening for inputs
+[TAGUI][38] - exist_result = exist('(//span[@data-test-id="departure-time"])[1+1]').toString()
+[TAGUI][38] - listening for inputs
+[TAGUI][39] - dump exist_result to tagui_python.txt
+[TAGUI][39] - listening for inputs
+[TAGUI][40] - read (//span[@data-test-id="departure-time"])[1+1] to read_result
+[TAGUI][40] - listening for inputs
+[TAGUI][41] - dump read_result to tagui_python.txt
+[TAGUI][41] - listening for inputs
+[TAGUI][42] - exist_result = exist('(//span[@data-test-id="duration"])[1+1]').toString()
+[TAGUI][42] - listening for inputs
+[TAGUI][43] - dump exist_result to tagui_python.txt
+[TAGUI][43] - listening for inputs
+[TAGUI][44] - read (//span[@data-test-id="duration"])[1+1] to read_result
+[TAGUI][44] - listening for inputs
+[TAGUI][45] - dump read_result to tagui_python.txt
+[TAGUI][45] - listening for inputs
+[TAGUI][46] - exist_result = exist('(//button[@data-test-id="select-button"])[1]').toString()
+[TAGUI][46] - listening for inputs
+[TAGUI][47] - dump exist_result to tagui_python.txt
+[TAGUI][47] - listening for inputs
+[TAGUI][48] - click (//button[@data-test-id="select-button"])[1]
+[TAGUI][48] - listening for inputs
+[TAGUI][49] - present_result = present('//a[@id="forcedChoiceNoThanks"]').toString()
+[TAGUI][49] - listening for inputs
+[TAGUI][50] - dump present_result to tagui_python.txt
+[TAGUI][50] - listening for inputs
+[TAGUI][51] - js if (chrome_targetid !== "") {found_targetid = chrome_targetid; chrome_targetid = ""; chrome_step("Target.detachFromTarget", {sessionId: found_targetid});}
+[TAGUI][51] - listening for inputs
+[TAGUI][52] - js found_targetid = ""; chrome_targets = []; ws_message = chrome_step("Target.getTargets", {});
+[TAGUI][52] - listening for inputs
+[TAGUI][53] - js try {ws_json = JSON.parse(ws_message); if (ws_json.result.targetInfos) chrome_targets = ws_json.result.targetInfos; else chrome_targets = [];} catch (e) {chrome_targets = [];}
+[TAGUI][53] - listening for inputs
+[TAGUI][54] - js chrome_targets.forEach(function(target) {if (target.url.indexOf("Flight-Information?") !== -1) found_targetid = target.targetId;})
+[TAGUI][54] - listening for inputs
+[TAGUI][55] - js if (found_targetid !== "") {ws_message = chrome_step("Target.attachToTarget", {targetId: found_targetid}); try {ws_json = JSON.parse(ws_message); if (ws_json.result.sessionId !== "") found_targetid = ws_json.result.sessionId; else found_targetid = "";} catch (e) {found_targetid = "";}}
+[TAGUI][55] - listening for inputs
+[TAGUI][56] - js chrome_targetid = found_targetid
+[TAGUI][56] - listening for inputs
+[TAGUI][57] - dump chrome_targetid to tagui_python.txt
+[TAGUI][57] - listening for inputs
+[TAGUI][58] - js if (chrome_targetid !== "") {found_targetid = chrome_targetid; chrome_targetid = ""; chrome_step("Target.detachFromTarget", {sessionId: found_targetid});}
+[TAGUI][58] - listening for inputs
+[TAGUI][59] - js found_targetid = ""; chrome_targets = []; ws_message = chrome_step("Target.getTargets", {});
+[TAGUI][59] - listening for inputs
+[TAGUI][60] - js try {ws_json = JSON.parse(ws_message); if (ws_json.result.targetInfos) chrome_targets = ws_json.result.targetInfos; else chrome_targets = [];} catch (e) {chrome_targets = [];}
+[TAGUI][60] - listening for inputs
+[TAGUI][61] - js chrome_targets.forEach(function(target) {if (target.url.indexOf("Flight-Information?") !== -1) found_targetid = target.targetId;})
+[TAGUI][61] - listening for inputs
+[TAGUI][62] - js if (found_targetid !== "") {ws_message = chrome_step("Target.attachToTarget", {targetId: found_targetid}); try {ws_json = JSON.parse(ws_message); if (ws_json.result.sessionId !== "") found_targetid = ws_json.result.sessionId; else found_targetid = "";} catch (e) {found_targetid = "";}}
+[TAGUI][62] - listening for inputs
+[TAGUI][63] - js chrome_targetid = found_targetid
+[TAGUI][63] - listening for inputs
+[TAGUI][64] - dump chrome_targetid to tagui_python.txt
+[TAGUI][64] - listening for inputs
+[TAGUI][65] - present_result = present('//h1[@class="section-header-main"]').toString()
+[TAGUI][65] - listening for inputs
+[TAGUI][66] - dump present_result to tagui_python.txt
+[TAGUI][66] - listening for inputs
+[TAGUI][67] - exist_result = exist('(//span[@class="packagePriceTotal"])[2]').toString()
+[TAGUI][67] - listening for inputs
+[TAGUI][68] - dump exist_result to tagui_python.txt
+[TAGUI][68] - listening for inputs
+[TAGUI][69] - read (//span[@class="packagePriceTotal"])[2] to read_result
+[TAGUI][69] - listening for inputs
+[TAGUI][70] - dump read_result to tagui_python.txt
+[TAGUI][70] - listening for inputs
+[TAGUI][71] - dump url() to tagui_python.txt
+[TAGUI][71] - listening for inputs
