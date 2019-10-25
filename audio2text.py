@@ -44,7 +44,7 @@ def audio2text(audiofile):
             print(e)
         else:
             print("output File is deleted successfully")
-
+        print('return the recognize audio')
         return r.recognize_google(audio)
 
     except sr.UnknownValueError:
@@ -65,10 +65,10 @@ def recognize(audiotext,info):
             adult = int(noun_chunk.ents[0].text)
 
     for ent in doc.ents:
-        print('text: ',ent.label_)
+        #print('text: ',ent.label_)
         if ent.label_ == 'GPE':
             city.append(ent.text)
-        elif ent.label_ == 'DATE':
+        elif ent.label_ == 'DATE' and 'age' not in ent.text:
             raw_date = (ent.text).split(" ")
             dateday = (((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')
             datemonth = raw_date[0]
@@ -111,15 +111,15 @@ def find_num(text):  # use to get the num of monitor days
     doc = nlp(text)
     flag = 1
     for token in doc:
-        if token.pos_ == 'NUM':
+        if token.pos_ == 'NUM' or token.pos_ == 'X':
             flag = 0
-            return token.text
+            return int(token.text)
     if flag:
         return 1
 
 
-
 #info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
-#audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children"
+#audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children age 2 and 4"
 #audiotext = 'September 5th'
 #info = recognize(audiotext, info)
+#print(info)

@@ -1,20 +1,12 @@
 import itchat
 from itchat.content import *
 
-from DB_Functions import newFlightRequest
+from DB_Functions import newFlightRequest, retrieve_FlightRequest
 from audio2text import audio2text, audio_conversion, recognize, find_num
-
-
-info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
-enquiry = [False, False, False, False, False]
-confrim = [False, False, False, False, False]
-
+from skyscanner_flight_search import flight_search
 
 user_db = []
-flag = False
-confirm = False
-flag2 = False  # flag for ask monitor days
-last_index = 0
+
 
 # change the cities' order. Put the last one as departure city
 def order(dates):
@@ -22,14 +14,15 @@ def order(dates):
     for i in range(len(dates) - 1, 0, -1):
         dates[i] = dates[i - 1]
     dates[0] = temp
-    return dates #
+    return dates  #
+
 
 def find_user(msg):
     for i in range(len(user_db)):
         if user_db[i]['nickname'] == msg['FromUserName']:
-            return user_db[i]
-        else:
-            return 0
+            return i
+    return -1
+
 
 def update_enq(info, enquiry):
     if info['city']:
@@ -44,27 +37,29 @@ def update_enq(info, enquiry):
         enquiry[4] = True
     return enquiry
 
-def ask_info(msg,enquiry):
-    if not enquiry[0] and flag:  # city
+
+def ask_info(msg, enquiry):
+    if not enquiry[0]:  # city
         itchat.send('Input Departure city in order', msg['FromUserName'])
         last_index = 0
-    elif not enquiry[1] and flag:  # dates
+    elif not enquiry[1]:  # dates
         itchat.send('Departure dates', msg['FromUserName'])
         last_index = 1
-    elif not enquiry[2] and flag:  # cabin
+    elif not enquiry[2]:  # cabin
         itchat.send('Your cabin class', msg['FromUserName'])
         last_index = 2
-    elif not enquiry[3] and flag:  # adult
+    elif not enquiry[3]:  # adult
         itchat.send('How many adults? ', msg['FromUserName'])
         last_index = 3
-    elif not enquiry[4] and flag:  # child
+    elif not enquiry[4]:  # child
         itchat.send('If you have children, input their ages', msg['FromUserName'])
         last_index = 4
     else:
         last_index = 5
     return last_index
 
-def update_info(msg, info):
+
+def update_info(msg, info, last_index):
     if last_index == 0:  # city
         info["city"] = msg['Text'].split(',')
     if last_index == 1:  # dates
@@ -85,37 +80,58 @@ def update_info(msg, info):
                 info["child_age"].append(data[i])
     return info
 
+
+def list2str(l):
+    str = ''
+    for e in l:
+        print(e)
+        str += e + ' '
+    return str
+
+
 # confirm all the new info if correct
-def ask_confirm(text,nickname):
-    if not enquiry[0] and confirm[0]:  # city
-        itchat.send('Confirm\nCity:'+text.split(','),nickname)
-    if not enquiry[1] and confirm[1]:  # dates
-        if ',' in text:
-            itchat.send('Confirm\nDates:'+text.split(','),nickname)
-        else:
-            itchat.send('Confirm\nDates:'+text,nickname)
-    if not enquiry[2] and confirm[2]:  # cabin class
-        itchat.send('Confirm\nCabin class:'+text,nickname)
-    if not enquiry[3] and confirm[3]:  # adult
-        itchat.send('Confirm\nAdult:'+text,nickname)
-    if not enquiry[4] and confirm[4]:  # children
-        data = text.split(",")
-        if 'none' in data[0].lower() or 'no' in data[0].lower():
-            itchat.send('Confirm\nNo children',nickname)
-        else:
-            itchat.send('Confirm\nChildren age:' + data, nickname)
+def ask_confirm(user):
+    info = user['flight_info']
+    confirm_msg = 'Confirm\ncity: ' + list2str(info['city'])+'\ndates: ' + list2str(info['dates'])+'\ncabin class: ' + info['cabin_class']+'\nadult number: ' + str(info['adult'])+'\nchildren age: ' + list2str(info['child_age'])
+    print(confirm_msg)
+    itchat.send(confirm_msg, user['nickname'])
 
 
-def confirm_info(text):
+def confirm_info(text,info):
     if 'yes' in text:
         return True
     else:
+        fix_info(text,info)
         return False
+
+
+def fix_info(text,info):
+    data = text.split(':')
+    for i in range(len(data)):
+        if 'city' in data[i].lower():  # city
+            info["city"] = data[i+1].split(',')
+        if 'dates' in data[i].lower():  # dates
+            if ',' in data[i+1]:
+                info["dates"] = data[i+1].split(',')
+            else:
+                info["dates"] = data[i+1]
+        if 'cabin class' in data[i].lower():  # cabin class
+            info["cabin_class"] = data[i+1]
+        if 'adult' in data[i].lower(): # adult
+            info["adult"] = data[i+1]
+        if 'children' in data[i].lower():  # children
+            data = data[i+1].split(",")
+            if 'none' in data[0].lower() or 'no' in data[0].lower():
+                info["child_age"] = []
+            else:
+                for i in range(len(data)):
+                    info["child_age"].append(data[i])
 
 
 
 def getMonitorday(text):
     return find_num(text)
+
 
 itchat.auto_login(hotReload=True)
 
@@ -123,96 +139,66 @@ itchat.auto_login(hotReload=True)
 @itchat.msg_register([TEXT, RECORDING])  # [TEXT, MAP, CARD, NOTE, SHARING]
 def book_flight(msg):
     print(u'message tpye: [ %s ] \n content: %s' % (msg['Type'], msg['Text']))
-    global flag, info, enquiry, last_index, user_db, flag2, confirm
-    user = {'nickname': '', 'flight_info': info, 'enquiry': enquiry,'confirm': confirm,'monitor_day':0}
+    global user_db
+    info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
+    enquiry = [False, False, False, False, False]
+    user = {'nickname': '', 'flight_info': info, 'enquiry': enquiry, 'flag_monitor': False, 'flag_confirm': False,
+            'last_index': 0, 'monitor_day': 0}
 
     if msg['Type'] == 'Text':
         text = msg['Text']
     elif msg['Type'] == 'Recording':
-        #msg.download(msg.fileName)
-        #text = audio2text(audio_conversion(msg.fileName))
-        text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children age 2 and 1"
+        msg.download(msg.fileName)
+        text = audio2text(audio_conversion(msg.fileName))
+        print('got the audio text')
+        #text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children"
     else:
         text = ''
-    if 'flight' in text:
-        flag = True
+
+    index = find_user(msg)
+    if index != -1:  # user exists
+        user = user_db[index]
+        user['flight_info'] = update_info(msg, user['flight_info'], user['last_index'])
+    elif 'flight' in text:
         user['nickname'] = msg['FromUserName']
-        # need to confirm
-        user['flight_info'] = recognize(text, info)
-        confirm = update_enq(user['flight_info'],user['enquiry'])
-        ask_confirm(text)
+        user['flight_info'] = recognize(text, user['flight_info'])
         user_db.append(user)
-    elif flag:
-        user = find_user(msg)
-        if user != 0:
-            if confirm: # need to confirm
-                confirm_info(msg)
-                comfirm = confirm_info(text)
-            else:  # ask next question
-                user['flight_info'] = update_info(msg, user['flight_info'])
+        index = find_user(msg)
 
-    user['enquiry'] = update_enq(user['flight_info'], user['enquiry'])
-    last_index = ask_info(msg, user['enquiry'])
-    print("3: ", user['flight_info'])
-    if flag2:
+    if index != -1:  # in the searching process
+        user['enquiry'] = update_enq(user['flight_info'], user['enquiry'])
+        user['last_index'] = ask_info(msg, user['enquiry'])
+        print("*1* ", user)
+
+    if all(user['enquiry']) and not user['flag_monitor']:
+        itchat.send('How many days do you need?', user['nickname'])
+        user['flag_monitor'] = True
+    elif user['flag_monitor']:  # get monitor days
         days = getMonitorday(text)
-        user['monitor_day'] = days
-    if all(user['enquiry']) and not flag2:
-        itchat.send('How many days do you need?', msg['FromUserName'])
-        flag2 = True
-    if user['monitor_day']:
-        itchat.send('Please wait for the result', msg['FromUserName'])
-        print('before',user_db)
-        newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
-        flag = False
-        flag2 = False
-        user['nickname'] = ''
-        user['flight_info'] = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
-        user['enquiry'] = [False, False, False, False, False]
-        user['monitor_day'] = 0
-        print('after',user_db)
+        print("days: " + str(days))
+        user['monitor_day'] = str(days)
+        ask_confirm(user)
+        user['flag_confirm'] = confirm_info(text,user['flight_info'])
 
-def timer(main_scv, detail_scv, user_nickname): # main_scv & detail_scv are the scv files
+    if user['flag_confirm']:  # all the info has been confirm
+        itchat.send('Please wait for the result', user['nickname'])
+        print('before', user_db)
+        id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
+        request = retrieve_FlightRequest(id)
+        print(request)
+        flight_search(request)
+        user_db.remove(user)
+        print('after', user_db)
+
+
+def timer(main_scv, detail_scv, user_nickname):  # main_scv & detail_scv are the scv files
     itchat.send_file(main_scv, user_nickname)
     itchat.send_file(detail_scv, user_nickname)
 
 
 itchat.run()
 
-#_thread.start_new_thread(itchat.run, ())
-#_thread.start_new_thread(timer(), ())
+# _thread.start_new_thread(itchat.run, ())
+# _thread.start_new_thread(timer(), ())
 
 # itchat.logout()
-
-def old_version(msg, i):
-    if not enquiry[0] and flag:
-        itchat.send('Destination, date(day/month/year)\n End with typing: finish', msg['FromUserName'])
-        if "finish" in msg['Text']:
-            enquiry[0] = True
-            itchat.send('Departure city', msg['FromUserName'])
-        else:
-            data = msg['Text'].split(',')
-            info["city"].append(data[0])
-            info["dates"].append(data[1])
-            i = i + 1
-    elif not enquiry[1] and flag:
-        info["city"].append(msg['Text'])
-        info["city"] = order(info["city"])
-        enquiry[1] = True
-        itchat.send('Your cabin class', msg['FromUserName'])
-    elif not enquiry[2] and flag:
-        info["cabin_class"] = msg['Text']
-        enquiry[2] = True
-        itchat.send('Number of adults.', msg['FromUserName'])
-    elif not enquiry[3] and flag:
-        info["adult"] = msg['Text']
-        enquiry[3] = True
-        itchat.send('If you have children? input the age', msg['FromUserName'])
-    elif not enquiry[4] and flag:
-        data = msg['Text'].split(",")
-        if 'none' in data[0].lower() or 'no' in data[0].lower():
-            info["child_age"] = []
-        else:
-            for i in range(len(data) - 1):
-                info["child_age"].append(data[i + 1])
-        enquiry[4] = True
