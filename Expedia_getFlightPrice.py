@@ -2,8 +2,10 @@ import tagui as t
 import tagui_util as util
 
 
-
 def getExpFlightPrice(airline, dep_ref, dur_ref):
+    print(airline)
+    print(dep_ref)
+    print(dur_ref)
     util.wait_for_pageload('//input[@classes="filter-checkbox"]')
 
     t.wait(3)
@@ -53,9 +55,13 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                 t.wait(5)
                 if t.present('//a[@id="forcedChoiceNoThanks"]'):
                     t.click(f'//a[@id="forcedChoiceNoThanks"]')
-                    t.wait(5)
-                t.popup('Flight-Information?')
                 t.wait(5)
+                for x in range(5):
+                    print(x)
+                    if t.popup('Flight-Information?'):
+                        break
+                    else:
+                        t.wait(5)
                 price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                 price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
                 print(price)
@@ -89,8 +95,13 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                             t.wait(5)
                             if t.present('//a[@id="forcedChoiceNoThanks"]'):
                                 t.click(f'//a[@id="forcedChoiceNoThanks"]')
-                                t.wait(5)
-                            t.popup('Flight-Information?')
+                            t.wait(5)
+                            for x in range(5):
+                                print(x)
+                                if t.popup('Flight-Information?'):
+                                    break
+                                else:
+                                    t.wait(5)
                             util.wait_for_pageload('//h1[@class="section-header-main"]')
                             price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                             price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
@@ -118,9 +129,13 @@ def getExpFlightPrice(airline, dep_ref, dur_ref):
                     t.wait(5)
                     if t.present('//a[@id="forcedChoiceNoThanks"]'):
                         t.click(f'//a[@id="forcedChoiceNoThanks"]')
-                        t.wait(5)
-                    t.popup('Flight-Information?')
                     t.wait(5)
+                    for x in range(5):
+                        print(x)
+                        if t.popup('Flight-Information?'):
+                            break
+                        else:
+                            t.wait(5)
                     price = t.read(f'(//span[@class="packagePriceTotal"])[2]')
                     price = float(price.replace(',', '').replace('SG', '').replace('$', '').replace(' ', ''))
                     print(price)
