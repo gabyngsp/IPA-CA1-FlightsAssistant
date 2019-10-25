@@ -101,7 +101,7 @@ def return_trip(enquiry):
     t.select('//select[@id="search-controls-cabin-class-dropdown"]',enquiry["cabin_class"].replace(' ',''))
     number_of_travellers(adult_pax,child_pax,child_age)
 
-    t.click('//button[@type="submit"][@aria-label="Search flights"]')
+    t.click('//button[@type="submit" and @aria-label="Search flights"]')
 
 def multi_city_trip(enquiry):
     t.click('//input[@id="fsc-trip-type-selector-multi-destination"]')
@@ -166,9 +166,6 @@ def flight_search(flight_request):
     ind = 0
     flight_main = getFlightExcel(info,ind)
     flight_main.update({'Request_ID': request_id})
-    print(flight_main)
-    flight_main.move_to_end('Request_ID', last=False)
-    print(flight_main)
     dbf.newFlightDeals(flight_main)
     t.wait(10.0)
     t.close()
