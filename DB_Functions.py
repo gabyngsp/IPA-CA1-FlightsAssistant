@@ -80,7 +80,59 @@ def retrieve_FlightDeal(request_id,deal_index=None):
         FlightDeal = collectDeal.find({"Request_ID":request_id,"Deal Index":deal_index})
     return FlightDeal
 
+
+def export_FlightDeals(request_id):
+    import xlwt
+
+    workbook = xlwt.Workbook()
+    sheet = workbook.add_sheet("Flight Deals")
+
+    request = (request_id.split(";"))[2]
+    outfile = f'./batchfiles/{request}_{dt.today().strftime("%Y%m%d%H%M%S")}.xls'
+    flight_deals = FlightDeals_Collection()
+
+    #docDeal = flight_deals.find({"Request_ID": "WeChat;gongyifei;20191019223114"})
+    docDeal = flight_deals.find({"Request_ID": request_id})
+    rowcnt = 0
+    for row in docDeal:
+        style = xlwt.easyxf('font: bold 1')             # Specifying style
+        # Output Header
+        sheet.write(rowcnt, 0, 'Deal', style)
+        sheet.write(rowcnt, 1, 'Price', style)
+        sheet.write(rowcnt, 2, 'Hyperlink', style)
+        print(row)
+        dealcnt = len(row["Deal"])
+        for idx in range(dealcnt):
+            rowcnt += 1
+            sheet.write(rowcnt, 0, row["Deal"][idx])
+            sheet.write(rowcnt, 1, f'SG${row["Price"][idx]}')
+            sheet.write(rowcnt, 2, row["Hyperlink"][idx])
+            rowcnt += 1
+            sheet.write(rowcnt, 1, "Flight Leg", style)
+            sheet.write(rowcnt, 2, "Bound", style)
+            sheet.write(rowcnt, 3, "Departure Time", style)
+            sheet.write(rowcnt, 4, "Arrival Time", style)
+            sheet.write(rowcnt, 5, "Duration", style)
+            sheet.write(rowcnt, 6, "Transfer", style)
+            sheet.write(rowcnt, 7, "Transfer Place", style)
+            sheet.write(rowcnt, 8, "Airline", style)
+            legcnt = len(row["Details"][idx]["Deal Index"])
+            for leg in range(legcnt):
+                rowcnt += 1
+                sheet.write(rowcnt, 1, row["Details"][idx]["Flight Leg"][leg])
+                sheet.write(rowcnt, 2, row["Details"][idx]["Bound"][leg])
+                sheet.write(rowcnt, 3, (row["Details"][idx]["Departure Time"][leg]).strftime("%d/%m/%Y %H:%I %p"))
+                sheet.write(rowcnt, 4, (row["Details"][idx]["Arrival Time"][leg]).strftime("%d/%m/%Y %H:%I %p"))
+                sheet.write(rowcnt, 5, row["Details"][idx]["Duration"][leg])
+                sheet.write(rowcnt, 6, row["Details"][idx]["Transfer"][leg])
+                sheet.write(rowcnt, 7, row["Details"][idx]["Transfer Place"][leg])
+                sheet.write(rowcnt, 8, row["Details"][idx]["Airline"][leg])
+
+        rowcnt += 1
+    workbook.save(outfile)
 # Request = {"Request_ID" ,"Request_Source", "Account_Reference", "Request_Datetime", "{Request_Details}"}
+
+#export_FlightDeals("WeChat;gongyifei;20191019223114")
 
 # Flight Main {'Request_ID', "Result_datetime', 'Deal Index', 'Price', '{Flight Details}'}
 # Flight Details {'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}
