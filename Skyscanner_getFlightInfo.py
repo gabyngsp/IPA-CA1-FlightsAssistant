@@ -21,6 +21,8 @@ def getFlightInfo(date, ind):
     ###Sponsor check
     q = 0
 
+    dur_ref = []
+
     for n in range(2):
         leg_lst = []
         bound_lst = []
@@ -117,6 +119,7 @@ def getFlightInfo(date, ind):
 
             airline_lst.append(airline)
             dur_lst.append(dur)
+            dur_ref.append(dur)
             time_arr_day = ''
             time_arr_day_lst.append(time_arr_day)
             transfer_lst.append(transfer)
@@ -134,14 +137,14 @@ def getFlightInfo(date, ind):
     flight_info = [[] for _ in range(2)]
 
     main = {'Deal': deal_lst, 'Flight Info': flight_info, 'Price': price_lst, 'Hyperlink': href_lst, 'Details': details_lst}
-    return main, time_lst, code_lst, dur_lst, ind
+    return main, time_lst, code_lst, dur_ref, ind
 
 
 def getFlightExcel(info,ind):
 
     flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
 
-    print(flight_main['Details'])
+    #print(flight_main['Details'])
     print(dur_lst)
     k = len(info['dates'])
 
@@ -177,8 +180,6 @@ def getFlightExcel(info,ind):
                 flight_main['Hyperlink'][j] = url_exp
     print(flight_main['Price'])
     print(flight_main['Hyperlink'])
-    print(flight_main['Details']['Airline'])
-    print(flight_main['Details']['Duration'])
 
     return flight_main
 

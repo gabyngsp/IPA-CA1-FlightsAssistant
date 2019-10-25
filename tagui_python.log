@@ -1,0 +1,45 @@
+
+START - automation started - Fri Oct 25 2019 12:23:24 GMT+0800 (中国标准时间)
+
+LIVE MODE - type done to quit
+ [TAGUI][STARTED]
+[TAGUI][0] - listening for inputs
+[TAGUI][1] - https://www.skyscanner.com.sg/
+[TAGUI][1] - listening for inputs
+[TAGUI][2] - present_result = present('//input[@id="fsc-trip-type-selector-return"]').toString()
+[TAGUI][2] - listening for inputs
+[TAGUI][3] - dump present_result to tagui_python.txt
+[TAGUI][3] - listening for inputs
+[TAGUI][4] - present_result = present('//input[@id="fsc-trip-type-selector-return"]').toString()
+[TAGUI][4] - listening for inputs
+[TAGUI][5] - dump present_result to tagui_python.txt
+[TAGUI][5] - listening for inputs
+[TAGUI][6] - exist_result = exist('//input[@id="fsc-trip-type-selector-return"]').toString()
+[TAGUI][6] - listening for inputs
+[TAGUI][7] - dump exist_result to tagui_python.txt
+[TAGUI][7] - listening for inputs
+[TAGUI][8] - click //input[@id="fsc-trip-type-selector-return"]
+[TAGUI][8] - listening for inputs
+[TAGUI][9] - exist_result = exist('//input[@id="fsc-origin-search"]').toString()
+[TAGUI][9] - listening for inputs
+[TAGUI][10] - dump exist_result to tagui_python.txt
+[TAGUI][10] - listening for inputs
+[TAGUI][11] - type //input[@id="fsc-origin-search"] as singapore
+[TAGUI][11] - listening for inputs
+[TAGUI][12] - exist_result = exist('//input[@id="fsc-destination-search"]').toString()
+[TAGUI][12] - listening for inputs
+[TAGUI][13] - dump exist_result to tagui_python.txt
+[TAGUI][13] - listening for inputs
+[TAGUI][14] - type //input[@id="fsc-destination-search"] as beijing
+[TAGUI][14] - listening for inputs
+[TAGUI][15] - exist_result = exist('//button[@id="depart-fsc-datepicker-button"]//span[starts-with(@class,"DateInput")]').toString()
+[TAGUI][15] - listening for inputs
+[TAGUI][16] - dump exist_result to tagui_python.txt
+[TAGUI][16] - listening for inputs
+[TAGUI][17] - click //button[@id="depart-fsc-datepicker-button"]//span[starts-with(@class,"DateInput")]
+[TAGUI][17] - listening for inputs
+[TAGUI][18] - exist_result = exist('//select[@id="depart-calendar__bpk_calendar_nav_select"]').toString()
+[TAGUI][18] - listening for inputs
+[TAGUI][19] - dump exist_result to tagui_python.txt
+[TAGUI][19] - listening for inputs
+[TAGUI][20] - click //select[@id="depart-calendar__bpk_calendar_nav_select"]
