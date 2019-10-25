@@ -175,7 +175,8 @@ def book_flight(msg):
         #id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
         #request = retrieve_FlightRequest(id)
         #print(request)
-        #flight_search(request)
+        #outFile = flight_search(request)
+        #timer(outFile,user['nickname'])
         user_db.remove(user)
         user['flag_monitor'] = False
         print('after', user_db)
