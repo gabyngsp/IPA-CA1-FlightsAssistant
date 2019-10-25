@@ -157,6 +157,7 @@ def fill_search(enquiry):
         one_way_trip(enquiry)
 
 def flight_search(flight_request):
+    search_dt = dt.today()
     request_id = flight_request['Request_ID']
     info = flight_request['Request_Details']
     t.init()
@@ -165,7 +166,8 @@ def flight_search(flight_request):
     fill_search(info)
     ind = 0
     flight_main = getFlightExcel(info,ind)
-    flight_main.update({'Request_ID': request_id})
+    flight_main.update({'Request_ID': request_id,
+                        'Search_Datetime': search_dt})
     dbf.newFlightDeals(flight_main)
     t.wait(10.0)
     t.close()
@@ -177,6 +179,6 @@ def flight_search(flight_request):
 # #multi-city
 #info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
 
-request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
+request = {"Request_ID":f"WeChat;gongyifei;{dt.now().strftime('%Y%m%d%H%M%S')}","Request_Details":{'city': ['singapore','melbourne'], 'trip_type': '', 'dates': ['19/11/2019','25/11/2019'], 'cabin_class': 'economy', 'adult': '1', 'child_age': ''}}
 
 flight_search(request)
