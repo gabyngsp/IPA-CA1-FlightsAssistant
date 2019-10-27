@@ -1,3 +1,6 @@
+import datetime
+import time
+
 import itchat
 from itchat.content import *
 
@@ -194,24 +197,30 @@ def book_flight(msg):
         # send the new request to data base
         req_id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
         print(req_id)
-        #request = retrieve_FlightRequest(req_id)
-        # outfile = flight_search(request)
-        # send_file(outfile,user['nickname'])
+        nick = user['nickname']
         user_db.remove(user)
         user['enquiry'] = [False, False, False, False, False]
         print('after', user_db)
+        return [req_id,nick]
 
-# get files from batchfiles folder and send them to particular users
-# not finish coding
-def send_file(excel, user_nickname):
-    print(excel)
-    itchat.send_file(excel, user_nickname)
+
+# def send_file(outfile,nickname):
+#     # itchat.send_file(outfile, nickname)
+#     while 1:
+#         now = datetime.datetime.now()
+#         now_str = now.strftime('%Y/%m/%d %H/%M/%S')[11:]
+#         print(now_str)
+#         #itchat.send('test timer', 'file transfer')
+#         time.sleep(1)
 
 
 def wechat():
     itchat.auto_login(hotReload=True)
-    itchat.run()
+    data = itchat.run()
+    return data
 
-# wechat()
+
+if __name__ == '__main__':
+    wechat()
 
 # itchat.logout()

@@ -1,5 +1,5 @@
 
-START - automation started - Sun Oct 27 2019 15:25:10 GMT+0800 (中国标准时间)
+START - automation started - Sun Oct 27 2019 15:52:40 GMT+0800 (中国标准时间)
 
 LIVE MODE - type done to quit
  [TAGUI][STARTED]
@@ -11,3 +11,7 @@ LIVE MODE - type done to quit
 [TAGUI][3] - dump present_result to tagui_python.txt
 [TAGUI][3] - listening for inputs
 [TAGUI][4] - present_result = present('//input[@id="fsc-trip-type-selector-return"]').toString()
+[TAGUI][4] - listening for inputs
+[TAGUI][5] - dump present_result to tagui_python.txt
+[TAGUI][5] - listening for inputs
+[TAGUI][6] - exist_result = exist('//input[@id="fsc-trip-type-selector-one-way"]').toString()

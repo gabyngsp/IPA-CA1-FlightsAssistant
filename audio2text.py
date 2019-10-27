@@ -17,7 +17,6 @@ def audio_conversion(audio_file_input, audio_type='wav'):
         retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-ac', '1', audio_file_output])
 
     if retcode == 0:
-        print('[  O K  ]')
         try:
             os.remove(audio_file_input)
         except OSError as e:
@@ -38,13 +37,13 @@ def audio2text(audiofile):
     # recognize speech using Google Speech Recognition
     try:
         print("We think you said:  " + r.recognize_google(audio))
+
         try:
             os.remove(audiofile)
         except OSError as e:
             print(e)
         else:
             print("output File is deleted successfully")
-        print('return the recognize audio')
         return r.recognize_google(audio)
 
     except sr.UnknownValueError:

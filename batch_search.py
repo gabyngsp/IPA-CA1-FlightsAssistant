@@ -1,3 +1,4 @@
+import time
 from datetime import datetime as dt
 import DB_Functions as dbf
 from skyscanner_flight_search import flight_search
@@ -17,6 +18,7 @@ def batch_search():
 
         # get the excel file and store them in batchfiles
         outfile = flight_search(row)
+
 
 if __name__ == '__main__':
     batch_search()
