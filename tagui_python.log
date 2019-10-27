@@ -1,5 +1,5 @@
 
-START - automation started - Sat Oct 26 2019 11:47:57 GMT+0800 (中国标准时间)
+START - automation started - Sun Oct 27 2019 15:25:10 GMT+0800 (中国标准时间)
 
 LIVE MODE - type done to quit
  [TAGUI][STARTED]
@@ -11,17 +11,3 @@ LIVE MODE - type done to quit
 [TAGUI][3] - dump present_result to tagui_python.txt
 [TAGUI][3] - listening for inputs
 [TAGUI][4] - present_result = present('//input[@id="fsc-trip-type-selector-return"]').toString()
-[TAGUI][4] - listening for inputs
-[TAGUI][5] - dump present_result to tagui_python.txt
-[TAGUI][5] - listening for inputs
-[TAGUI][6] - exist_result = exist('//input[@id="fsc-trip-type-selector-return"]').toString()
-[TAGUI][6] - listening for inputs
-[TAGUI][7] - dump exist_result to tagui_python.txt
-[TAGUI][7] - listening for inputs
-[TAGUI][8] - click //input[@id="fsc-trip-type-selector-return"]
-[TAGUI][8] - listening for inputs
-[TAGUI][9] - exist_result = exist('//input[@id="fsc-origin-search"]').toString()
-[TAGUI][9] - listening for inputs
-[TAGUI][10] - dump exist_result to tagui_python.txt
-[TAGUI][10] - listening for inputs
-[TAGUI][11] - type //input[@id="fsc-origin-search"] as singapore

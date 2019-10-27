@@ -129,12 +129,6 @@ def fix_info(text,user):
                     user['flight_info']["child_age"]=[]
                     user['flight_info']["child_age"].append(data[i])
 
-# info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
-# enquiry = [False, False, False, False, False]
-# user = {'nickname': '', 'flight_info': info, 'enquiry': enquiry, 'flag_monitor': False, 'flag_confirm': False,
-#             'last_index': 0, 'monitor_day': '0'}
-# fix_info('class: economy.adult:3.city:singapore,beijing.children:no',user)
-# print(user['flight_info'])
 
 def getMonitorday(text):
     return find_num(text)
@@ -181,7 +175,7 @@ def book_flight(msg):
         user['monitor_day'] = str(days)
         monitor = True
     elif all(user['enquiry']) and not user['flag_monitor']:
-        itchat.send('How many days do you need?', user['nickname'])
+        itchat.send('Monitor days?', user['nickname'])
         user['flag_monitor'] = True
 
     if user['monitor_day'] != '0' and not user['flag_confirm']:
@@ -197,17 +191,20 @@ def book_flight(msg):
             user['flight_info']['child_age'] = []
         itchat.send('Please wait for the result', user['nickname'])
         print('before', user_db)
+        # send the new request to data base
         req_id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
-        request = retrieve_FlightRequest(req_id)
-        print(request)
-        outfile = flight_search(request)
-        send_file(outfile,user['nickname'])
+        print(req_id)
+        #request = retrieve_FlightRequest(req_id)
+        # outfile = flight_search(request)
+        # send_file(outfile,user['nickname'])
         user_db.remove(user)
         user['enquiry'] = [False, False, False, False, False]
         print('after', user_db)
 
-
-def send_file(excel, user_nickname):  # main_scv & detail_scv are the scv files
+# get files from batchfiles folder and send them to particular users
+# not finish coding
+def send_file(excel, user_nickname):
+    print(excel)
     itchat.send_file(excel, user_nickname)
 
 
@@ -215,6 +212,6 @@ def wechat():
     itchat.auto_login(hotReload=True)
     itchat.run()
 
-wechat()
+# wechat()
 
 # itchat.logout()
