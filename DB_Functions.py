@@ -1,4 +1,4 @@
-import pymongo
+import pymongo, os
 from datetime import datetime as dt
 
 def connectDB():
@@ -23,7 +23,7 @@ def Request_Collection():
 def newFlightRequest(Source,AcctRef,info,DaysMonitoring=1):
     collectReq = Request_Collection()
     ReqDT = dt.now()
-    Request_ID = Source + ";" + AcctRef + ";" + ReqDT.strftime("%Y%m%d%H%M%S")
+    Request_ID = Source + ";" + AcctRef.replace("@","") + ";" + ReqDT.strftime("%Y%m%d%H%M%S")
     dictReq = {"Request_ID": Request_ID, "Request_Source": Source,
                "Account_Reference": AcctRef, "Request_Datetime": ReqDT, "Request_Details": info,
                "Monitor_Days": DaysMonitoring}
@@ -86,9 +86,11 @@ def export_FlightDeals(request_id,search_dt=None):
 
     workbook = xlwt.Workbook()
     sheet = workbook.add_sheet("Flight Deals")
-
-    request = (request_id.split(";"))[2]
-    outfile = f'./batchfiles/{request}_{dt.today().strftime("%Y%m%d%H%M%S")}.xls'
+    filepath = os.path.join('batchfiles',dt.today().strftime("%Y%m%d"))
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
+    request = request_id.replace(";","_")
+    outfile = f'{filepath}/{request}_{dt.today().strftime("%Y%m%d%H%M%S")}.xls'
     flight_deals = FlightDeals_Collection()
 
     #docDeal = flight_deals.find({"Request_ID": "WeChat;gongyifei;20191019223114"})
