@@ -55,7 +55,7 @@ def retrieve_FlightRequest(request_id=None,active=True):
         else:
             FlightRequest = collectReq.find()
     else:
-        FlightRequest = collectReq.find({"Request_ID":request_id})
+        FlightRequest = collectReq.find_one({"Request_ID":request_id})
 
     return FlightRequest
 
@@ -75,13 +75,13 @@ def newFlightDeals(flight_main):
 def retrieve_FlightDeal(request_id,deal_index=None):
     collectDeal = FlightDeals_Collection()
     if deal_index == None:
-        FlightDeal = collectDeal.find({"Request_ID":request_id})
+        FlightDeal = collectDeal.find_one({"Request_ID":request_id})
     else:
-        FlightDeal = collectDeal.find({"Request_ID":request_id,"Deal Index":deal_index})
+        FlightDeal = collectDeal.find_one({"Request_ID":request_id,"Deal Index":deal_index})
     return FlightDeal
 
 
-def export_FlightDeals(request_id):
+def export_FlightDeals(request_id,search_dt=None):
     import xlwt
 
     workbook = xlwt.Workbook()
@@ -92,7 +92,10 @@ def export_FlightDeals(request_id):
     flight_deals = FlightDeals_Collection()
 
     #docDeal = flight_deals.find({"Request_ID": "WeChat;gongyifei;20191019223114"})
-    docDeal = flight_deals.find({"Request_ID": request_id})
+
+    query = {"Request_ID": request_id}
+    if search_dt : query.update({"Search_Datetime":search_dt})
+    docDeal = flight_deals.find(query)
     rowcnt = 0
     for row in docDeal:
         style = xlwt.easyxf('font: bold 1')             # Specifying style
@@ -134,13 +137,8 @@ def export_FlightDeals(request_id):
     return outfile
 # Request = {"Request_ID" ,"Request_Source", "Account_Reference", "Request_Datetime", "{Request_Details}"}
 
-#export_FlightDeals("WeChat;gongyifei;20191019223114")
-
 # Flight Main {'Request_ID', "Result_datetime', 'Deal Index', 'Price', '{Flight Details}'}
 # Flight Details {'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}
-
-# Current Version
-# main = {'Deal': deal_lst, 'Flight Info': [[date1, trip1, date2, trip2],[date1, trip1, date2, trip2]], 'Price': price_lst, 'Hyperlink': href_lst, 'Details': {'Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}}
 
 # Current Version
 # main = {'Deal': deal_lst, 'Flight Info': [[date1, trip1, date2, trip2],[date1, trip1, date2, trip2]], 'Price': price_lst, 'Hyperlink': href_lst, 'Details': {'Deal Index', 'Flight Leg', 'Bound', 'Departure Time', 'Arrival Time', 'Duration', 'Transfer', 'Transfer Place', 'Airline'}}

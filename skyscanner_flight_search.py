@@ -171,7 +171,7 @@ def flight_search(flight_request):
     flight_main.update({'Request_ID': request_id,
                         'Search_Datetime':search_dt})
     dbf.newFlightDeals(flight_main)
-    outFile = dbf.export_FlightDeals(request_id)
+    outFile = dbf.export_FlightDeals(request_id,search_dt)
     return outFile
 
 #one way
