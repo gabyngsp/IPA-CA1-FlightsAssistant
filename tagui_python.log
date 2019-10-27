@@ -1,5 +1,5 @@
 
-START - automation started - Fri Oct 25 2019 12:23:24 GMT+0800 (中国标准时间)
+START - automation started - Sat Oct 26 2019 11:47:57 GMT+0800 (中国标准时间)
 
 LIVE MODE - type done to quit
  [TAGUI][STARTED]
@@ -25,21 +25,3 @@ LIVE MODE - type done to quit
 [TAGUI][10] - dump exist_result to tagui_python.txt
 [TAGUI][10] - listening for inputs
 [TAGUI][11] - type //input[@id="fsc-origin-search"] as singapore
-[TAGUI][11] - listening for inputs
-[TAGUI][12] - exist_result = exist('//input[@id="fsc-destination-search"]').toString()
-[TAGUI][12] - listening for inputs
-[TAGUI][13] - dump exist_result to tagui_python.txt
-[TAGUI][13] - listening for inputs
-[TAGUI][14] - type //input[@id="fsc-destination-search"] as beijing
-[TAGUI][14] - listening for inputs
-[TAGUI][15] - exist_result = exist('//button[@id="depart-fsc-datepicker-button"]//span[starts-with(@class,"DateInput")]').toString()
-[TAGUI][15] - listening for inputs
-[TAGUI][16] - dump exist_result to tagui_python.txt
-[TAGUI][16] - listening for inputs
-[TAGUI][17] - click //button[@id="depart-fsc-datepicker-button"]//span[starts-with(@class,"DateInput")]
-[TAGUI][17] - listening for inputs
-[TAGUI][18] - exist_result = exist('//select[@id="depart-calendar__bpk_calendar_nav_select"]').toString()
-[TAGUI][18] - listening for inputs
-[TAGUI][19] - dump exist_result to tagui_python.txt
-[TAGUI][19] - listening for inputs
-[TAGUI][20] - click //select[@id="depart-calendar__bpk_calendar_nav_select"]
