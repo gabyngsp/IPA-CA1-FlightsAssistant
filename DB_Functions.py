@@ -45,7 +45,7 @@ def retrieve_FlightRequest(request_id=None,active=True):
                     {'$and': [
                         {'$gte': [dt.now(), '$Request_Datetime']},
                         {'$lte': [dt.now(),
-                                  {'$add': ['$Request_Datetime', {'$multiply': ['$Monitor_Days', 24 * 60 * 60000]}]}]}
+                                  {'$add': ['$Request_Datetime', {'$multiply': [{'$convert': { 'input': '$Monitor_Days', 'to': 'int' }}, 24 * 60 * 60000]}]}]}
                     ]},
                     '$$KEEP',
                     '$$PRUNE'
