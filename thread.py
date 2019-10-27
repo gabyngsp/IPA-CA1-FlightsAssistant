@@ -55,13 +55,13 @@ t2.start()
 #       #wechat()
 #
 #
-if __name__ == '__main__':
-    req_id = '1'
-    threads = []
-    # threads.append(flight())
-    threads.append(wechat_bot())
-    threads.append(flight(req_id))
-    for t in threads:
-        t.start()
-    for t in threads:
-        t.join()
+# if __name__ == '__main__':
+#     req_id = '1'
+#     threads = []
+#     # threads.append(flight())
+#     threads.append(wechat_bot())
+#     threads.append(flight(req_id))
+#     for t in threads:
+#         t.start()
+#     for t in threads:
+#         t.join()
