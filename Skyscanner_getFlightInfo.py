@@ -18,8 +18,7 @@ def getFlightInfo(date, ind):
     time_lst = []
     code_lst = []
     details_lst = []
-    ###Sponsor check
-    q = 0
+
 
     dur_ref = []
 
@@ -44,11 +43,11 @@ def getFlightInfo(date, ind):
         ### href and price check
         href = t.read(f'(//a[@class="FlightsTicket_link__kl4DL"])[{n + 1}]//@href')
         if t.present('//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"]'):
-            price = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"])[{n+1}]')
+            price = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div[@class="TicketStub_horizontalStubContainer__2aEis"]//div//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Price_totalPrice__24xz2"]')
             price_lst.append(float(price.replace(',', '').replace(' total', '').replace('$', '')))
             print(price_lst)
         else:
-            price = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN BpkText_bpk-text--bold__4yauk"])[{k + 4}]')
+            price = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div[@class="TicketStub_horizontalStubContainer__2aEis"]//div//div//span')
             price_lst.append(float(price.replace(',', '').replace('$', '')))
             print(price_lst)
         ind = ind + 1
@@ -57,52 +56,36 @@ def getFlightInfo(date, ind):
         for i in range(type):
             leg = i+1
             print(leg)
-            q = q + 1
+
             code = t.read(
-                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-            airline = t.read(
-                f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
-            if code[37:42] != 'small':
-                q = q + 1
-                code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                airline = t.read(
-                    f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
-                if code[37:42] != 'small':
-                    q = q + 1
-                    code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                    airline = t.read(
-                        f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
-                    if code[37:42] != 'small':
-                        q = q + 1
-                        code = t.read(f'(//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src)[{q}]')
-                        airline = t.read(
-                            f'(//img[@class="BpkImage_bpk-image__img__3HwXN"])[{q}]/@alt')
+                f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div//div//img[@class="BpkImage_bpk-image__img__3HwXN"]/@src')
+            airline = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div//div//img[@class="BpkImage_bpk-image__img__3HwXN"]/@alt')
 
             print(airline)
             code_lst.append(code[43:45])
             print(code_lst)
-            time_dep = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 1 + 2 * i}]')
-            time_arr = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"])[{2* type * n + 2 + 2 * i}]')
-            dur = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"])[{type * n + 1 + i}]')
-            transfer = t.read(f'(//div[@class="LegInfo_stopsLabelContainer__2dEdt"]/span)[{type * n + 1 + i}]')
+            time_dep = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_routePartialDepart__37kr9"]//span//div//span')
+            time_arr = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_routePartialArrive__ZsZxc"]//span//div//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN"]')
+            dur = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_stopsContainer__1XNWn"]//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT Duration_duration__1QA_S"]')
+            transfer = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_stopsContainer__1XNWn"]//div//span')
             print(transfer)
             if transfer == 'Direct':
                 transfer_plc = ''
             elif transfer == '1 stop':
-                transfer_plc = t.read(f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT LegInfo_stopStation__Ec5OU"])[{m}]')
+                transfer_plc = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span//span')
                 m = m + 1
             print(transfer_plc)
             ### Arrival Time plus 1 day check
-            if t.present('(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--lg__3vAKN LegInfo_routePartialTime__2HfzB"])[' + str(2 * type * n + 2 + 2 * i) + ']//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]'):
+            if t.present(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_routePartialArrive__ZsZxc"]//span//div//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--sm__345aT TimeWithOffsetTooltip_offsetTooltip__24Ffv"]'):
                 date_pls = 1
             else:
                 date_pls = 0
 
             ### Bound Check
             dep = t.read(
-                f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[{2* type * n + 1 + 2 * i}]')
+                f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_routePartialDepart__37kr9"]//span//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"]')
             arr = t.read(
-                f'(//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"])[{2 * type * n + 2 + 2 * i}]')
+                f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_routePartialArrive__ZsZxc"]//span//span[@class="BpkText_bpk-text__2NHsO BpkText_bpk-text--base__2vfTl LegInfo_routePartialCityTooltip__ZqOZK"]')
             bound = dep + ' - ' + arr
             bound_lst.append(bound)
 
@@ -145,7 +128,9 @@ def getFlightExcel(info,ind):
     flight_main, time_lst, code_lst, dur_lst, ind = getFlightInfo(info['dates'], ind)
 
     #print(flight_main['Details'])
+    print(code_lst)
     print(dur_lst)
+    print(time_lst)
     k = len(info['dates'])
 
     flight_lst = []
@@ -182,5 +167,3 @@ def getFlightExcel(info,ind):
     print(flight_main['Hyperlink'])
 
     return flight_main
-
-
