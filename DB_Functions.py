@@ -126,8 +126,8 @@ def export_FlightDeals(request_id,search_dt=None):
                 rowcnt += 1
                 sheet.write(rowcnt, 1, row["Details"][idx]["Flight Leg"][leg])
                 sheet.write(rowcnt, 2, row["Details"][idx]["Bound"][leg])
-                sheet.write(rowcnt, 3, (row["Details"][idx]["Departure Time"][leg]).strftime("%d/%m/%Y %H:%I %p"))
-                sheet.write(rowcnt, 4, (row["Details"][idx]["Arrival Time"][leg]).strftime("%d/%m/%Y %H:%I %p"))
+                sheet.write(rowcnt, 3, (row["Details"][idx]["Departure Time"][leg]).strftime("%d/%m/%Y %I:%M %p"))
+                sheet.write(rowcnt, 4, (row["Details"][idx]["Arrival Time"][leg]).strftime("%d/%m/%Y %I:%M %p"))
                 sheet.write(rowcnt, 5, row["Details"][idx]["Duration"][leg])
                 sheet.write(rowcnt, 6, row["Details"][idx]["Transfer"][leg])
                 sheet.write(rowcnt, 7, row["Details"][idx]["Transfer Place"][leg])
