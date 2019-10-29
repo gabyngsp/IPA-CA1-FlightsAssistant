@@ -18,9 +18,8 @@ Flight Assistant Chatbot (via WeChat app) to help monitor flight deal based on u
 
 
 # SECTION 5 : USER GUIDE
-1. Set up WeChat Bot
-
-2. Set up daily batch run
+Start the WeChat Bot by running thread.py
+> python thread.py
 
 ## Developer Guide
 
@@ -29,6 +28,7 @@ Environment Pre-requisite:
 3. xlwt
 4. pymongo
 5. itchat
+6. SpeechRecognition
 
 To set up the environment
 1. conda create -n IPA python=3.6 anaconda
