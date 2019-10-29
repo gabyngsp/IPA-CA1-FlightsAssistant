@@ -1,11 +1,16 @@
 import datetime
+import re
 import threading
 import time
+import os
+from datetime import datetime as dt
 # from queue import Queue
 import itchat
 
+from DB_Functions import retrieve_FlightDeal, retrieve_FlightRequest
 from WechatBot import wechat
 from batch_search import batch_search
+from skyscanner_flight_search import flight_search
 
 
 def chatbot():
@@ -14,20 +19,32 @@ def chatbot():
 
 # A thread that consumes data
 def search():
-    time.sleep(3)
+    time.sleep(5)
     # data = in_q.get()
     while 1:
         now = datetime.datetime.now()
         now_str = now.strftime('%Y/%m/%d %H/%M/%S')[11:]
         print(now_str)
-        if now_str in '08/00/00':  # %h/%m/%s
+        #req = retrieve_FlightRequest('wechat;3af4fa015765b8e2bc1f6f22ba881a00;20191029144648')
+        #flight_search(req)
+        res = re.search(r'16/36/[0-9][0-9]',now_str)  # start at 08:00 - 08:01
+        if True:
             print('time to do batch search')
             batch_search()
-        if now_str in '10/00/00':
             print('time to send files')
-            itchat.send('test timer', toUserName="filehelper")
-            # itchat.send_file(outfile, nickname)
-        time.sleep(30)
+            filepath = os.path.join('batchfiles', dt.today().strftime("%Y%m%d"))
+            file_list = os.listdir(filepath)
+            # print(file_list)
+            for outfile in file_list:
+                # print(outfile)
+                nickname = outfile.split('_')[1]
+                print(nickname)
+                final_path = os.path.join(filepath,outfile)
+                print(final_path)
+                info_user = itchat.search_friends(nickname)
+                # print(info_user['UserName'])
+                itchat.send_file(final_path, toUserName=info_user['UserName'])
+        time.sleep(50)
 
 # Create the shared queue and launch both threads
 #q = Queue()
@@ -35,33 +52,3 @@ t1 = threading.Thread(target=chatbot)
 t2 = threading.Thread(target=search)
 t1.start()
 t2.start()
-
-# class flight(threading.Thread):
-#     def __init__(self, num):
-#         threading.Thread.__init__(self)
-#         self._run_num = num
-#
-#     def run(self):
-#         # batch_search()
-#         for i in range(10):
-#             print('search use request id: '+str(self._run_num))
-#
-#
-# class wechat_bot(threading.Thread):
-#   def run(self):
-#       for i in range(10):
-#           req_id = '200'
-#           print('wechat get request id: '+req_id)
-#       #wechat()
-#
-#
-# if __name__ == '__main__':
-#     req_id = '1'
-#     threads = []
-#     # threads.append(flight())
-#     threads.append(wechat_bot())
-#     threads.append(flight(req_id))
-#     for t in threads:
-#         t.start()
-#     for t in threads:
-#         t.join()

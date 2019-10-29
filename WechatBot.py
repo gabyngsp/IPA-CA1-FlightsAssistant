@@ -19,10 +19,13 @@ def order(dates):
     dates[0] = temp
     return dates  #
 
+def getuserid(nickname):
+    info_user = itchat.search_friends(nickname)
+    return info_user[0]['UserName']
 
 def find_user(msg):
     for i in range(len(user_db)):
-        if user_db[i]['nickname'] == msg['FromUserName']:
+        if user_db[i]['nickname'] == msg['User']['NickName']:
             return i
     return -1
 
@@ -96,11 +99,11 @@ def ask_confirm(user):
     info = user['flight_info']
     confirm_msg = 'Confirm\ncity: ' + list2str(info['city'])+'\ndates: ' + list2str(info['dates'])+'\ncabin class: ' + info['cabin_class']+'\nadult number: ' + str(info['adult'])+'\nchildren age: ' + list2str(info['child_age'])+'\nmonitor days: '+str(user['monitor_day'])
     #print(confirm_msg)
-    itchat.send(confirm_msg, user['nickname'])
+    itchat.send(confirm_msg, getuserid(user['nickname']))
 
 
 def confirm_info(text,user):
-    if 'yes' in text:
+    if 'yes' in text.lower() or 'ok' in text.lower():
         return True
     else:
         fix_info(text,user)
@@ -151,9 +154,8 @@ def book_flight(msg):
         text = msg['Text']
     elif msg['Type'] == 'Recording':
         msg.download(msg.fileName)
-        text = audio2text(audio_conversion(msg.fileName))
-        print('got the audio text')
-        #text = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 3 children"
+        text = audio2text(audio_conversion(msg.fileName,bitrate='24k'))
+        # text = audio2text(audio_conversion(msg.fileName, bitrate='32k'))
     else:
         text = ''
 
@@ -162,7 +164,7 @@ def book_flight(msg):
         user = user_db[index]
         user['flight_info'] = update_info(msg, user['flight_info'], user['last_index'])
     elif 'flight' in text:
-        user['nickname'] = msg['FromUserName']
+        user['nickname'] = msg['User']['NickName']
         user['flight_info'] = recognize(text, user['flight_info'])
         user_db.append(user)
         index = find_user(msg)
@@ -178,7 +180,9 @@ def book_flight(msg):
         user['monitor_day'] = str(days)
         monitor = True
     elif all(user['enquiry']) and not user['flag_monitor']:
-        itchat.send('Monitor days?', user['nickname'])
+        print('monitor days')
+    #############
+        itchat.send('Monitor days?', getuserid(user['nickname']))
         user['flag_monitor'] = True
 
     if user['monitor_day'] != '0' and not user['flag_confirm']:
@@ -192,26 +196,14 @@ def book_flight(msg):
     if user['flag_confirm']:  # all the info has been confirm
         if user['flight_info']['child_age'][0] == '0':
             user['flight_info']['child_age'] = []
-        itchat.send('Please wait for the result', user['nickname'])
+        itchat.send('Please wait for the result', getuserid(user['nickname']))
         print('before', user_db)
         # send the new request to data base
         req_id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
         print(req_id)
-        nick = user['nickname']
         user_db.remove(user)
         user['enquiry'] = [False, False, False, False, False]
         print('after', user_db)
-        return [req_id,nick]
-
-
-# def send_file(outfile,nickname):
-#     # itchat.send_file(outfile, nickname)
-#     while 1:
-#         now = datetime.datetime.now()
-#         now_str = now.strftime('%Y/%m/%d %H/%M/%S')[11:]
-#         print(now_str)
-#         #itchat.send('test timer', 'file transfer')
-#         time.sleep(1)
 
 
 def wechat():

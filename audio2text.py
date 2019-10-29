@@ -1,22 +1,33 @@
 import speech_recognition as sr
 import os
+from pydub import AudioSegment
 import subprocess
 import spacy
 from datetime import datetime as dt
 
+# from pydub import AudioSegment
+#
+# # files
+# src = "Recording.mp3"
+# dst = "test.wav"
+#
+# # convert wav to mp3
+# sound = AudioSegment.from_mp3(src)
+# sound.export(dst, format="wav")
+
 # Uncomment to run the code in local machine
-parm_runtime_env_GCP = False
 
-def audio_conversion(audio_file_input, audio_type='wav'):
-    audio_file_output = str(audio_file_input) + '.' + str(audio_type)
+def audio_conversion(audio_file_input,bitrate, audio_type='wav'):
+    audio_file_output = str(audio_file_input).split('.')[0] + '.' + str(audio_type)
+    song = AudioSegment.from_mp3(audio_file_input)
+    song.export('new_'+audio_file_input, bitrate=bitrate, format="mp3")
+    retcode = subprocess.call(['ffmpeg', '-i', 'new_'+audio_file_input, '-ac', '1', audio_file_output])
 
-    if parm_runtime_env_GCP:  # using Datalab in Google Cloud Platform
-        # GCP: use avconv to convert audio
-        retcode = subprocess.call(['avconv', '-i', audio_file_input, '-ac', '1', audio_file_output])
-    else:  # using an iss-vm Virtual Machine, or local machine
-        retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-ac', '1', audio_file_output])
+    # retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-acodec', 'pcm_s16le','-ar', '-ar', audio_file_output])
+    # retcode = subprocess.call(['sox', audio_file_input, audio_file_output])
 
     if retcode == 0:
+        print('[ OK ]')
         try:
             os.remove(audio_file_input)
         except OSError as e:
@@ -117,8 +128,8 @@ def find_num(text):  # use to get the num of monitor days
         return 1
 
 
-#info = {'city': [], 'trip_type': '', 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': []}
-#audiotext = "I am looking for flight from Singapore to Beijing on November 1st 2019 and returning on November 5th 2019 for 2 adults and 2 children age 2 and 4"
-#audiotext = 'September 5th'
-#info = recognize(audiotext, info)
-#print(info)
+if __name__ == '__main__':
+    print('Enter the audio file path')
+    # audio2text(audio_conversion('191029-120234.mp3', bitrate='24k'))
+    # audio2text(audio_conversion('191029-120234.mp3', bitrate='32k'))
+    # audio2text(audio_conversion('Recording.mp3'))
