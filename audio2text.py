@@ -122,5 +122,3 @@ def find_num(text):  # use to get the num of monitor days
 #audiotext = 'September 5th'
 #info = recognize(audiotext, info)
 #print(info)
-
-audio2text('191029-101840.wav')
