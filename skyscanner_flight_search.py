@@ -4,12 +4,17 @@ from datetime import datetime as dt
 from Skyscanner_getFlightInfo import getFlightExcel
 import DB_Functions as dbf
 
-# #one way
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [2,3]}
-# #return
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '1', 'child_age': [2,3]}
-# #multi-city
-#info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
+def lookup_cabin_class(cabin):
+    strCabin = "Economy"
+    if "first" in cabin.lower():
+        strCabin = "First"
+    elif "business" in cabin.lower():
+        strCabin = "Business"
+    elif "premium" in cabin.lower():
+        strCabin = "PremiumEconomy"
+    else:
+        strCabin = "Economy"
+    return strCabin
 
 def number_of_travellers(adult_pax, children_pax, children_age):
     print(f"Adults: {adult_pax} and Children: {children_pax}")
@@ -70,7 +75,9 @@ def one_way_trip(enquiry):
     t.click(f'//button[starts-with(@class,"BpkCalendarDate") and contains(@aria-label,"{start_date.strftime("%d %B %Y").lstrip("0")}")]')
     t.click('//button[starts-with(@id,"CabinClassTravellersSelector")]')
     t.click('//select[@id="search-controls-cabin-class-dropdown"]')
-    t.select('//select[@id="search-controls-cabin-class-dropdown"]',enquiry["cabin_class"].replace(' ',''))
+    t.select('//select[@id="search-controls-cabin-class-dropdown"]', lookup_cabin_class(enquiry["cabin_class"]))
+
+    # t.select('//select[@id="search-controls-cabin-class-dropdown"]',(enquiry["cabin_class"].capitalize()).replace(' ',''))
     number_of_travellers(adult_pax,child_pax,child_age)
     t.click('//button[@type="submit"][@aria-label="Search flights"]')
 
@@ -98,7 +105,7 @@ def return_trip(enquiry):
     t.click(f'//button[starts-with(@class,"BpkCalendarDate") and contains(@aria-label,"{end_date.strftime("%d %B %Y").lstrip("0")}")]')
     t.click('//button[starts-with(@id,"CabinClassTravellersSelector")]')
     t.click('//select[@id="search-controls-cabin-class-dropdown"]')
-    t.select('//select[@id="search-controls-cabin-class-dropdown"]',enquiry["cabin_class"].replace(' ',''))
+    t.select('//select[@id="search-controls-cabin-class-dropdown"]',lookup_cabin_class(enquiry["cabin_class"]))
     number_of_travellers(adult_pax,child_pax,child_age)
 
     t.click('//button[@type="submit" and @aria-label="Search flights"]')
@@ -134,7 +141,7 @@ def multi_city_trip(enquiry):
 
     t.click('//button[starts-with(@id,"CabinClassTravellersSelector")]')
     t.click('//select[@id="search-controls-cabin-class-dropdown"]')
-    t.select('//select[@id="search-controls-cabin-class-dropdown"]', enquiry["cabin_class"].replace(' ', ''))
+    t.select('//select[@id="search-controls-cabin-class-dropdown"]', lookup_cabin_class(enquiry["cabin_class"]))
     adult_pax = int(enquiry['adult'])
     child_pax = len(enquiry['child_age'])
     child_age = enquiry['child_age']
@@ -175,12 +182,11 @@ def flight_search(flight_request):
     return outFile
 
 #one way
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
+# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'first', 'adult': '2', 'child_age': [3,1]}
 # #return
-#info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}
+# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'premium', 'adult': '2', 'child_age': [1,3]}
 # #multi-city
-#info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
+# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'business', 'adult': '2', 'child_age': [3,10]}
 
-#request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
-# request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":{'city': ['singapore','melbourne'], 'trip_type': '', 'dates': ['19/11/2019','25/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}}
+# request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":info}
 # flight_search(request)

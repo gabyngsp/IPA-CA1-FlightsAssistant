@@ -2,12 +2,17 @@ import tagui as t
 import tagui_util as tu
 from datetime import datetime as dt
 
-# #one way
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
-# #return
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [1,3]}
-# # #multi-city
-# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,10]}
+def lookup_cabin_class(cabin):
+    strCabin = "economy"
+    if "first" in cabin.lower():
+        strCabin = "first"
+    elif "business" in cabin.lower():
+        strCabin = "business"
+    elif "premium" in cabin.lower():
+        strCabin = "premium"
+    else:
+        strCabin = "economy"
+    return strCabin
 
 def child_infant_breakdown(children_age):
     get_indexes = lambda x, xs: [i for (y, i) in zip(xs, range(len(xs))) if x > y]
@@ -50,6 +55,8 @@ def one_way_trip(enquiry):
     t.type('//input[@id="flight-departing-single-hp-flight"]', '[clear]')
     t.type('//input[@id="flight-departing-single-hp-flight"]', start_date.strftime("%d/%m/%Y"))
     t.click('//*[@id="traveler-selector-hp-flight"]/div/ul/li/button')
+    t.click('//a[@id="flight-advanced-options-hp-flight"]')
+    t.select('//select[@id="flight-advanced-preferred-class-hp-flight"]',lookup_cabin_class(enquiry["cabin_class"]))
     t.click('//*[@id="gcw-flights-form-hp-flight"]/div[8]/label/button')
 
 def return_trip(enquiry):
@@ -61,10 +68,9 @@ def return_trip(enquiry):
     t.type('//input[@id="flight-destination-hp-flight"]', enquiry["city"][1])
     t.type('//input[@id="flight-departing-hp-flight"]', '[clear]')
     t.type('//input[@id="flight-departing-hp-flight"]', start_date.strftime("%d/%m/%Y"))
-    # t.click('//input[@id="flight-returning-hp-flight"]')
-    # t.type('//input[@id="flight-returning-hp-flight"]', '[clear]')
-    # t.type('//input[@id="flight-returning-hp-flight"]', end_date.strftime("%d/%m/%Y"))
     t.click('//*[@id="traveler-selector-hp-flight"]/div/ul/li/button')
+    t.click('//a[@id="flight-advanced-options-hp-flight"]')
+    t.select('//select[@id="flight-advanced-preferred-class-hp-flight"]',lookup_cabin_class(enquiry["cabin_class"]))
     t.click('//*[@id="gcw-flights-form-hp-flight"]/div[8]/label/button')
     tu.wait_for_pageload('//button[@id="flights-advanced-options-toggle"]')
     curr_enddate = t.read('//input[@id="return-date-1"]')
@@ -105,6 +111,8 @@ def multi_city_trip(enquiry):
         t.type(f'//input[@id="flight-{num+1}-departing-hp-flight"]', '[clear]')
         t.type(f'//input[@id="flight-{num+1}-departing-hp-flight"]', start_date.strftime("%d/%m/%Y"))
 
+    t.click('//a[@id="flight-advanced-options-hp-flight"]')
+    t.select('//select[@id="flight-advanced-preferred-class-hp-flight"]',lookup_cabin_class(enquiry["cabin_class"]))
     t.click('//*[@id="gcw-flights-form-hp-flight"]/div[8]/label/button')
 
 def fill_search(enquiry):
@@ -136,6 +144,13 @@ def flight_search(info):
     number_of_travellers(adult_pax, children_pax, children_age)
     t.click('//*[@id="flight-wizard-search-button"]')
 
+
+# #one way
+# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
+# #return
+# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'premium economy', 'adult': '2', 'child_age': [1,3]}
+# # #multi-city
+# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'Business', 'adult': '2', 'child_age': [3,10]}
 # t.init()
 # t.wait(0.5)
 # flight_search(info)
