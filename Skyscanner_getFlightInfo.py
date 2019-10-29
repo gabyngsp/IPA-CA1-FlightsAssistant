@@ -72,11 +72,18 @@ def getFlightInfo(date, ind):
                 transfer_plc = ''
             elif transfer == '1 stop':
                 transfer_plc = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span//span')
-            elif transfer == '2 stop':
+            elif transfer == '2 stops':
                 transfer_plc1 = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k+1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i+1}]//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span[1]//span')
                 transfer_plc2 = t.read(f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k + 1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i + 1}]//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span[2]//span')
                 transfer_plc = transfer_plc1 + ',' + transfer_plc2
-
+            elif transfer == '3 stops':
+                transfer_plc1 = t.read(
+                    f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k + 1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i + 1}]//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span[1]//span')
+                transfer_plc2 = t.read(
+                    f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k + 1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i + 1}]//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span[2]//span')
+                transfer_plc3 = t.read(
+                    f'(//div[@class="BpkTicket_bpk-ticket__Brlno BpkTicket_bpk-ticket--with-notches__2i2HX"])[{k + 1}]//div//div//div//div[@class="LegDetails_container__11hQT TicketBody_leg__1_ia3"][{i + 1}]//div[@class="LegInfo_stopsContainer__1XNWn"]//div//div//span[3]//span')
+                transfer_plc = transfer_plc1 + ',' + transfer_plc2 + ',' + transfer_plc3
 
             print(transfer_plc)
             ### Arrival Time plus 1 day check
