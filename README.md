@@ -25,7 +25,7 @@ With the above, our system will perform daily search and send the results to the
 
 
 # SECTION 4 : VIDEO OF SYSTEM MODELLING & USE CASE DEMO
-
+https://www.youtube.com/watch?v=27LIN8W5NUk&feature=youtu.be
 
 # SECTION 5 : USER GUIDE
 https://github.com/gabyngsp/IPA-CA1-FlightsAssistant/blob/master/UserGuide/FlightsAssistant_UserGuide.pdf
