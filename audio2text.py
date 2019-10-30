@@ -1,3 +1,5 @@
+import re
+
 import speech_recognition as sr
 import os
 from pydub import AudioSegment
@@ -52,10 +54,11 @@ def recognize(audiotext,info):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(audiotext)
 
-    city = []
-    dates = []
-    adult = 0
-    child_age = []
+    city = info['city']
+    dates = info['dates']
+    adult = info['adult']
+    child_age = info['child_age']
+
     for noun_chunk in doc.noun_chunks:
         if 'adult' in noun_chunk.lemma_:
             adult = int(noun_chunk.ents[0].text)
@@ -65,26 +68,34 @@ def recognize(audiotext,info):
         if ent.label_ == 'GPE':
             city.append(ent.text)
         elif ent.label_ == 'DATE' and 'age' not in ent.text:
-            raw_date = (ent.text).split(" ")
-            dateday = (((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')
-            datemonth = raw_date[0]
-            month = dt.strptime(datemonth, '%B')
-            datemonth = month.strftime('%m')[:2]
-            if len(raw_date) == 3:
-                dateyear = raw_date[2]
-            if len(raw_date) == 2:
-                now = dt.now()
-                now_year = now.strftime('%Y/%m%d %H:%M:%S')[:4]
-                now_month = now.strftime('%Y/%m%d %H:%M:%S')[5:7]
-                now_day = now.strftime('%Y/%m%d %H:%M:%S')[7:10]
-                if now_month < datemonth:
-                    dateyear = now_year
-                elif now_month == datemonth and now_day <= dateday:
-                    dateyear = now_year
-                else:
-                    dateyear = int(now_year) + 1
-            final_date = dt.strptime(dateday + " " + datemonth + " " + str(dateyear), '%d %m %Y')
-            dates.append(final_date.strftime('%d/%m/%Y'))
+            t = (ent.text).replace('and',',')
+            date_list = t.split(",")
+            print(date_list)
+            for or_dates in date_list:
+                raw_date = or_dates.split(" ")
+                for e in raw_date:
+                    if e == '':
+                        raw_date.remove(e)
+                dateday = ((((raw_date[1].replace('st', '')).replace('nd', '')).replace('rd', '')).replace('th', '')).replace(' ', '')
+                datemonth = raw_date[0]
+                month = dt.strptime(datemonth, '%B')
+                datemonth = month.strftime('%m')[:2]
+                dateyear = '2019'
+                if len(raw_date) == 3:
+                    dateyear = raw_date[2]
+                if len(raw_date) == 2:
+                    now = dt.now()
+                    now_year = now.strftime('%Y/%m%d %H:%M:%S')[:4]
+                    now_month = now.strftime('%Y/%m%d %H:%M:%S')[5:7]
+                    now_day = now.strftime('%Y/%m%d %H:%M:%S')[7:10]
+                    if now_month < datemonth:
+                        dateyear = now_year
+                    elif now_month == datemonth and now_day <= dateday:
+                        dateyear = now_year
+                    else:
+                        dateyear = int(now_year) + 1
+                final_date = dt.strptime(dateday + " " + datemonth + " " + str(dateyear), '%d %m %Y')
+                dates.append(final_date.strftime('%d/%m/%Y'))
 
     age_is = False
 
@@ -96,7 +107,13 @@ def recognize(audiotext,info):
             if token.pos_ == 'NUM':
                 child_age.append(token.text)
 
-    info['city'] = city
+    city_nondu = []
+    for c in city:
+        if c not in city_nondu:
+            city_nondu.append(c)
+    print(city_nondu)
+    info['city'] = city_nondu
+
     info['dates'] = dates
     info['adult'] = adult
     info['child_age'] = child_age
@@ -113,7 +130,6 @@ def find_num(text):  # use to get the num of monitor days
     if flag:
         return 1
 
-
-if __name__ == '__main__':
-    print('Enter the audio file path')
-
+# info = {'city': [], 'dates': [], 'cabin_class': '', 'adult': '', 'child_age': [], 'trip_type': ''}
+# recognize('from dalian to beijing on November 1st, beijing to singapore on November 3rd, singapore to shenzhen on November 5th',info)
+# print(info)

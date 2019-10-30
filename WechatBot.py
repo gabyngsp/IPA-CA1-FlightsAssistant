@@ -65,10 +65,14 @@ def update_info(msg, info, last_index):
     if last_index == 0:  # city
         info["city"] = msg['Text'].split(',')
     if last_index == 1:  # dates
-        if ',' in msg['Text']:
-            info["dates"] = msg['Text'].split(',')
-        else:
-            info["dates"] = msg['Text']
+        print(info)
+        info = recognize(msg['Text'], info)
+        print(info)
+        if not info["dates"]:
+            if ',' in msg['Text']:
+                info["dates"] = msg['Text'].split(',')
+            else:
+                info["dates"] = msg['Text']
     if last_index == 2:  # cabin class
         info["cabin_class"] = msg['Text']
     if last_index == 3:  # adult
@@ -114,10 +118,13 @@ def fix_info(text,user):
         if 'city' in data[0].lower():  # city
             user['flight_info']["city"] = data[1].split(',')
         if 'dates' in data[0].lower():  # dates
-            if ',' in data[1]:
-                user['flight_info']["dates"] = data[1].split(',')
-            else:
-                user['flight_info']["dates"] = data[1]
+            user['flight_info']["dates"] = []
+            user['flight_info'] = recognize(data[1], user['flight_info'])
+            if not user['flight_info']["dates"]:
+                if ',' in data[1]:
+                    user['flight_info']["dates"] = data[1].split(',')
+                else:
+                    user['flight_info']["dates"] = data[1]
         if 'class' in data[0].lower():  # cabin class
             user['flight_info']["cabin_class"] = data[1]
         if 'adult' in data[0].lower(): # adult
@@ -196,7 +203,6 @@ def book_flight(msg):
         print('before', user_db)
         # send the new request to data base
         req_id = newFlightRequest('wechat', user['nickname'], user['flight_info'], user['monitor_day'])
-        print(req_id)
         user_db.remove(user)
         user['enquiry'] = [False, False, False, False, False]
         print('after', user_db)
