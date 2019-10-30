@@ -6,8 +6,8 @@ import os
 import json
 from datetime import datetime as dt
 import itchat
-from WechatBot import wechat
-from batch_search import batch_search
+from SystemCode.WechatBot import wechat
+from SystemCode.batch_search import batch_search
 
 
 def chatbot():

@@ -1,7 +1,6 @@
-import time
 from datetime import datetime as dt
-import DB_Functions as dbf
-from skyscanner_flight_search import flight_search
+from SystemCode import DB_Functions as dbf
+from SystemCode.skyscanner_flight_search import flight_search
 
 
 def batch_search():
@@ -13,11 +12,7 @@ def batch_search():
 
     for row in ReqDoc:
         print(row['Account_Reference'])
-        #request_id = row['Request_ID']
-        #info = row['Request_Details']
-
-        # get the excel file and store them in batchfiles
-        outfile = flight_search(row)
+        flight_search(row)
 
 
 if __name__ == '__main__':

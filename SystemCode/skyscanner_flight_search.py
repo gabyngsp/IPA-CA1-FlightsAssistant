@@ -1,8 +1,8 @@
 import tagui as t
-import tagui_util as tu
+from SystemCode import tagui_util as tu, DB_Functions as dbf
 from datetime import datetime as dt
-from Skyscanner_getFlightInfo import getFlightExcel
-import DB_Functions as dbf
+from SystemCode.Skyscanner_getFlightInfo import getFlightExcel
+
 
 def lookup_cabin_class(cabin):
     strCabin = "Economy"

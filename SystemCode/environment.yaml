@@ -1,0 +1,14 @@
+name: FlightsAssistant
+channels:
+    - defaults
+dependencies:
+    - python=3.6
+    - pip:
+        - tagui
+        - xlwt
+        - pymongo
+        - itchat
+        - speechrecognition
+        - spacy
+        - pandas
+        - pydub

@@ -1,10 +1,8 @@
-import pandas as pd
 import tagui as t
-import tagui_util as util
-from pandas import DataFrame
+from SystemCode import tagui_util as util
 from datetime import datetime, timedelta
-from Expedia_getFlightPrice import getExpFlightPrice
-from expedia_flight_search import flight_search
+from SystemCode.Expedia_getFlightPrice import getExpFlightPrice
+from SystemCode.expedia_flight_search import flight_search
 
 def getFlightInfo(date, ind):
     t.wait(2)

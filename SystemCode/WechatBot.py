@@ -1,8 +1,8 @@
 import itchat
 from itchat.content import *
 
-from DB_Functions import newFlightRequest, retrieve_FlightRequest
-from audio2text import audio2text, audio_conversion, recognize, find_num
+from SystemCode.DB_Functions import newFlightRequest
+from SystemCode.audio2text import audio2text, audio_conversion, recognize, find_num
 
 user_db = []
 
