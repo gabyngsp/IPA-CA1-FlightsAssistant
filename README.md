@@ -9,8 +9,8 @@ Flight Assistant Chatbot (via WeChat app) to help monitor flight deal based on u
 # SECTION 3 : CREDITS / PROJECT CONTRIBUTION
 | Official Full Name | Student ID (MTech Applicable)| Work Items (Who Did What) | Email (Optional) |
 | :---: | :---: | :---: | :---: |
-| GONG YIFEI | A0198495E  | WeChat Bot (Receive Request, Send Result), Speech-to-Text |  |
-| JIANG YANNI | A0201097M  | RPA (Extract Flight Deals, Compare and generate final deals) |  |
+| GONG YIFEI | A0198495E  | WeChat Bot (Receive Request, Send Result), Speech-to-Text | e0402036@u.nus.edu |
+| JIANG YANNI | A0201097M  | RPA (Extract Flight Deals, Compare and generate final deals) | e0409752@u.nus.edu |
 | NG SIEW PHENG | A0198525R  | RPA (Search Flight Deals, Export Search Result), Database functions | e0402066@u.nus.edu |
 
 
@@ -18,8 +18,16 @@ Flight Assistant Chatbot (via WeChat app) to help monitor flight deal based on u
 
 
 # SECTION 5 : USER GUIDE
+1. add chatbot as your wechat friend
+2. send a flight searching request, can use both text message and audio message
 
-# SECTION 6 : DEVELOPER GUIDE
+Some examples of request:
+- I want to book a flight from Dalian to Shanghai on January 3rd and returning on January 5th for 1 adult and 2 children age 2 and 3
+- I would like to book a flight from singapore to beijing on November 1st for 2 adults.
+- Book a flight from Edinburgh to Dalian on December 10th, Dalian to Tokyo on December 15th, Tokyo to Osaka on December 20th
+
+
+# SECTION 6 : INSTALLATION GUIDE
 ## Database
 Install Mongo DB by following the instruction here https://docs.mongodb.com/manual/administration/install-community/
 
