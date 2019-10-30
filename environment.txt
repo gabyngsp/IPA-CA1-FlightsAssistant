@@ -1,5 +1,0 @@
-tagui
-xlwt
-pymongo
-itchat
-speechrecognition
