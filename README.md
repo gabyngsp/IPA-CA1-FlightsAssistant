@@ -50,7 +50,7 @@ Default searching time is at 23pm everyday. If the developer wants to change the
 2. open WeChat app on mobile and log in with chatbot account
 3. scan QR code generated
 
-NOTE: Due to the security issue, only limited wechat accounts can access to Web wehchat
+NOTE: Due to the security issue, only limited wechat accounts can access to Web wechat
 
 ## Start request for new flight deals
 1. add chatbot as your wechat friend
