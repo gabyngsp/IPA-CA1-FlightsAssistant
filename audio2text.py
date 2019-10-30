@@ -11,8 +11,8 @@ from datetime import datetime as dt
 def audio_conversion(audio_file_input,bitrate, audio_type='wav'):
     audio_file_output = str(audio_file_input).split('.')[0] + '.' + str(audio_type)
     song = AudioSegment.from_mp3(audio_file_input)
-    song.export('new_'+audio_file_input, bitrate=bitrate, format="mp3")
-    retcode = subprocess.call(['ffmpeg', '-i', 'new_'+audio_file_input, '-ac', '1', audio_file_output])
+    song.export(audio_file_input, bitrate=bitrate, format="mp3")
+    retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-ac', '1', audio_file_output])
 
     if retcode == 0:
         print('[ OK ]')
@@ -21,7 +21,7 @@ def audio_conversion(audio_file_input,bitrate, audio_type='wav'):
         except OSError as e:
             print(e)
         else:
-            print("input File is deleted successfully")
+            print("input File")
     else:
         print('[ ERROR ]')
 
@@ -42,7 +42,7 @@ def audio2text(audiofile):
         except OSError as e:
             print(e)
         else:
-            print("output File is deleted successfully")
+            print("output File")
         return r.recognize_google(audio)
 
     except sr.UnknownValueError:
