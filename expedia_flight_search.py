@@ -91,17 +91,18 @@ def multi_city_trip(enquiry):
     if numDep < form_flightleg:
         for cnt in range(form_flightleg-numDep):
             t.click(f'//*[@id="flightlegs-list-fieldset-{form_flightleg-cnt}-hp-flight"]/div/a')
+    elif numDep > form_flightleg:
+        for cnt in range(numDep-form_flightleg):
+            t.click('//a[@id="add-flight-leg-hp-flight"]')
+            t.wait(0.5)
+
     t.type('//input[@id="flight-origin-hp-flight"]', cities[0])
     t.type('//input[@id="flight-destination-hp-flight"]', cities[1])
     t.type('//input[@id="flight-departing-single-hp-flight"]', '[clear]')
     t.type('//input[@id="flight-departing-single-hp-flight"]', (dt.strptime(travel_dates[0], '%d/%m/%Y')).strftime("%d/%m/%Y"))
 
     for num in range(1,numDep):
-        #add new flight leg
         print(f"num:{num} and form_flightleg:{form_flightleg}")
-        if num >= 2 and num >= form_flightleg:
-            t.click('//a[@id="add-flight-leg-hp-flight"]')
-            t.wait(0.5)
 
         start_date = dt.strptime(travel_dates[num], '%d/%m/%Y')
         orig_city = cities[num]

@@ -120,12 +120,12 @@ def multi_city_trip(enquiry):
     if numDep < form_flightleg:
         for cnt in range(form_flightleg-numDep):
             t.click(f'//*[@id="flights-search-controls-root"]/div/div/form/div[2]/ol/li[{form_flightleg-cnt}]/div[4]/button')
-    for num in range(0,numDep):
-        #add new flight leg
-        if num >= 2 and num > form_flightleg:
+    elif numDep > form_flightleg:
+        for cnt in range(numDep-form_flightleg):
             t.click('//div[starts-with(@class,"MulticityControls_MulticityControls__add-leg-wrapper__2arYh")]/button')
             t.wait(0.5)
 
+    for num in range(0,numDep):
         start_date = dt.strptime(travel_dates[num], '%d/%m/%Y')
         start_month = start_date.strftime('%Y-%m')
         orig_city = cities[num]
@@ -192,3 +192,4 @@ def flight_search(flight_request):
     dbf.newFlightDeals(flight_main)
     outFile = dbf.export_FlightDeals(request_id,search_dt)
     return outFile
+
