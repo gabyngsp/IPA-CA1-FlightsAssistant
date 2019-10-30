@@ -1,4 +1,4 @@
-name: FlightAssistant
+name: FlightsAssistant
 channels:
     - defaults
 dependencies:
