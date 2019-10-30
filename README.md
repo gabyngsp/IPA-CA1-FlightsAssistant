@@ -40,18 +40,23 @@ To set up the environment
 5. conda install -c conda-forge ffmpeg
 6. python -m spacy download en_core_web_sm
 
+## Set searching time
+Default searching time is at 23pm everyday. If the developer wants to change the setting, follow the instructions below:
+1. open IPA-CA1-FlightsAssistant/SystemCode/configure.txt file
+2. change the start_time value based on your requirement and save it. The time format is: %HH/%MM
+
 ## Start WeChat Bot
-1. python thread.py
-2. Open WeChat app and scan QR code generated
+1. python thread.py ( a QR code may be generated during the first log in)
+2. open WeChat app on mobile and log in with chatbot account
+3. scan QR code generated
+
+NOTE: Due to the security issue, only limited wechat accounts can access to Web wehchat
 
 ## Start request for new flight deals
 1. add chatbot as your wechat friend
 2. send a flight searching request, can use both text message and audio message
 
-Some examples of request:
-- I want to book a flight from Dalian to Shanghai on January 3rd and returning on January 5th for 1 adult and 2 children age 2 and 3
-- I would like to book a flight from singapore to beijing on November 1st for 2 adults.
-- Book a flight from Edinburgh to Dalian on December 10th, Dalian to Tokyo on December 15th, Tokyo to Osaka on December 20th
+For detailed information, please refer to our user guide.
 
 
 
