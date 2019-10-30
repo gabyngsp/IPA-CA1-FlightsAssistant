@@ -84,8 +84,13 @@ def multi_city_trip(enquiry):
     travel_dates = enquiry["dates"]
     numDep = len(travel_dates)
     cities = enquiry["city"]
+    numCity = len(cities)
+
     form_flightleg = (t.count('//div[@class="cols-nested gcw-multidest-flights-container"]/div/fieldset'))
     print(form_flightleg)
+    if numDep < form_flightleg:
+        for cnt in range(form_flightleg-numDep):
+            t.click(f'//*[@id="flightlegs-list-fieldset-{form_flightleg-cnt}-hp-flight"]/div/a')
     t.type('//input[@id="flight-origin-hp-flight"]', cities[0])
     t.type('//input[@id="flight-destination-hp-flight"]', cities[1])
     t.type('//input[@id="flight-departing-single-hp-flight"]', '[clear]')
@@ -100,10 +105,14 @@ def multi_city_trip(enquiry):
 
         start_date = dt.strptime(travel_dates[num], '%d/%m/%Y')
         orig_city = cities[num]
-        if num < numDep-1:
-            dest_city = cities[num+1]
+        if numCity == numDep:
+            if num < numDep-1:
+                dest_city = cities[num+1]
+            else:
+                dest_city = cities[0]
         else:
-            dest_city = cities[0]
+            dest_city = cities[num+1]
+
         t.type(f'//input[@id="flight-{num+1}-origin-hp-flight"]', orig_city)
         t.wait(0.5)
         t.type(f'//input[@id="flight-{num+1}-destination-hp-flight"]', dest_city)
@@ -120,9 +129,13 @@ def fill_search(enquiry):
     if len(enquiry["dates"]) == 1: # one way
         print("one way trip")
         one_way_trip(enquiry)
-    elif len(enquiry["dates"]) == 2: # return
-        print("return trip")
-        return_trip(enquiry)
+    elif len(enquiry["dates"]) == 2:
+        if len(enquiry["city"]) > 2: # return
+            print("multi-city trip")
+            multi_city_trip(enquiry)
+        else:                        # return
+            print("return trip")
+            return_trip(enquiry)
     elif len(enquiry["dates"]) > 2: # multi city
         print("multi-city trip")
         multi_city_trip(enquiry)

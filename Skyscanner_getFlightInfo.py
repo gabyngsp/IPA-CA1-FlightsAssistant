@@ -143,10 +143,11 @@ def getFlightExcel(info,ind):
     print(dur_lst)
     print(time_lst)
     k = len(info['dates'])
+    q = len(info['city'])
 
     flight_lst = []
     for i in range(k):
-        if i == (k-1) & i > 0:
+        if i == (k-1) and i > 0 and q == k:
             flight_lst.append(info['dates'][i])
             flight = info['city'][i] + '-' + info['city'][0]
             flight_lst.append(flight)
