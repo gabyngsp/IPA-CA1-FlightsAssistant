@@ -1,4 +1,4 @@
-name: FlightAssistant
+name: FlightsAssistant
 channels:
     - defaults
 dependencies:
@@ -11,3 +11,4 @@ dependencies:
         - speechrecognition
         - spacy
         - pandas
+        - pydub
