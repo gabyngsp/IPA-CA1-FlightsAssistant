@@ -3,6 +3,7 @@ import re
 import threading
 import time
 import os
+import json
 from datetime import datetime as dt
 import itchat
 from WechatBot import wechat
@@ -13,13 +14,13 @@ def chatbot():
     wechat()
 
 # A thread that consumes data
-def search():
+def search(start_time):
     time.sleep(5)
     while 1:
         now = datetime.datetime.now()
-        now_str = now.strftime('%Y/%m/%d %H/%M/%S')[11:]
+        now_str = now.strftime('%Y/%m/%d %H/%M/%S')[11:16]
         print(now_str)
-        res = re.search(r'23/00/[0-9][0-9]',now_str)  # start at 08:00 - 08:01
+        res = re.search(start_time,now_str)
         if res:
             print('time to do batch search')
             batch_search()
@@ -39,7 +40,11 @@ def search():
         time.sleep(50)
 
 
+with open('configure.txt') as json_file:
+    data = json.load(json_file)
+    start_time = data['start_time']
+
 t1 = threading.Thread(target=chatbot)
-t2 = threading.Thread(target=search)
+t2 = threading.Thread(target=search,args=(start_time,))
 t1.start()
 t2.start()
