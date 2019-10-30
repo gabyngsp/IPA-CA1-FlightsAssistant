@@ -34,7 +34,7 @@ Install Mongo DB by following the instruction here https://docs.mongodb.com/manu
 ## Conda Environment
 To set up the environment
 1. git clone https://github.com/gabyngsp/IPA-CA1-FlightsAssistant/
-2. cd IPA-CA1-FlightsAssistant
+2. cd IPA-CA1-FlightsAssistant/SystemCode
 3. conda env create --file environment.yaml
 4. conda activate FlightsAssistant
 5. conda install -c conda-forge ffmpeg
