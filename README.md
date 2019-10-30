@@ -28,6 +28,7 @@ With the above, our system will perform daily search and send the results to the
 
 
 # SECTION 5 : USER GUIDE
+https://github.com/gabyngsp/IPA-CA1-FlightsAssistant/blob/master/UserGuide/FlightsAssistant_UserGuide.pdf
 ## Database
 Install Mongo DB by following the instruction here https://docs.mongodb.com/manual/administration/install-community/
 
