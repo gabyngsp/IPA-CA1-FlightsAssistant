@@ -5,26 +5,12 @@ import subprocess
 import spacy
 from datetime import datetime as dt
 
-# from pydub import AudioSegment
-#
-# # files
-# src = "Recording.mp3"
-# dst = "test.wav"
-#
-# # convert wav to mp3
-# sound = AudioSegment.from_mp3(src)
-# sound.export(dst, format="wav")
-
-# Uncomment to run the code in local machine
 
 def audio_conversion(audio_file_input,bitrate, audio_type='wav'):
     audio_file_output = str(audio_file_input).split('.')[0] + '.' + str(audio_type)
     song = AudioSegment.from_mp3(audio_file_input)
     song.export('new_'+audio_file_input, bitrate=bitrate, format="mp3")
     retcode = subprocess.call(['ffmpeg', '-i', 'new_'+audio_file_input, '-ac', '1', audio_file_output])
-
-    # retcode = subprocess.call(['ffmpeg', '-i', audio_file_input, '-acodec', 'pcm_s16le','-ar', '-ar', audio_file_output])
-    # retcode = subprocess.call(['sox', audio_file_input, audio_file_output])
 
     if retcode == 0:
         print('[ OK ]')
@@ -130,6 +116,4 @@ def find_num(text):  # use to get the num of monitor days
 
 if __name__ == '__main__':
     print('Enter the audio file path')
-    # audio2text(audio_conversion('191029-120234.mp3', bitrate='24k'))
-    # audio2text(audio_conversion('191029-120234.mp3', bitrate='32k'))
-    # audio2text(audio_conversion('Recording.mp3'))
+

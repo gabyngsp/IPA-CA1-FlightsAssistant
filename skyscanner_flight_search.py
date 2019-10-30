@@ -180,13 +180,3 @@ def flight_search(flight_request):
     dbf.newFlightDeals(flight_main)
     outFile = dbf.export_FlightDeals(request_id,search_dt)
     return outFile
-
-#one way
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'first', 'adult': '2', 'child_age': [3,1]}
-# #return
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'premium', 'adult': '2', 'child_age': [1,3]}
-# #multi-city
-# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'business', 'adult': '2', 'child_age': [3,10]}
-
-# request = {"Request_ID":"WeChat;gongyifei;20191019223114","Request_Details":info}
-# flight_search(request)

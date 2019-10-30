@@ -144,15 +144,3 @@ def flight_search(info):
     number_of_travellers(adult_pax, children_pax, children_age)
     t.click('//*[@id="flight-wizard-search-button"]')
 
-
-# #one way
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019'], 'cabin_class': 'economy', 'adult': '2', 'child_age': [3,1]}
-# #return
-# info = {'city': ['singapore','beijing'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019'], 'cabin_class': 'premium economy', 'adult': '2', 'child_age': [1,3]}
-# # #multi-city
-# info = {'city': ['singapore','beijing','tokyo'], 'trip_type': '', 'dates': ['01/11/2019','05/11/2019','10/11/2019'], 'cabin_class': 'Business', 'adult': '2', 'child_age': [3,10]}
-# t.init()
-# t.wait(0.5)
-# flight_search(info)
-# t.wait(10)
-# t.close()

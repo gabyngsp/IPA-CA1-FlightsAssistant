@@ -1,12 +1,8 @@
-import datetime
-import time
-
 import itchat
 from itchat.content import *
 
 from DB_Functions import newFlightRequest, retrieve_FlightRequest
 from audio2text import audio2text, audio_conversion, recognize, find_num
-from skyscanner_flight_search import flight_search
 
 user_db = []
 
