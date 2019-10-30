@@ -1,6 +1,6 @@
 from datetime import datetime as dt
-from SystemCode import DB_Functions as dbf
-from SystemCode.skyscanner_flight_search import flight_search
+import DB_Functions as dbf
+from skyscanner_flight_search import flight_search
 
 
 def batch_search():

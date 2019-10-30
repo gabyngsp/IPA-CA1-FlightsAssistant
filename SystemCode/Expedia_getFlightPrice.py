@@ -1,5 +1,5 @@
 import tagui as t
-from SystemCode import tagui_util as util
+import tagui_util as util
 
 
 def getExpFlightPrice(airline, dep_ref, dur_ref):

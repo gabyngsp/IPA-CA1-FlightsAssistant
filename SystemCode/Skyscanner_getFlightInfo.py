@@ -1,8 +1,8 @@
 import tagui as t
-from SystemCode import tagui_util as util
+import tagui_util as util
 from datetime import datetime, timedelta
-from SystemCode.Expedia_getFlightPrice import getExpFlightPrice
-from SystemCode.expedia_flight_search import flight_search
+from Expedia_getFlightPrice import getExpFlightPrice
+from expedia_flight_search import flight_search
 
 def getFlightInfo(date, ind):
     t.wait(2)
