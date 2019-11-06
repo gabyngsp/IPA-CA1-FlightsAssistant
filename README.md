@@ -31,6 +31,7 @@ https://www.youtube.com/watch?v=27LIN8W5NUk&feature=youtu.be
 https://github.com/gabyngsp/IPA-CA1-FlightsAssistant/blob/master/UserGuide/FlightsAssistant_UserGuide.pdf
 ## Database
 Install Mongo DB by following the instruction here https://docs.mongodb.com/manual/administration/install-community/
+NOTE: This project requires the Mongo DB version 4.0 or later
 
 ## Conda Environment
 To set up the environment
